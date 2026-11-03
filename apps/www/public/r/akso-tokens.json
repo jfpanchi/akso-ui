@@ -1,0 +1,54 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "akso-tokens",
+  "title": "Akso UI color tokens",
+  "description": "Color tokens checked against WCAG 2.2 AA contrast, for light and dark mode. Installed automatically with every Akso UI component.",
+  "cssVars": {
+    "theme": {
+      "color-akso-background": "var(--akso-background)",
+      "color-akso-foreground": "var(--akso-foreground)",
+      "color-akso-muted-foreground": "var(--akso-muted-foreground)",
+      "color-akso-surface": "var(--akso-surface)",
+      "color-akso-surface-hover": "var(--akso-surface-hover)",
+      "color-akso-border": "var(--akso-border)",
+      "color-akso-primary": "var(--akso-primary)",
+      "color-akso-primary-hover": "var(--akso-primary-hover)",
+      "color-akso-primary-foreground": "var(--akso-primary-foreground)",
+      "color-akso-danger": "var(--akso-danger)",
+      "color-akso-danger-foreground": "var(--akso-danger-foreground)",
+      "color-akso-focus-ring": "var(--akso-focus-ring)",
+      "color-akso-overlay": "var(--akso-overlay)"
+    },
+    "light": {
+      "akso-background": "#ffffff",
+      "akso-foreground": "#18181b",
+      "akso-muted-foreground": "#52525b",
+      "akso-surface": "#ffffff",
+      "akso-surface-hover": "#f4f4f5",
+      "akso-border": "#71717a",
+      "akso-primary": "#1d4ed8",
+      "akso-primary-hover": "#1e40af",
+      "akso-primary-foreground": "#ffffff",
+      "akso-danger": "#b91c1c",
+      "akso-danger-foreground": "#ffffff",
+      "akso-focus-ring": "#1d4ed8",
+      "akso-overlay": "rgb(9 9 11 / 0.6)"
+    },
+    "dark": {
+      "akso-background": "#09090b",
+      "akso-foreground": "#fafafa",
+      "akso-muted-foreground": "#a1a1aa",
+      "akso-surface": "#18181b",
+      "akso-surface-hover": "#27272a",
+      "akso-border": "#a1a1aa",
+      "akso-primary": "#93c5fd",
+      "akso-primary-hover": "#bfdbfe",
+      "akso-primary-foreground": "#09090b",
+      "akso-danger": "#fca5a5",
+      "akso-danger-foreground": "#09090b",
+      "akso-focus-ring": "#93c5fd",
+      "akso-overlay": "rgb(0 0 0 / 0.75)"
+    }
+  },
+  "type": "registry:theme"
+}
