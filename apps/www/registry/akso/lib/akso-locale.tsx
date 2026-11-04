@@ -27,6 +27,8 @@ export interface AksoMessages {
   required: string;
   /** Announced after a form submit with errors. */
   fieldsNeedAttention: (count: number) => string;
+  /** Heading of the form error summary. */
+  errorSummaryTitle: string;
   /** Hidden word read before alert and toast titles. */
   status: Record<AksoStatus, string>;
   /** Combobox texts. */
@@ -45,6 +47,7 @@ export const en: AksoMessages = {
   loading: "Loading",
   required: "(required)",
   fieldsNeedAttention: (n) => (n === 1 ? "1 field needs attention." : `${n} fields need attention.`),
+  errorSummaryTitle: "There is a problem",
   status: { info: "Information", success: "Success", warning: "Warning", error: "Error" },
   noResults: "No results.",
   results: (n) => (n === 1 ? "1 result" : `${n} results`),
@@ -60,6 +63,7 @@ export const es: AksoMessages = {
   loading: "Cargando",
   required: "(obligatorio)",
   fieldsNeedAttention: (n) => (n === 1 ? "Revisa 1 campo." : `Revisa ${n} campos.`),
+  errorSummaryTitle: "Hay un problema",
   status: { info: "Información", success: "Hecho", warning: "Atención", error: "Error" },
   noResults: "Sin resultados.",
   results: (n) => (n === 1 ? "1 resultado" : `${n} resultados`),

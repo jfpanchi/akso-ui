@@ -243,7 +243,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 
 ### Known limitations
 
-- Focus moves to the first invalid field instead of to an error summary at the top of the form. This is Base UI's behavior and we keep it. For long forms, an error summary with links may work better for some people; we have not built one yet.
+- By default, focus moves to the first invalid field (Base UI's behavior). For long forms, `errorSummary` shows a summary with one link per field at the top of the form and moves focus to it instead (tested); which one works better for people is not confirmed with users yet.
 - The count message is in English by default. Translate it with `invalidMessage`.
 
 ## Checkbox

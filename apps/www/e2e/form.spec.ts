@@ -103,3 +103,35 @@ test.describe("320px wide (equivalent to 400% zoom)", () => {
     await expectNoHorizontalScroll(page);
   });
 });
+
+test.describe("error summary", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/test/form-summary");
+  });
+
+  test("submit with errors: focus moves to a summary with a link per field; no axe violations", async ({ page }) => {
+    await page.getByRole("button", { name: "Send message" }).click();
+    const summary = page.getByRole("group", { name: "There is a problem" });
+    await expect(summary).toBeFocused();
+    await expect(summary.getByRole("link")).toHaveCount(3);
+    await expectNoAxeViolations(page);
+  });
+
+  test("Enter on a link moves focus to its field", async ({ page }) => {
+    await page.getByRole("button", { name: "Send message" }).click();
+    await expect(page.getByRole("group", { name: "There is a problem" })).toBeFocused();
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Enter");
+    await expect(box(page, "Email")).toBeFocused();
+  });
+
+  test.describe("320px", () => {
+    test.use({ viewport: REFLOW_VIEWPORT });
+    test("the summary fits without horizontal scroll", async ({ page }) => {
+      await page.getByRole("button", { name: "Send message" }).click();
+      await expect(page.getByRole("group", { name: "There is a problem" })).toBeVisible();
+      await expectNoHorizontalScroll(page);
+    });
+  });
+});
