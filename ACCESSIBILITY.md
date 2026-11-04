@@ -681,6 +681,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Arrows, Home/End, typeahead, Enter, Escape; focus returns to the trigger (Base UI) | 2.1.1, 2.4.3 | Vitest + Playwright |
 | Highlighted item: 2px ring with ≥ 3:1 contrast, not only a background | 1.4.11, 2.4.7 | Playwright |
 | Checked items show a check mark or a dot | 1.4.1 | Vitest |
+| Submenus: trigger with `aria-haspopup`/`aria-expanded`; Arrow Right opens, Arrow Left closes, focus returns (Base UI) | 2.1.1, 4.1.2 | Vitest + Playwright |
 | Items 44px tall; open menu fits at 320px; no motion with reduced motion | 2.5.8, 1.4.10, 2.3.3 | Playwright |
 
 ### Manual testing with assistive technology
@@ -698,7 +699,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 ### Known limitations
 
 - Disabled items can be reached with the arrow keys (Base UI, ARIA Authoring Practices) but do nothing.
-- Submenus and filterable menus from Base UI are not wrapped yet.
+- Filterable menus from Base UI are not wrapped yet.
 
 ## Combobox
 
@@ -770,6 +771,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | `role=dialog` named by its title and described (Base UI) | 4.1.2 | Vitest + Playwright |
 | Focus trapped; Escape and the close button return focus to the trigger (Base UI) | 2.1.1, 2.4.3 | Vitest + Playwright |
 | Swiping is never required: a 44px close button on every side | 2.5.7 Dragging Movements | Vitest + Playwright |
+| Snap points: a "Show more / Show less" button (with `aria-expanded`) changes the height without dragging | 2.5.7 Dragging Movements | Vitest + Playwright |
 | No slide with reduced motion; fits at 320px | 2.3.3, 1.4.10 | Playwright |
 
 ### Manual testing with assistive technology
@@ -786,7 +788,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 
 ### Known limitations
 
-- Snap points and nested drawers from Base UI are not wrapped yet.
+- Nested drawers from Base UI are not wrapped yet.
 
 ## Navigation menu
 
@@ -827,3 +829,25 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Deaf and hard of hearing | No audio-only content in components | Not applicable to Dialog |
 | Cognitive disabilities | Short, plain default texts; predictable behavior; visible labels, "(required)" as text, errors that say what to do; `autoComplete` on fields | Code review ✅ · User testing ⏳ |
 | Vestibular disorders | No motion with `prefers-reduced-motion`; small, short animations otherwise | Automated ✅ |
+
+## Autocomplete
+
+> Work in progress. Not ready to use.
+
+### Automated checks
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| TODO | | |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |

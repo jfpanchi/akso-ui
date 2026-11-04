@@ -29,18 +29,46 @@ import {
 
 export type DrawerSide = "right" | "left" | "bottom";
 
-const DrawerSideContext = React.createContext<DrawerSide>("right");
+type SnapPoint = NonNullable<BaseDrawer.Root.Props["snapPoint"]>;
+
+interface DrawerContextValue {
+  side: DrawerSide;
+  snapPoints?: SnapPoint[];
+  snapPoint: SnapPoint | null;
+  setSnapPoint: (point: SnapPoint | null) => void;
+}
+
+const DrawerContext = React.createContext<DrawerContextValue>({ side: "right", snapPoint: null, setSnapPoint: () => {} });
 
 export interface DrawerProps extends Omit<BaseDrawer.Root.Props, "swipeDirection"> {
-  /** Edge the drawer comes from. Default: "right". */
+  /** Edge the drawer comes from. Default: "right". Snap points only apply to "bottom". */
   side?: DrawerSide;
 }
 
-function Drawer({ side = "right", ...props }: DrawerProps) {
+function Drawer({ side = "right", snapPoints, snapPoint: snapPointProp, defaultSnapPoint, onSnapPointChange, ...props }: DrawerProps) {
+  const [innerSnapPoint, setInnerSnapPoint] = React.useState<SnapPoint | null>(defaultSnapPoint ?? snapPoints?.[0] ?? null);
+  const snapPoint = snapPointProp !== undefined ? snapPointProp : innerSnapPoint;
+  const setSnapPoint = React.useCallback(
+    (point: SnapPoint | null) => {
+      if (snapPointProp === undefined) setInnerSnapPoint(point);
+      // Base UI calls onSnapPointChange with event details; a button press has none.
+      (onSnapPointChange as ((p: SnapPoint | null) => void) | undefined)?.(point);
+    },
+    [snapPointProp, onSnapPointChange],
+  );
+  const usesSnapPoints = side === "bottom" && snapPoints !== undefined && snapPoints.length > 1;
+  const context = React.useMemo(
+    () => ({ side, snapPoints: usesSnapPoints ? snapPoints : undefined, snapPoint, setSnapPoint }),
+    [side, usesSnapPoints, snapPoints, snapPoint, setSnapPoint],
+  );
   return (
-    <DrawerSideContext.Provider value={side}>
-      <BaseDrawer.Root swipeDirection={side === "bottom" ? "down" : side} {...props} />
-    </DrawerSideContext.Provider>
+    <DrawerContext.Provider value={context}>
+      <BaseDrawer.Root
+        swipeDirection={side === "bottom" ? "down" : side}
+        {...(usesSnapPoints ? { snapPoints, snapPoint, onSnapPointChange: (p: SnapPoint | null) => setSnapPoint(p) } : {})}
+        {...props}
+      />
+    </DrawerContext.Provider>
   );
 }
 
@@ -56,7 +84,7 @@ const popupBySide: Record<DrawerSide, string> = {
   left:
     "inset-y-0 left-0 h-full w-[min(24rem,calc(100vw-2rem))] border-r [transform:translateX(var(--drawer-swipe-movement-x))] data-starting-style:[transform:translateX(-100%)] data-ending-style:[transform:translateX(-100%)]",
   bottom:
-    "inset-x-0 bottom-0 max-h-[85dvh] w-full rounded-t-xl border-t [transform:translateY(var(--drawer-swipe-movement-y))] data-starting-style:[transform:translateY(100%)] data-ending-style:[transform:translateY(100%)]",
+    "inset-x-0 bottom-0 max-h-[85dvh] w-full rounded-t-xl border-t [transform:translateY(calc(var(--drawer-snap-point-offset,0px)_+_var(--drawer-swipe-movement-y,0px)))] data-starting-style:[transform:translateY(100%)] data-ending-style:[transform:translateY(100%)]",
 };
 
 export interface DrawerContentProps extends Omit<BaseDrawer.Popup.Props, "className"> {
@@ -68,7 +96,8 @@ export interface DrawerContentProps extends Omit<BaseDrawer.Popup.Props, "classN
 /** The sliding panel. Must contain a DrawerTitle. Always has a close button. */
 function DrawerContent({ className, children, closeLabel, ...props }: DrawerContentProps) {
   const messages = useAksoMessages();
-  const side = React.useContext(DrawerSideContext);
+  const { side, snapPoints, snapPoint, setSnapPoint } = React.useContext(DrawerContext);
+  const atLargest = snapPoints ? snapPoint === snapPoints[snapPoints.length - 1] : false;
   return (
     <BaseDrawer.Portal>
       <BaseDrawer.Backdrop
@@ -81,12 +110,29 @@ function DrawerContent({ className, children, closeLabel, ...props }: DrawerCont
           className={cn(
             "fixed flex flex-col overflow-y-auto overscroll-contain border-akso-border bg-akso-surface text-akso-foreground shadow-xl outline-none",
             popupBySide[side],
+            // With snap points, the sheet takes the full height and Base UI moves it down to each snap point.
+            snapPoints ? "h-[calc(100dvh-1rem)] max-h-none" : "",
             "motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out data-swiping:transition-none",
             focusRingClassName,
           )}
           {...props}
         >
           <BaseDrawer.Content data-slot="drawer-body" className={cn("relative flex flex-col gap-4 p-5 pr-16 sm:p-6 sm:pr-16", className)}>
+            {snapPoints ? (
+              // Changing the height must not require dragging (WCAG 2.5.7): one tap moves to the next size.
+              <button
+                type="button"
+                data-slot="drawer-snap-toggle"
+                aria-expanded={atLargest}
+                onClick={() => {
+                  const index = snapPoints.findIndex((p) => p === snapPoint);
+                  setSnapPoint(snapPoints[(index + 1) % snapPoints.length] ?? snapPoints[0] ?? null);
+                }}
+                className={buttonClassName({ variant: "secondary", size: "sm", className: "self-start" })}
+              >
+                {atLargest ? messages.showLess : messages.showMore}
+              </button>
+            ) : null}
             {children}
             <BaseDrawer.Close
               data-slot="drawer-close-icon"

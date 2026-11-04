@@ -13,6 +13,8 @@ import {
   MenuRadioGroup,
   MenuRadioItem,
   MenuSeparator,
+  MenuSub,
+  MenuSubTrigger,
   MenuTrigger,
 } from "./menu";
 
@@ -125,6 +127,46 @@ describe("Menu", () => {
       for (const token of menu.className.split(/\s+/)) {
         if (/^(transition|duration|ease|animate)/.test(token)) throw new Error(`"${token}" must be prefixed with motion-safe:`);
       }
+    });
+  });
+
+  describe("submenus", () => {
+    function WithSub() {
+      return (
+        <main>
+          <Menu>
+            <MenuTrigger>Actions</MenuTrigger>
+            <MenuContent>
+              <MenuItem>Rename</MenuItem>
+              <MenuSub>
+                <MenuSubTrigger>Share</MenuSubTrigger>
+                <MenuContent>
+                  <MenuItem>Copy link</MenuItem>
+                  <MenuItem>Email</MenuItem>
+                </MenuContent>
+              </MenuSub>
+            </MenuContent>
+          </Menu>
+        </main>
+      );
+    }
+
+    it("the submenu trigger is a menuitem with aria-haspopup; Arrow Right opens it and Arrow Left closes it", async () => {
+      const user = userEvent.setup();
+      render(<WithSub />);
+      screen.getByRole("button", { name: "Actions" }).focus();
+      await user.keyboard("{Enter}");
+      await waitFor(() => expectFocused(screen.getByRole("menuitem", { name: "Rename" })));
+      await user.keyboard("{ArrowDown}");
+      const share = screen.getByRole("menuitem", { name: "Share" });
+      expectFocused(share);
+      expect(share).toHaveAttribute("aria-haspopup", "menu");
+      await user.keyboard("{ArrowRight}");
+      await waitFor(() => expectFocused(screen.getByRole("menuitem", { name: "Copy link" })));
+      expect(share).toHaveAttribute("aria-expanded", "true");
+      await user.keyboard("{ArrowLeft}");
+      await waitFor(() => expectFocused(share));
+      await expectNoA11yViolations(document.body, { disableRules: ["region"] /* portaled popup */ });
     });
   });
 });
