@@ -6,6 +6,7 @@ import { Button as BaseButton } from "@base-ui/react/button";
 import { buttonClassName, type ButtonSize, type ButtonVariant } from "@/registry/akso/lib/akso-styles";
 
 export { buttonClassName, focusRingClassName, type ButtonSize, type ButtonVariant } from "@/registry/akso/lib/akso-styles";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
 
 /*
  * Akso UI · Button
@@ -27,7 +28,7 @@ export interface ButtonProps extends Omit<BaseButton.Props, "className"> {
    * so keyboard and screen reader users do not lose their place.
    */
   loading?: boolean;
-  /** Text shown and announced while `loading`. Default: `"Loading"`. Translate it for your audience. */
+  /** Text shown and announced while `loading`. Default: "Loading" (or the AksoLocaleProvider text). */
   loadingText?: string;
 }
 
@@ -40,7 +41,7 @@ function Button({
   variant = "secondary",
   size = "default",
   loading,
-  loadingText = "Loading",
+  loadingText,
   disabled,
   focusableWhenDisabled,
   className,
@@ -49,6 +50,8 @@ function Button({
   ref,
   ...props
 }: ButtonProps) {
+  const messages = useAksoMessages();
+  const loadingLabel = loadingText ?? messages.loading;
   const labelId = React.useId();
   const innerRef = React.useRef<HTMLButtonElement | null>(null);
   useWarnIfUnnamed(innerRef);
@@ -92,7 +95,7 @@ function Button({
           <path d="M12 3a9 9 0 1 0 9 9" />
         </svg>
       ) : null}
-      {usesLoadingPattern ? <span id={labelId}>{loading ? loadingText : children}</span> : loading ? loadingText : children}
+      {usesLoadingPattern ? <span id={labelId}>{loading ? loadingLabel : children}</span> : loading ? loadingLabel : children}
     </BaseButton>
   );
 }

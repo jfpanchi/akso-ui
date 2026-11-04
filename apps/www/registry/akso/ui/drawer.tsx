@@ -4,6 +4,7 @@ import * as React from "react";
 import { Drawer as BaseDrawer } from "@base-ui/react/drawer";
 
 import { cn } from "@/lib/utils";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
 import {
   buttonClassName,
   focusRingClassName,
@@ -65,7 +66,8 @@ export interface DrawerContentProps extends Omit<BaseDrawer.Popup.Props, "classN
 }
 
 /** The sliding panel. Must contain a DrawerTitle. Always has a close button. */
-function DrawerContent({ className, children, closeLabel = "Close", ...props }: DrawerContentProps) {
+function DrawerContent({ className, children, closeLabel, ...props }: DrawerContentProps) {
+  const messages = useAksoMessages();
   const side = React.useContext(DrawerSideContext);
   return (
     <BaseDrawer.Portal>
@@ -93,7 +95,7 @@ function DrawerContent({ className, children, closeLabel = "Close", ...props }: 
               <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M6 6l12 12M18 6L6 18" />
               </svg>
-              <span className="sr-only">{closeLabel}</span>
+              <span className="sr-only">{closeLabel ?? messages.close}</span>
             </BaseDrawer.Close>
           </BaseDrawer.Content>
         </BaseDrawer.Popup>

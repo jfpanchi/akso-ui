@@ -4,6 +4,7 @@ import * as React from "react";
 import { Combobox as BaseCombobox } from "@base-ui/react/combobox";
 
 import { cn } from "@/lib/utils";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
 import { useAksoField } from "@/registry/akso/lib/akso-form";
 import { focusRingClassName, listItemClassName, popupSurfaceClassName } from "@/registry/akso/lib/akso-styles";
 
@@ -45,22 +46,25 @@ export interface ComboboxProps extends Omit<BaseCombobox.Root.Props<ComboboxItem
   className?: string;
 }
 
-const defaultResultsText = (count: number) => (count === 1 ? "1 result" : `${count} results`);
-
 function Combobox({
   label,
   items,
   placeholder,
-  emptyText = "No results.",
-  resultsText = defaultResultsText,
-  openLabel = "Show options",
-  clearLabel = "Clear",
+  emptyText: emptyTextProp,
+  resultsText: resultsTextProp,
+  openLabel: openLabelProp,
+  clearLabel: clearLabelProp,
   className,
   required,
   ...props
 }: ComboboxProps) {
   const id = React.useId();
   const field = useAksoField();
+  const messages = useAksoMessages();
+  const emptyText = emptyTextProp ?? messages.noResults;
+  const resultsText = resultsTextProp ?? messages.results;
+  const openLabel = openLabelProp ?? messages.showOptions;
+  const clearLabel = clearLabelProp ?? messages.clear;
   const isRequired = required ?? field?.required;
 
   return (

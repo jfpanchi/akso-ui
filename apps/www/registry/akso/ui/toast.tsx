@@ -4,7 +4,8 @@ import * as React from "react";
 import { Toast as BaseToast } from "@base-ui/react/toast";
 
 import { cn } from "@/lib/utils";
-import { defaultStatusLabels, StatusIcon, statusBorderClassName, type Status } from "@/registry/akso/lib/akso-status";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
+import { StatusIcon, statusBorderClassName, type Status } from "@/registry/akso/lib/akso-status";
 import { buttonClassName } from "@/registry/akso/lib/akso-styles";
 
 /*
@@ -37,14 +38,11 @@ export interface ToastProviderProps {
   statusLabels?: Partial<Record<Status, string>>;
 }
 
-const ToastSettings = React.createContext<{ closeLabel: string; statusLabels: Record<Status, string> }>({
-  closeLabel: "Dismiss",
-  statusLabels: defaultStatusLabels,
-});
+const ToastSettings = React.createContext<{ closeLabel?: string; statusLabels?: Partial<Record<Status, string>> }>({});
 
 /** Wrap your app once. Toasts added with `useToast()` appear in its notifications region. */
-function ToastProvider({ children, timeout = 6000, limit = 3, closeLabel = "Dismiss", statusLabels }: ToastProviderProps) {
-  const settings = React.useMemo(() => ({ closeLabel, statusLabels: { ...defaultStatusLabels, ...statusLabels } }), [closeLabel, statusLabels]);
+function ToastProvider({ children, timeout = 6000, limit = 3, closeLabel, statusLabels }: ToastProviderProps) {
+  const settings = React.useMemo(() => ({ closeLabel, statusLabels }), [closeLabel, statusLabels]);
   return (
     <BaseToast.Provider timeout={timeout} limit={limit}>
       <ToastSettings.Provider value={settings}>
@@ -64,7 +62,10 @@ function ToastProvider({ children, timeout = 6000, limit = 3, closeLabel = "Dism
 
 function ToastList() {
   const { toasts } = BaseToast.useToastManager();
-  const { closeLabel, statusLabels } = React.useContext(ToastSettings);
+  const settings = React.useContext(ToastSettings);
+  const messages = useAksoMessages();
+  const closeLabel = settings.closeLabel ?? messages.dismiss;
+  const statusLabels: Record<Status, string> = { ...messages.status, ...settings.statusLabels };
   return toasts.map((toast) => {
     const status = (toast.type as Status | undefined) ?? "info";
     return (

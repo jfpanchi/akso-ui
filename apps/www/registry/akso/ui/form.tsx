@@ -4,6 +4,7 @@ import * as React from "react";
 import { Form as BaseForm } from "@base-ui/react/form";
 
 import { cn } from "@/lib/utils";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
 import { announce, markSubmitted, useAnnouncerRegion } from "@/registry/akso/lib/akso-form";
 
 /*
@@ -27,10 +28,10 @@ export interface FormProps extends Omit<BaseForm.Props, "className"> {
   invalidMessage?: (count: number) => string;
 }
 
-const defaultInvalidMessage = (count: number) => (count === 1 ? "1 field needs attention." : `${count} fields need attention.`);
-
 /** A form that validates its Fields. Use `onFormSubmit` to get the values as an object. */
-function Form({ className, invalidMessage = defaultInvalidMessage, ref, ...props }: FormProps) {
+function Form({ className, invalidMessage: invalidMessageProp, ref, ...props }: FormProps) {
+  const messages = useAksoMessages();
+  const invalidMessage = invalidMessageProp ?? messages.fieldsNeedAttention;
   const formRef = React.useRef<HTMLFormElement | null>(null);
   useAnnouncerRegion();
 

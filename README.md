@@ -51,6 +51,18 @@ import {
 </Dialog>
 ```
 
+## Language
+
+Default texts (like "Close" or "Loading") are in English. To get them in Spanish, wrap your app in the provider that is installed with the components:
+
+```tsx
+import { AksoLocaleProvider } from "@/lib/akso-locale";
+
+<AksoLocaleProvider locale="es">{children}</AksoLocaleProvider>
+```
+
+Also set `<html lang="es">`. A prop on a component always wins over the provider.
+
 ## Development
 
 Requirements: Node.js 22+ and pnpm 12 (`corepack enable` or `npm i -g pnpm`).

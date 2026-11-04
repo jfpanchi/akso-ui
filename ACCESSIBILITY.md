@@ -91,7 +91,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 ### Known limitations
 
 - Base UI does not set `aria-modal="true"`. It hides content outside the dialog from assistive technology instead. We have not yet confirmed how every screen reader handles this. See the manual testing table.
-- The default texts ("Close") are in English. Translate them with `closeLabel`.
+- The default texts ("Close") are in English. Use `AksoLocaleProvider locale="es"` for Spanish, or `closeLabel`.
 - Automated tests only run in Chromium. Firefox and WebKit are not tested yet.
 
 ## Field

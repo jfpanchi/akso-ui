@@ -41,4 +41,5 @@ Base UI documentation ships inside the package: `node_modules/@base-ui/react/doc
 - After you edit a registry component, run `pnpm registry:build` and commit `apps/www/public/r`.
 - In `registry.json`, reference other Akso items by their full URL (`REGISTRY_BASE_URL` in `apps/www/lib/registry.ts` + `/<name>.json`). A bare name like `"button"` installs **shadcn's** button, not ours. Only `"utils"` is used by bare name on purpose.
 - In e2e tests, wait only for finite animations (`waitForAnimations` does this): spinners are infinite.
+- Never hard-code a text that a component shows or announces by default. Add it to `AksoMessages` in `registry/akso/lib/akso-locale.tsx` (English and Spanish), read it with `useAksoMessages()`, and let a prop override it.
 - Never say a component is "100% accessible". Update `ACCESSIBILITY.md` with what was actually tested.

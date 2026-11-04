@@ -4,6 +4,7 @@ import * as React from "react";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 
 import { cn } from "@/lib/utils";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
 import {
   buttonClassName,
   modalBackdropClassName,
@@ -56,7 +57,7 @@ export interface DialogContentProps extends Omit<BaseDialog.Popup.Props, "classN
   className?: string;
   /** Show the "×" close button in the top corner. Default: `true`. */
   showCloseButton?: boolean;
-  /** Accessible name of the "×" button. Translate it for your audience. Default: `"Close"`. */
+  /** Accessible name of the "×" button. Default: "Close" (or the AksoLocaleProvider text). */
   closeLabel?: string;
 }
 
@@ -66,7 +67,8 @@ export interface DialogContentProps extends Omit<BaseDialog.Popup.Props, "classN
  * Layout: the viewport scrolls vertically when the content is taller than the screen,
  * so nothing is cut off at 320px wide or at 400% zoom.
  */
-function DialogContent({ className, children, showCloseButton = true, closeLabel = "Close", ref, ...props }: DialogContentProps) {
+function DialogContent({ className, children, showCloseButton = true, closeLabel, ref, ...props }: DialogContentProps) {
+  const messages = useAksoMessages();
   const popupRef = React.useRef<HTMLDivElement | null>(null);
   useWarnIfUnlabelled(popupRef);
 
@@ -103,7 +105,7 @@ function DialogContent({ className, children, showCloseButton = true, closeLabel
               <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M6 6l12 12M18 6L6 18" />
               </svg>
-              <span className="sr-only">{closeLabel}</span>
+              <span className="sr-only">{closeLabel ?? messages.close}</span>
             </BaseDialog.Close>
           ) : null}
         </BaseDialog.Popup>
