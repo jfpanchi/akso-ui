@@ -228,6 +228,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Server errors (`errors` prop) appear on the right field and are linked to it | 3.3.1, 3.3.3 | Vitest + Playwright |
 | While sending, focus stays on the loading button; the result is a status message | 2.4.3, 4.1.3 | Playwright |
 | No horizontal scroll at 320px wide, also with every error shown | 1.4.10 Reflow | Playwright |
+| `errorSummary`: a named summary with one link per field, focused after a submit with errors; each link moves focus to its field | 3.3.1, 2.4.3 | Vitest + Playwright |
 
 ### Manual testing with assistive technology
 
