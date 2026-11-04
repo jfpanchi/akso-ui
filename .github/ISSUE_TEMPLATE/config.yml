@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: "Accessibility statement / Declaración de accesibilidad"
+    url: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md
+    about: "What has been tested and what has not. / Qué se ha probado y qué no."

@@ -1,0 +1,35 @@
+@import "tailwindcss";
+@import "akso-ui/tokens.css";
+
+@source "../registry";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+html {
+  background-color: var(--akso-background);
+  color: var(--akso-foreground);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100dvh;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--akso-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+:focus-visible {
+  outline: 2px solid var(--akso-focus-ring);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

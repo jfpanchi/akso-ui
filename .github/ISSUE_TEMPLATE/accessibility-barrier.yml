@@ -1,0 +1,97 @@
+name: "Accessibility barrier / Barrera de accesibilidad"
+description: "Something does not work for you or for someone you help. No technical knowledge needed. / Algo no te funciona a ti o a alguien a quien ayudas. No hace falta saber de programación."
+title: "[Barrier / Barrera]: "
+labels: ["accessibility", "barrier"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thank you for telling us.** You can write in English or Spanish. Answer what you can and skip what you don't know.
+        If writing is hard for you, a short answer is fine, and so is a link to a video or audio recording.
+
+        **Gracias por contarnos.** Puedes escribir en inglés o en español. Responde lo que puedas y salta lo que no sepas.
+        Si te cuesta escribir, basta con una respuesta corta, o un enlace a un video o a una grabación de audio.
+
+        This form is public. Do not include passwords or personal data. / Este formulario es público. No incluyas contraseñas ni datos personales.
+
+  - type: textarea
+    id: trying
+    attributes:
+      label: "What were you trying to do? / ¿Qué intentabas hacer?"
+      description: "For example: close a window, fill in a form, read a message. / Por ejemplo: cerrar una ventana, llenar un formulario, leer un mensaje."
+      placeholder: "I wanted to… / Quería…"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: assistive-technology
+    attributes:
+      label: "What do you use to browse? / ¿Qué usas para navegar?"
+      description: "Choose all that apply. / Elige todas las que correspondan."
+      multiple: true
+      options:
+        - "Screen reader / Lector de pantalla (NVDA, JAWS, VoiceOver, TalkBack, Narrator…)"
+        - "Screen magnifier or browser zoom / Lupa o zoom del navegador"
+        - "Keyboard only / Solo teclado"
+        - "Voice control / Control por voz (Voice Control, Voice Access, Dragon…)"
+        - "Switch access / Pulsador o interruptor"
+        - "High contrast or custom colors / Alto contraste o colores personalizados"
+        - "Reduced motion setting / Reducir movimiento"
+        - "Captions or a sign language interpreter / Subtítulos o intérprete de lengua de señas"
+        - "Nothing special / Nada en especial"
+        - "Other / Otro"
+
+  - type: input
+    id: tools
+    attributes:
+      label: "Which program, browser and device? / ¿Qué programa, navegador y dispositivo?"
+      description: "Only if you know. / Solo si lo sabes."
+      placeholder: "NVDA 2026.3, Firefox, Windows 11 laptop / portátil"
+
+  - type: textarea
+    id: happened
+    attributes:
+      label: "What happened? / ¿Qué pasó?"
+      description: "Describe it in your own words. What did you hear, see or feel? / Descríbelo con tus palabras. ¿Qué escuchaste, viste o sentiste?"
+      placeholder: "When I pressed… / Cuando presioné…"
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: "What did you expect to happen? / ¿Qué esperabas que pasara?"
+      placeholder: "I expected… / Esperaba que…"
+    validations:
+      required: true
+
+  - type: input
+    id: where
+    attributes:
+      label: "Where did it happen? / ¿Dónde pasó?"
+      description: "A link to the page or the component name, if you have it. / Un enlace a la página o el nombre del componente, si lo tienes."
+      placeholder: "https://… or/o Dialog"
+
+  - type: dropdown
+    id: impact
+    attributes:
+      label: "How much does this affect you? / ¿Cuánto te afecta?"
+      options:
+        - "I cannot do the task at all / No puedo hacer la tarea"
+        - "I can do it, but it is very hard / Puedo hacerla, pero me cuesta mucho"
+        - "It is annoying / Es molesto"
+        - "I'm not sure / No estoy seguro o segura"
+
+  - type: textarea
+    id: more
+    attributes:
+      label: "Anything else? / ¿Algo más?"
+      description: "Screenshots, recordings or other details are welcome. / Puedes añadir capturas, grabaciones u otros detalles."
+
+  - type: dropdown
+    id: contact
+    attributes:
+      label: "Can we ask you follow-up questions here? / ¿Podemos hacerte más preguntas aquí?"
+      options:
+        - "Yes / Sí"
+        - "No"
