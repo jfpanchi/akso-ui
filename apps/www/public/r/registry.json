@@ -567,6 +567,87 @@
         }
       ],
       "docs": "Akso UI Menu: use it for actions; use links for navigation. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "combobox",
+      "type": "registry:ui",
+      "title": "Combobox",
+      "description": "Filterable select with a visible label, announced result counts, a 'no results' message and a high-contrast highlight ring.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/combobox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Combobox: always set label; translate emptyText and resultsText. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "Slider with a visible label and value, keyboard support, and − / + buttons so dragging is never required (WCAG 2.5.7).",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Slider: always set label; use getValueText for units. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "Panel that slides in from an edge, with a focus trap, Escape, and an always-visible close button so swiping is never required.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/drawer.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Drawer: always add a DrawerTitle. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "navigation-menu",
+      "type": "registry:ui",
+      "title": "Navigation menu",
+      "description": "Site navigation with panels of real links, aria-current for the current page, and keyboard support.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/navigation-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Navigation menu: label the menu with aria-label when the page has more than one nav; set active on the current page link. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

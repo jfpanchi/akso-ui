@@ -15,6 +15,7 @@ _Last updated: 2026-11-04_
 | Color tokens | Contrast tests in `packages/core/tests/tokens.test.ts` | Text and non-text contrast for every token pair we use, in light and dark mode | Contrast of colors you add yourself |
 | Unit tests | Vitest + Testing Library + vitest-axe (jsdom) | Missing names, wrong roles, broken ARIA references, keyboard behavior, focus order | Layout, real colors, real screen reader output |
 | End-to-end tests | Playwright + `@axe-core/playwright` (Chromium, light and dark) | Contrast as rendered, focus ring color and size, target sizes, reflow at 320px, `prefers-reduced-motion` | How screen readers announce things, voice control, real devices |
+| Exceptions | Base UI "focus guards" (invisible `aria-hidden` elements around open popups that move focus on the same frame they receive it) are excluded from the e2e axe runs by selector. In Vitest only, the best-practice rule `region` is skipped where a popup is rendered in a portal. Every exception is written next to the test that uses it. | — |
 | Registry install | `scripts/verify-registry.sh` | The component still passes axe and keyboard checks after `npx shadcn add` into a fresh project | — |
 | Manual testing | People using assistive technology | What it is like to actually use the component | — |
 
@@ -695,6 +696,122 @@ Other checks still pending: Windows High Contrast Mode / `forced-colors`, browse
 
 - Disabled items can be reached with the arrow keys (Base UI, ARIA Authoring Practices) but do nothing.
 - Submenus and filterable menus from Base UI are not wrapped yet.
+
+## Combobox
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations closed; open with one Base UI exception (see limitations) | Several | Vitest + Playwright (light and dark) |
+| Input with `role=combobox` named by the visible label; `aria-expanded`, `aria-activedescendant` (Base UI) | 1.3.1, 4.1.2 | Vitest + Playwright |
+| Number of matching options announced politely (Base UI `Combobox.Status`); “No results.” shown and announced | 4.1.3 Status Messages | Vitest + Playwright |
+| Arrows, Enter, Escape; focus stays in the input | 2.1.1 | Vitest + Playwright |
+| Required (from the Field): error linked; focus moves to the input on submit | 3.3.1 | Vitest + Playwright |
+| Highlighted option: ring ≥ 3:1; chosen option: check mark and bold; options 44px | 1.4.11, 1.4.1, 2.5.8 | Playwright |
+| Visible focus ring around the input group ≥ 3:1; open list fits at 320px | 2.4.7, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- While the list is open, Base UI hides the rest of the page with `aria-hidden` (so the screen reader's virtual cursor stays in the combobox) but does not make it inert, so axe reports `aria-hidden-focus` in that state. We keep Base UI's behavior; Tab closes the list and exposes the page again (tested). Not confirmed with screen readers yet.
+- Only options from the list can be chosen. Free text with suggestions (autocomplete) is not built yet.
+
+## Slider
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations | Several | Vitest + Playwright (light and dark) |
+| Native range input (`role=slider`) named by the visible label, with value and value text (Base UI) | 1.3.1, 4.1.2 | Vitest + Playwright |
+| Arrows, Page Up/Down, Home/End; one Tab stop | 2.1.1 | Vitest + Playwright |
+| Dragging is not required: − / + buttons (single tap) and clicking the track | 2.5.7 Dragging Movements | Vitest + Playwright |
+| The value is always shown as text | 1.3.1 | Vitest + Playwright |
+| Thumb 24px with a visible focus ring; step buttons 44px | 2.5.8, 2.4.7 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- The − / + buttons are not Tab stops (keyboard users use the arrow keys); they can be used by pointer, touch and voice control ("click Increase").
+
+## Drawer
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
+| `role=dialog` named by its title and described (Base UI) | 4.1.2 | Vitest + Playwright |
+| Focus trapped; Escape and the close button return focus to the trigger (Base UI) | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Swiping is never required: a 44px close button on every side | 2.5.7 Dragging Movements | Vitest + Playwright |
+| No slide with reduced motion; fits at 320px | 2.3.3, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Snap points and nested drawers from Base UI are not wrapped yet.
+
+## Navigation menu
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open (Base UI focus guards excluded by selector, see limitations) | Several | Vitest + Playwright (light and dark) |
+| Named `navigation` landmark; section buttons with `aria-expanded`; real links (no `role=menu`) | 1.3.1, 2.4.1, 4.1.2 | Vitest + Playwright |
+| Current page: `aria-current=page`, underline and bold text | 1.4.1, 2.4.8 | Vitest + Playwright |
+| Enter opens a section; Tab reaches its links; Escape closes and returns focus | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Items 44px; visible focus ring ≥ 3:1; open panel fits at 320px | 2.5.8, 2.4.7, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Base UI adds invisible "focus guard" elements (`aria-hidden`, `tabindex=0`) around the open panel; they move focus on the same frame they receive it. axe flags them, so they are excluded from the e2e axe checks by selector (see "How we test").
 
 ## By disability
 
