@@ -102,12 +102,15 @@ test.describe("320px wide (equivalent to 400% zoom)", () => {
 test("submenu: Arrow Right opens it, Enter runs an item, focus returns to the trigger", async ({ page }) => {
   const { trigger } = await open(page);
   const share = page.getByRole("menuitem", { name: "Share" });
+  const copyLink = page.getByRole("menuitem", { name: "Copy link" });
   await share.focus();
   await page.keyboard.press("ArrowRight");
-  await expect(page.getByRole("menuitem", { name: "Copy link" })).toBeFocused();
+  await expect(copyLink).toBeFocused();
   await page.keyboard.press("ArrowLeft");
   await expect(share).toBeFocused();
+  // Wait for the submenu to open again: Enter on "Share" would only open it, not copy the link.
   await page.keyboard.press("ArrowRight");
+  await expect(copyLink).toBeFocused();
   await page.keyboard.press("Enter");
   await expect(page.getByRole("status")).toHaveText("Link copied.");
   await expect(trigger).toBeFocused();
