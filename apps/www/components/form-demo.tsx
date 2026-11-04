@@ -10,7 +10,7 @@ import { Input } from "@/registry/akso/ui/input";
 import { Textarea } from "@/registry/akso/ui/textarea";
 
 /** Demo used by the docs page and by the e2e tests. */
-export function FormDemo() {
+export function FormDemo({ errorSummary = false }: { errorSummary?: boolean }) {
   const [sending, setSending] = useState(false);
   const [status, setStatus] = useState("");
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -18,6 +18,7 @@ export function FormDemo() {
   return (
     <div className="flex max-w-md flex-col gap-4">
       <Form
+        errorSummary={errorSummary}
         errors={errors}
         onFormSubmit={async (values: { name?: string; email?: string; message?: string }) => {
           setSending(true);

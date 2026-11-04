@@ -91,7 +91,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 ### Known limitations
 
 - Base UI does not set `aria-modal="true"`. It hides content outside the dialog from assistive technology instead. We have not yet confirmed how every screen reader handles this. See the manual testing table.
-- The default texts ("Close") are in English. Translate them with `closeLabel`.
+- The default texts ("Close") are in English. Use `AksoLocaleProvider locale="es"` for Spanish, or `closeLabel`.
 - Automated tests only run in Chromium. Firefox and WebKit are not tested yet.
 
 ## Field
@@ -169,6 +169,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Native `<textarea>`, named and described by its Field | 1.3.1, 4.1.2 | Vitest |
 | Validated like Input; focus moves to it on submit with errors | 3.3.1 | Vitest |
 | Enter adds a line instead of submitting | 2.1.1 | Vitest + Playwright |
+| With `maxLength`: visible "characters left" counter, announced politely at 20, 10 and 0 left; Base UI's description link is untouched | 4.1.3, 3.3.2 | Vitest |
 | Visible focus ring with ≥ 3:1 contrast; resizes vertically only | 2.4.7, 1.4.10 | Playwright |
 
 ### Manual testing with assistive technology
@@ -185,7 +186,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 
 ### Known limitations
 
-- There is no live character counter yet. If you set `maxLength`, say the limit in a `FieldDescription`.
+- The character counter is announced only at 20, 10 and 0 characters left, so it does not interrupt on every key. Whether that is often enough is not confirmed with users yet.
 
 ## Fieldset
 
@@ -228,6 +229,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Server errors (`errors` prop) appear on the right field and are linked to it | 3.3.1, 3.3.3 | Vitest + Playwright |
 | While sending, focus stays on the loading button; the result is a status message | 2.4.3, 4.1.3 | Playwright |
 | No horizontal scroll at 320px wide, also with every error shown | 1.4.10 Reflow | Playwright |
+| `errorSummary`: a named summary with one link per field, focused after a submit with errors; each link moves focus to its field | 3.3.1, 2.4.3 | Vitest + Playwright |
 
 ### Manual testing with assistive technology
 
@@ -243,7 +245,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 
 ### Known limitations
 
-- Focus moves to the first invalid field instead of to an error summary at the top of the form. This is Base UI's behavior and we keep it. For long forms, an error summary with links may work better for some people; we have not built one yet.
+- By default, focus moves to the first invalid field (Base UI's behavior). For long forms, `errorSummary` shows a summary with one link per field at the top of the form and moves focus to it instead (tested); which one works better for people is not confirmed with users yet.
 - The count message is in English by default. Translate it with `invalidMessage`.
 
 ## Checkbox

@@ -53,6 +53,18 @@ import {
 
 Los textos por defecto están en inglés. Usa `closeLabel` para traducir el nombre del botón ×.
 
+## Idioma
+
+Los textos por defecto (como "Close" o "Loading") están en inglés. Para tenerlos en español, envuelve tu app en el proveedor que se instala con los componentes:
+
+```tsx
+import { AksoLocaleProvider } from "@/lib/akso-locale";
+
+<AksoLocaleProvider locale="es">{children}</AksoLocaleProvider>
+```
+
+Pon también `<html lang="es">`. Una prop en un componente siempre gana sobre el proveedor.
+
 ## Desarrollo
 
 Requisitos: Node.js 22+ y pnpm 12 (`corepack enable` o `npm i -g pnpm`).

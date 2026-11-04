@@ -32,6 +32,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 {c.name}
               </Link>
             ))}
+            <Link href="/docs/language" className="inline-flex min-h-11 items-center">
+              Language
+            </Link>
             <a href="https://github.com/jfpanchi/akso-ui" className="inline-flex min-h-11 items-center">
               GitHub
             </a>

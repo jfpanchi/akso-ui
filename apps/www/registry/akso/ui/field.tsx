@@ -4,6 +4,7 @@ import * as React from "react";
 import { Field as BaseField } from "@base-ui/react/field";
 
 import { cn } from "@/lib/utils";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
 import { AksoFieldContext, announce, useAnnouncerRegion, wasJustSubmitted } from "@/registry/akso/lib/akso-form";
 
 /*
@@ -24,14 +25,15 @@ export interface FieldProps extends Omit<BaseField.Root.Props, "className"> {
   className?: string;
   /** The field must be filled in. Shows `requiredText` after the label and makes Input/Textarea required. */
   required?: boolean;
-  /** Text after the label of a required field. Default: `"(required)"`. Translate it for your audience. */
+  /** Text after the label of a required field. Default: "(required)" (or the AksoLocaleProvider text). */
   requiredText?: string;
   /** Announce errors to screen readers when they appear or change. Default: `true`. */
   announceErrors?: boolean;
 }
 
 /** Groups a label, a control, an optional description and error messages. */
-function Field({ className, required = false, requiredText = "(required)", announceErrors = true, ref, ...props }: FieldProps) {
+function Field({ className, required = false, requiredText, announceErrors = true, ref, ...props }: FieldProps) {
+  const messages = useAksoMessages();
   const rootRef = React.useRef<HTMLDivElement | null>(null);
   useErrorAnnouncements(rootRef, announceErrors);
 
@@ -44,7 +46,8 @@ function Field({ className, required = false, requiredText = "(required)", annou
     [ref],
   );
 
-  const context = React.useMemo(() => ({ required, requiredText }), [required, requiredText]);
+  const resolvedRequiredText = requiredText ?? messages.required;
+  const context = React.useMemo(() => ({ required, requiredText: resolvedRequiredText }), [required, resolvedRequiredText]);
 
   return (
     <AksoFieldContext.Provider value={context}>

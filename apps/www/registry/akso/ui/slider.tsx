@@ -4,6 +4,7 @@ import * as React from "react";
 import { Slider as BaseSlider } from "@base-ui/react/slider";
 
 import { cn } from "@/lib/utils";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
 import { buttonClassName, forcedBarClassName } from "@/registry/akso/lib/akso-styles";
 
 /*
@@ -45,13 +46,16 @@ function Slider({
   max = 100,
   step = 1,
   showSteppers = true,
-  decreaseLabel = "Decrease",
-  increaseLabel = "Increase",
+  decreaseLabel: decreaseLabelProp,
+  increaseLabel: increaseLabelProp,
   getValueText,
   disabled,
   className,
   ...props
 }: SliderProps) {
+  const messages = useAksoMessages();
+  const decreaseLabel = decreaseLabelProp ?? messages.decrease;
+  const increaseLabel = increaseLabelProp ?? messages.increase;
   const [inner, setInner] = React.useState(defaultValue ?? min);
   const current = value ?? inner;
   const set = (next: number) => {

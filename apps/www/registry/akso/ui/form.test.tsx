@@ -128,4 +128,64 @@ describe("Form", () => {
       }
     });
   });
+
+  describe("error summary (errorSummary)", () => {
+    function Summary() {
+      return (
+        <main>
+          <Form errorSummary>
+            <Field name="name" required>
+              <FieldLabel>Name</FieldLabel>
+              <Input />
+              <FieldError match="valueMissing">Enter your name.</FieldError>
+            </Field>
+            <Field name="email" required>
+              <FieldLabel>Email</FieldLabel>
+              <Input type="email" />
+              <FieldError match="valueMissing">Enter your email.</FieldError>
+            </Field>
+            <button type="submit">Create account</button>
+          </Form>
+        </main>
+      );
+    }
+
+    it("after a submit with errors, shows a named summary with one link per field and moves focus to it", async () => {
+      const user = userEvent.setup();
+      render(<Summary />);
+      await user.click(screen.getByRole("button", { name: "Create account" }));
+      const summary = await screen.findByRole("group", { name: "There is a problem" });
+      await waitFor(() => expectFocused(summary));
+      expect(screen.getByRole("link", { name: "Name: Enter your name." })).toBeInTheDocument();
+      expect(screen.getByRole("link", { name: "Email: Enter your email." })).toBeInTheDocument();
+      await expectNoA11yViolations(document.body);
+    });
+
+    it("a link moves focus to its field", async () => {
+      const user = userEvent.setup();
+      render(<Summary />);
+      await user.click(screen.getByRole("button", { name: "Create account" }));
+      await user.click(await screen.findByRole("link", { name: "Email: Enter your email." }));
+      expectFocused(screen.getByRole("textbox", { name: "Email" }));
+    });
+
+    it("does not also announce the count (the summary is read instead)", async () => {
+      const user = userEvent.setup();
+      render(<Summary />);
+      await user.click(screen.getByRole("button", { name: "Create account" }));
+      await screen.findByRole("group", { name: "There is a problem" });
+      await new Promise((r) => setTimeout(r, 300));
+      expect(announcer()?.textContent ?? "").toBe("");
+    });
+
+    it("is not shown when the form is valid", async () => {
+      const user = userEvent.setup();
+      render(<Summary />);
+      await user.type(screen.getByRole("textbox", { name: "Name" }), "Ada");
+      await user.type(screen.getByRole("textbox", { name: "Email" }), "ada@example.com");
+      await user.click(screen.getByRole("button", { name: "Create account" }));
+      await new Promise((r) => setTimeout(r, 100));
+      expect(screen.queryByRole("group", { name: "There is a problem" })).not.toBeInTheDocument();
+    });
+  });
 });

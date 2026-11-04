@@ -1,7 +1,10 @@
+"use client";
+
 import * as React from "react";
 
 import { cn } from "@/lib/utils";
-import { defaultStatusLabels, StatusIcon, statusBorderClassName, type Status } from "@/registry/akso/lib/akso-status";
+import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
+import { StatusIcon, statusBorderClassName, type Status } from "@/registry/akso/lib/akso-status";
 
 /*
  * Akso UI · Alert
@@ -28,7 +31,9 @@ export interface AlertProps extends Omit<React.ComponentProps<"div">, "title" | 
 }
 
 /** A message about something important on the page. */
-function Alert({ status = "info", title, live, statusLabel = defaultStatusLabels[status], className, children, ...props }: AlertProps) {
+function Alert({ status = "info", title, live, statusLabel: statusLabelProp, className, children, ...props }: AlertProps) {
+  const messages = useAksoMessages();
+  const statusLabel = statusLabelProp ?? messages.status[status];
   const role = live === "assertive" ? "alert" : live === "polite" ? "status" : undefined;
   return (
     <div

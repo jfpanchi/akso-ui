@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 /*
  * Akso UI · status styles and icons
  *
- * Used by Alert and Toast. Each status has its own icon shape and a default text label,
- * so the meaning never depends on color alone (WCAG 1.4.1).
+ * Used by Alert and Toast. Each status has its own icon shape, and the components add a hidden
+ * status word from lib/akso-locale, so the meaning never depends on color alone (WCAG 1.4.1).
  */
 
 export type Status = "info" | "success" | "warning" | "error";
@@ -23,14 +23,6 @@ export const statusBorderClassName: Record<Status, string> = {
   success: "border-l-akso-success",
   warning: "border-l-akso-warning",
   error: "border-l-akso-danger",
-};
-
-/** Default names for each status, used as hidden text when a title does not already say it. Translate as needed. */
-export const defaultStatusLabels: Record<Status, string> = {
-  info: "Information",
-  success: "Success",
-  warning: "Warning",
-  error: "Error",
 };
 
 const paths: Record<Status, React.ReactNode> = {
