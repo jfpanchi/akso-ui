@@ -88,8 +88,12 @@ jobs:
           retention-days: 7
 
   registry:
-    name: Registry install (fresh Next.js + shadcn project)
+    name: Registry install (${{ matrix.framework }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        framework: [next, vite, react-router]
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -102,4 +106,4 @@ jobs:
       - run: pnpm build:core && pnpm registry:build
       - name: Registry output is committed and up to date
         run: git diff --exit-code -- apps/www/public/r apps/www/registry.json
-      - run: pnpm verify:registry
+      - run: scripts/verify-registry.sh --framework ${{ matrix.framework }}

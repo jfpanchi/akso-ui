@@ -104,6 +104,10 @@ echo "  ✓ $(echo "$OTHERS" | wc -w) more components installed; no file imports
 echo "→ Building the test project"
 # The same test page for every framework, with the template's import alias.
 sed "s#@/components/#$ALIAS/components/#g" "$ROOT/scripts/verify-registry/page.tsx" > "$PAGE"
+if [ "$FRAMEWORK" = "react-router" ]; then
+  # React Router sets the page <title> from each route's meta(); the template's route had one.
+  echo 'export function meta() { return [{ title: "Registry install check" }]; }' >> "$PAGE"
+fi
 npm run build >/dev/null
 
 echo "→ Running axe and keyboard checks"

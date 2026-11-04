@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { Fieldset as BaseFieldset } from "@base-ui/react/fieldset";
 
 import { cn } from "@/lib/utils";

@@ -3,7 +3,7 @@
 import * as React from "react";
 import { Button as BaseButton } from "@base-ui/react/button";
 
-import { buttonClassName, type ButtonSize, type ButtonVariant } from "@/registry/akso/lib/akso-styles";
+import { buttonClassName, isDevelopment, type ButtonSize, type ButtonVariant } from "@/registry/akso/lib/akso-styles";
 
 export { buttonClassName, focusRingClassName, type ButtonSize, type ButtonVariant } from "@/registry/akso/lib/akso-styles";
 import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
@@ -104,7 +104,7 @@ function Button({
 function useWarnIfUnnamed(ref: React.RefObject<HTMLElement | null>) {
   const warned = React.useRef(false);
   React.useEffect(() => {
-    if (process.env.NODE_ENV === "production" || warned.current) return;
+    if (!isDevelopment() || warned.current) return;
     const el = ref.current;
     if (!el) return;
     const labelledBy = el.getAttribute("aria-labelledby");
