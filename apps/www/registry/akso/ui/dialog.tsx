@@ -4,47 +4,18 @@ import * as React from "react";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 
 import { cn } from "@/lib/utils";
+import { buttonClassName, focusRingClassName, type ButtonSize, type ButtonVariant } from "@/registry/akso/lib/akso-styles";
 
 /*
  * Akso UI · Dialog
  *
- * Built on @base-ui/react/dialog. Base UI provides role="dialog", aria-modal,
- * aria-labelledby / aria-describedby, the focus trap, Escape to close and
- * focus return. This file only adds styles and safe defaults: do not override
+ * Built on @base-ui/react/dialog. Base UI provides role="dialog",
+ * aria-labelledby / aria-describedby, hides the rest of the page from
+ * assistive technology, traps focus, closes on Escape and returns focus. This file only adds styles and safe defaults: do not override
  * those attributes or keyboard handlers.
  *
  * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md
  */
-
-/* -------------------------------------------------------------------------- */
-/* Button styles shared by the trigger and the close buttons                   */
-/* -------------------------------------------------------------------------- */
-
-export type DialogButtonVariant = "primary" | "secondary" | "danger";
-
-const focusRing =
-  "outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-akso-focus-ring";
-
-const buttonBase = cn(
-  // min-h-11 = 44px: above the 24×24px minimum (WCAG 2.5.8) and close to the 44px enhanced target (2.5.5).
-  "inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center gap-2 rounded-md px-4 py-2",
-  "text-base font-medium leading-tight text-balance",
-  "disabled:cursor-not-allowed disabled:opacity-60 data-disabled:cursor-not-allowed data-disabled:opacity-60",
-  "motion-safe:transition-[color,background-color,border-color] motion-safe:duration-150",
-  focusRing,
-);
-
-const buttonVariants: Record<DialogButtonVariant, string> = {
-  primary: "bg-akso-primary text-akso-primary-foreground hover:bg-akso-primary-hover",
-  secondary: "border border-akso-border bg-akso-surface text-akso-foreground hover:bg-akso-surface-hover",
-  // No color-only hover change: the underline makes the state visible without relying on color.
-  danger: "bg-akso-danger text-akso-danger-foreground hover:underline",
-};
-
-/** Classes for buttons that sit next to the dialog buttons (for example, a submit button). */
-export function dialogButtonClassName(variant: DialogButtonVariant = "secondary", className?: string) {
-  return cn(buttonBase, buttonVariants[variant], className);
-}
 
 /* -------------------------------------------------------------------------- */
 /* Parts                                                                       */
@@ -57,17 +28,18 @@ function Dialog(props: BaseDialog.Root.Props) {
 
 type ButtonPartProps<P> = Omit<P, "className"> & {
   className?: string;
-  variant?: DialogButtonVariant;
+  variant?: ButtonVariant;
+  size?: ButtonSize;
 };
 
 /** The button that opens the dialog. Focus returns here when the dialog closes. */
-function DialogTrigger({ className, variant = "secondary", ...props }: ButtonPartProps<BaseDialog.Trigger.Props>) {
-  return <BaseDialog.Trigger data-slot="dialog-trigger" className={dialogButtonClassName(variant, className)} {...props} />;
+function DialogTrigger({ className, variant = "secondary", size, ...props }: ButtonPartProps<BaseDialog.Trigger.Props>) {
+  return <BaseDialog.Trigger data-slot="dialog-trigger" className={buttonClassName({ variant, size, className })} {...props} />;
 }
 
 /** A button that closes the dialog. Use it for "Cancel" or "Close" actions. */
-function DialogClose({ className, variant = "secondary", ...props }: ButtonPartProps<BaseDialog.Close.Props>) {
-  return <BaseDialog.Close data-slot="dialog-close" className={dialogButtonClassName(variant, className)} {...props} />;
+function DialogClose({ className, variant = "secondary", size, ...props }: ButtonPartProps<BaseDialog.Close.Props>) {
+  return <BaseDialog.Close data-slot="dialog-close" className={buttonClassName({ variant, size, className })} {...props} />;
 }
 
 export interface DialogContentProps extends Omit<BaseDialog.Popup.Props, "className"> {
@@ -116,7 +88,7 @@ function DialogContent({ className, children, showCloseButton = true, closeLabel
             "relative m-auto flex w-full max-w-lg min-w-0 flex-col gap-4",
             "rounded-lg border border-akso-border bg-akso-surface p-5 text-akso-foreground shadow-xl sm:p-6",
             "break-words",
-            focusRing,
+            focusRingClassName,
             "motion-safe:transition-[opacity,scale] motion-safe:duration-150 motion-safe:ease-out",
             "data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0",
             className,
@@ -128,12 +100,11 @@ function DialogContent({ className, children, showCloseButton = true, closeLabel
             // Last in the DOM so the title is read first and Tab reaches the main actions first.
             <BaseDialog.Close
               data-slot="dialog-close-icon"
-              className={cn(
-                "absolute top-2 right-2 inline-flex size-11 cursor-pointer items-center justify-center rounded-md",
-                "text-akso-muted-foreground hover:bg-akso-surface-hover hover:text-akso-foreground",
-                "motion-safe:transition-[color,background-color,border-color] motion-safe:duration-150",
-                focusRing,
-              )}
+              className={buttonClassName({
+                variant: "ghost",
+                size: "icon",
+                className: "absolute top-2 right-2 text-akso-muted-foreground hover:not-data-disabled:text-akso-foreground",
+              })}
             >
               <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                 <path d="M6 6l12 12M18 6L6 18" />

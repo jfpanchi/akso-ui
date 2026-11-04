@@ -1,22 +1,29 @@
 #!/usr/bin/env bash
-# Verifies that the Dialog can be installed from the local registry into a fresh
+# Verifies that Akso UI components install from the registry into a fresh
 # Next.js + shadcn project, that the project builds, and that the installed
-# component passes axe and keyboard checks.
+# components pass axe and keyboard checks.
+#
+# Items reference each other with their public GitHub URLs. This script serves a
+# copy of apps/www/public/r with those URLs pointed at localhost, so it tests the
+# files in your working tree, not what is on GitHub.
 #
 # Usage: scripts/verify-registry.sh [work-dir]
-# Requires: apps/www built (pnpm --filter www build). Uses the network to install npm packages.
+# Requires: pnpm registry:build. Uses the network to install npm packages.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 WORK="${1:-$(mktemp -d)}"
-REGISTRY_PORT=3100
+REGISTRY_PORT=3101
 APP_PORT=3200
-NEXT_VERSION=$(node -p "require('$ROOT/apps/www/node_modules/next/package.json').version")
-SHADCN_VERSION=$(node -p "require('$ROOT/apps/www/node_modules/shadcn/package.json').version")
-PW_VERSION=$(node -p "require('$ROOT/apps/www/node_modules/@playwright/test/package.json').version")
-AXE_PW_VERSION=$(node -p "require('$ROOT/apps/www/node_modules/@axe-core/playwright/package.json').version")
+REGISTRY_URL="http://localhost:$REGISTRY_PORT/r"
+PUBLIC_BASE=$(node -e "const s=require('fs').readFileSync('$ROOT/apps/www/lib/registry.ts','utf8');console.log(s.match(/\"(https:[^\"]+)\"/)[1])")
+WWW_MODULES="$ROOT/apps/www/node_modules"
+NEXT_VERSION=$(node -p "require('$WWW_MODULES/next/package.json').version")
+SHADCN_VERSION=$(node -p "require('$WWW_MODULES/shadcn/package.json').version")
+PW_VERSION=$(node -p "require('$WWW_MODULES/@playwright/test/package.json').version")
+AXE_PW_VERSION=$(node -p "require('$WWW_MODULES/@axe-core/playwright/package.json').version")
 
-# Servers run in their own process group (setsid) so cleanup also stops next-server children.
+# Servers run in their own process group (setsid) so cleanup also stops their children.
 cleanup() {
   for pid in "${REGISTRY_PID:-}" "${APP_PID:-}"; do
     [ -n "$pid" ] && kill -- "-$pid" 2>/dev/null || true
@@ -24,10 +31,14 @@ cleanup() {
 }
 trap cleanup EXIT
 
-echo "→ Serving the registry on :$REGISTRY_PORT"
-(cd "$ROOT/apps/www" && exec setsid pnpm exec next start -p "$REGISTRY_PORT" >/dev/null 2>&1) &
+echo "→ Serving apps/www/public/r on $REGISTRY_URL"
+rm -rf "$WORK/registry" && mkdir -p "$WORK/registry/r"
+for file in "$ROOT"/apps/www/public/r/*.json; do
+  sed "s#$PUBLIC_BASE#$REGISTRY_URL#g" "$file" > "$WORK/registry/r/$(basename "$file")"
+done
+(exec setsid node "$ROOT/scripts/verify-registry/serve.mjs" "$WORK/registry" "$REGISTRY_PORT" >/dev/null 2>&1) &
 REGISTRY_PID=$!
-npx -y wait-on@8 -t 60000 "http://localhost:$REGISTRY_PORT/r/dialog.json"
+npx -y wait-on@8 -t 30000 "$REGISTRY_URL/dialog.json"
 
 echo "→ Creating a test project in $WORK/consumer"
 rm -rf "$WORK/consumer"
@@ -35,13 +46,26 @@ rm -rf "$WORK/consumer"
   --import-alias "@/*" --use-npm --turbopack --yes >/dev/null)
 cd "$WORK/consumer"
 
-echo "→ shadcn init + add dialog from http://localhost:$REGISTRY_PORT/r/dialog.json"
-npx -y "shadcn@$SHADCN_VERSION" init -d --base base >/dev/null
-npx -y "shadcn@$SHADCN_VERSION" add "http://localhost:$REGISTRY_PORT/r/dialog.json" -y
+fail() { echo "✗ $1"; exit 1; }
 
-test -f components/ui/dialog.tsx || { echo "components/ui/dialog.tsx was not created"; exit 1; }
-grep -q '"@base-ui/react"' package.json || { echo "@base-ui/react was not installed"; exit 1; }
-grep -q -- "--akso-focus-ring" app/globals.css || { echo "Akso tokens were not added to globals.css"; exit 1; }
+echo "→ shadcn init (installs shadcn's own components/ui/button.tsx, like most real projects)"
+npx -y "shadcn@$SHADCN_VERSION" init -d --base base >/dev/null
+SHADCN_BUTTON_SUM=$(sha1sum components/ui/button.tsx)
+
+echo "→ add dialog: must bring lib/akso-styles.ts and the tokens, and leave the existing button alone"
+npx -y "shadcn@$SHADCN_VERSION" add "$REGISTRY_URL/dialog.json" -y < /dev/null
+test -f components/ui/dialog.tsx || fail "components/ui/dialog.tsx was not created"
+test -f lib/akso-styles.ts || fail "lib/akso-styles.ts was not created"
+grep -q '@/lib/akso-styles' components/ui/dialog.tsx || fail "dialog.tsx does not import @/lib/akso-styles"
+[ "$(sha1sum components/ui/button.tsx)" = "$SHADCN_BUTTON_SUM" ] || fail "installing dialog changed the existing button.tsx"
+grep -q '"@base-ui/react"' package.json || fail "@base-ui/react was not installed"
+grep -q -- "--akso-focus-ring" app/globals.css || fail "Akso tokens were not added to globals.css"
+echo "  ✓ dialog, lib/akso-styles.ts, @base-ui/react and tokens installed; existing button untouched"
+
+echo "→ add button with --overwrite (replaces shadcn's button on purpose)"
+npx -y "shadcn@$SHADCN_VERSION" add "$REGISTRY_URL/button.json" -y --overwrite < /dev/null
+grep -q "Akso UI · Button" components/ui/button.tsx || fail "components/ui/button.tsx is not the Akso Button"
+echo "  ✓ Akso button installed"
 
 echo "→ Building the test project"
 cp "$ROOT/scripts/verify-registry/page.tsx" app/page.tsx

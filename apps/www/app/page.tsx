@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { components } from "@/lib/components";
+import { REGISTRY_BASE_URL } from "@/lib/registry";
 
 export default function HomePage() {
   return (
@@ -10,14 +12,16 @@ export default function HomePage() {
       </p>
       <h2 className="text-2xl font-semibold">Components</h2>
       <ul className="list-disc pl-6">
-        <li>
-          <Link href="/docs/dialog">Dialog</Link>
-        </li>
+        {components.map((c) => (
+          <li key={c.slug}>
+            <Link href={`/docs/${c.slug}`}>{c.name}</Link>
+          </li>
+        ))}
       </ul>
       <h2 className="text-2xl font-semibold">Install a component</h2>
       <p>Akso UI is distributed as a shadcn registry. In a project that already uses shadcn:</p>
       <pre className="rounded-md border border-akso-border p-4 text-sm whitespace-pre-wrap break-all">
-        <code>npx shadcn@latest add https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/dialog.json</code>
+        <code>{`npx shadcn@latest add ${REGISTRY_BASE_URL}/dialog.json`}</code>
       </pre>
     </div>
   );

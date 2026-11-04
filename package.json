@@ -15,7 +15,8 @@
     "test:e2e": "pnpm --filter www build && pnpm --filter www test:e2e",
     "registry:build": "pnpm --filter www registry:build",
     "verify:registry": "scripts/verify-registry.sh",
-    "changeset": "changeset"
+    "changeset": "changeset",
+    "new:component": "node scripts/new-component.ts"
   },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
