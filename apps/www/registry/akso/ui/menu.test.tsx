@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expectFocused, expectNoA11yViolations } from "akso-ui/test";
 import { describe, expect, it, vi } from "vitest";
@@ -55,7 +55,7 @@ describe("Menu", () => {
     it("has no violations closed and open", async () => {
       render(<FileMenu />);
       await expectNoA11yViolations(document.body);
-      document.body.innerHTML = "";
+      cleanup();
       await openWithKeyboard();
       await expectNoA11yViolations(document.body, { disableRules: ["region"] /* portaled popup */ });
     });

@@ -9,6 +9,14 @@ import { contrastRatio, WCAG_AA } from "akso-ui/tokens";
 export const WCAG_TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
 /**
+ * Base UI "focus guards": invisible spans (aria-hidden, tabindex=0) placed around open popups.
+ * When one receives focus, Base UI moves focus on the same frame, so focus never stays there.
+ * axe reports them as aria-hidden-focus; they are excluded by selector (not by disabling the rule),
+ * so any other aria-hidden focusable element is still reported. Documented in ACCESSIBILITY.md.
+ */
+const BASE_UI_FOCUS_GUARD = "[data-base-ui-focus-guard]";
+
+/**
  * Waits for running transitions/animations, so checks measure final colors, not a frame mid-fade.
  * Infinite animations (spinners) are ignored, and cancelled ones (element removed) are tolerated.
  */
@@ -24,10 +32,14 @@ export async function waitForAnimations(page: Page, scope?: Locator) {
 }
 
 /** Runs axe (WCAG 2.0–2.2 A/AA) on the page, or on `include` only. Lists every violation on failure. */
-export async function expectNoAxeViolations(page: Page, { include, disableRules = [] }: { include?: string; disableRules?: string[] } = {}) {
+export async function expectNoAxeViolations(
+  page: Page,
+  { include, exclude = [], disableRules = [] }: { include?: string; exclude?: string[]; disableRules?: string[] } = {},
+) {
   await waitForAnimations(page);
-  let builder = new AxeBuilder({ page }).withTags(WCAG_TAGS);
+  let builder = new AxeBuilder({ page }).withTags(WCAG_TAGS).exclude(BASE_UI_FOCUS_GUARD);
   if (include) builder = builder.include(include);
+  for (const selector of exclude) builder = builder.exclude(selector);
   if (disableRules.length) builder = builder.disableRules(disableRules);
   const results = await builder.analyze();
   const summary = results.violations.map((v) => `${v.id}: ${v.help} (${v.nodes.map((n) => n.target.join(" ")).join(", ")})`);
