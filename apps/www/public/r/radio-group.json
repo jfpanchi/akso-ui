@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "title": "Radio group",
+  "description": "Radio buttons named by a legend, with arrow-key navigation. The chosen option shows a dot, not only a color.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/radio-group.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Fieldset as BaseFieldset } from \"@base-ui/react/fieldset\";\nimport { Radio as BaseRadio } from \"@base-ui/react/radio\";\nimport { RadioGroup as BaseRadioGroup } from \"@base-ui/react/radio-group\";\n\nimport { Field as BaseField } from \"@base-ui/react/field\";\n\nimport { cn } from \"@/lib/utils\";\nimport { useAksoField } from \"@/registry/akso/lib/akso-form\";\nimport { choiceControlClassName, choiceLabelClassName, legendClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Radio group\n *\n * A <fieldset> rendered as a Base UI RadioGroup, with a <legend> that names the group\n * (the pattern from the Base UI forms guide). Base UI provides role=\"radiogroup\"/\"radio\",\n * aria-checked, roving focus and arrow-key navigation. Each Radio is labeled with an\n * enclosing <label>, so the circle and its text form one large target.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface RadioGroupProps extends Omit<BaseRadioGroup.Props, \"className\" | \"render\"> {\n  /** The visible name of the group (the question). Required. Inside a required Field it shows \"(required)\". */\n  legend: React.ReactNode;\n  className?: string;\n}\n\n/** A set of options where only one can be chosen. */\nfunction RadioGroup({ legend, className, children, required, ...props }: RadioGroupProps) {\n  const field = useAksoField();\n  return (\n    <BaseFieldset.Root\n      data-slot=\"radio-group\"\n      className={cn(\"flex min-w-0 flex-col border-0 p-0\", className)}\n      render={<BaseRadioGroup required={required ?? field?.required} {...props} />}\n    >\n      <BaseFieldset.Legend data-slot=\"radio-group-legend\" className={legendClassName}>\n        {legend}\n        {field?.required ? (\n          <span aria-hidden=\"true\" className=\"font-normal text-akso-muted-foreground\">\n            {\" \"}\n            {field.requiredText}\n          </span>\n        ) : null}\n      </BaseFieldset.Legend>\n      {children}\n    </BaseFieldset.Root>\n  );\n}\n\nexport interface RadioProps extends Omit<BaseRadio.Root.Props, \"className\" | \"children\"> {\n  /** The visible label of the option. Required. */\n  children: React.ReactNode;\n  className?: string;\n}\n\n/** One option of a RadioGroup. Shows a filled dot when chosen, not only a color change. */\nfunction Radio({ children, className, ...props }: RadioProps) {\n  return (\n    <ChoiceLabel data-slot=\"radio-label\" className={choiceLabelClassName(className)}>\n      <BaseRadio.Root data-slot=\"radio\" className={cn(choiceControlClassName, \"rounded-full data-checked:bg-akso-surface\")} {...props}>\n        <BaseRadio.Indicator data-slot=\"radio-indicator\" className=\"size-3 rounded-full bg-akso-primary\" />\n      </BaseRadio.Root>\n      <span>{children}</span>\n    </ChoiceLabel>\n  );\n}\n\n/**\n * The enclosing <label>. Inside a Field it is a Field.Item, which gives each option its own\n * label scope (Base UI forms guide); without it, options in one Field share a label id and\n * every option gets the name of the first one.\n */\nfunction ChoiceLabel(props: React.ComponentProps<\"label\">) {\n  const inField = useAksoField() !== null;\n  // The control and its text arrive as children (see the component above), which the lint rule cannot see.\n  // eslint-disable-next-line jsx-a11y/label-has-associated-control\n  if (inField) return <BaseField.Item render={<label />} {...(props as Omit<BaseField.Item.Props, \"render\">)} />;\n  // eslint-disable-next-line jsx-a11y/label-has-associated-control\n  return <label {...props} />;\n}\n\nexport { Radio, RadioGroup };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Radio group: always set legend; each Radio needs a value and visible text. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

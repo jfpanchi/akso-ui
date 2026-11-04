@@ -67,15 +67,19 @@ npx -y "shadcn@$SHADCN_VERSION" add "$REGISTRY_URL/button.json" -y --overwrite <
 grep -q "Akso UI · Button" components/ui/button.tsx || fail "components/ui/button.tsx is not the Akso Button"
 echo "  ✓ Akso button installed"
 
-echo "→ add the form components"
-npx -y "shadcn@$SHADCN_VERSION" add "$REGISTRY_URL/form.json" "$REGISTRY_URL/field.json" "$REGISTRY_URL/input.json" \
-  "$REGISTRY_URL/textarea.json" "$REGISTRY_URL/fieldset.json" -y < /dev/null
-for f in form field input textarea fieldset; do
-  test -f "components/ui/$f.tsx" || fail "components/ui/$f.tsx was not created"
+echo "→ add every other component in the registry"
+OTHERS=$(node -e "
+const r = require('$ROOT/apps/www/registry.json');
+console.log(r.items.filter(i => i.type === 'registry:ui' && !['button', 'dialog'].includes(i.name)).map(i => '$REGISTRY_URL/' + i.name + '.json').join(' '));
+")
+# shellcheck disable=SC2086
+npx -y "shadcn@$SHADCN_VERSION" add $OTHERS -y < /dev/null
+for url in $OTHERS; do
+  name=$(basename "$url" .json)
+  test -f "components/ui/$name.tsx" || fail "components/ui/$name.tsx was not created"
 done
-test -f lib/akso-form.ts || fail "lib/akso-form.ts was not created"
 if grep -rq '@/registry/' components lib; then fail "an installed file still imports @/registry/"; fi
-echo "  ✓ form, field, input, textarea, fieldset and lib/akso-form.ts installed"
+echo "  ✓ $(echo "$OTHERS" | wc -w) more components installed; no file imports @/registry/"
 
 echo "→ Building the test project"
 cp "$ROOT/scripts/verify-registry/page.tsx" app/page.tsx

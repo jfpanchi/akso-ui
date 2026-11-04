@@ -53,10 +53,23 @@ const name = page.getByRole("textbox", { name: "Name" });
 await page.getByText("Enter your name.").waitFor();
 check(await name.evaluate((el) => el === document.activeElement), "form: submit with errors moves focus to the first invalid field");
 check((await name.getAttribute("aria-invalid")) === "true", "form: the invalid field has aria-invalid");
-await page.waitForFunction(() => document.getElementById("akso-announcer")?.textContent === "2 fields need attention.");
+await page.waitForFunction(() => document.getElementById("akso-announcer")?.textContent === "3 fields need attention.");
 check(true, "form: the number of fields needing attention is announced");
 axe = await new AxeBuilder({ page }).withTags(tags).analyze();
 check(axe.violations.length === 0, `axe form with errors: ${axe.violations.map((v) => v.id).join(", ") || "no violations"}`);
+
+const radios = page.getByRole("radiogroup", { name: "Delivery speed" });
+check((await radios.getAttribute("aria-invalid")) === "true", "radio group: required group is invalid after submit");
+check((await page.getByRole("radio").count()) === 2 && (await page.getByRole("radio", { name: "Express" }).count()) === 1, "radio group: each option has its own name");
+
+const country = page.getByRole("combobox", { name: "Country" });
+await country.focus();
+await page.keyboard.press("ArrowDown");
+await page.getByRole("listbox").waitFor();
+await page.keyboard.press("ArrowDown");
+await page.keyboard.press("Enter");
+await page.getByRole("listbox").waitFor({ state: "hidden" });
+check((await country.textContent())?.includes("Peru") && (await country.evaluate((el) => el === document.activeElement)), "select: choose with the keyboard; focus returns to the trigger");
 
 await browser.close();
 if (failures.length) {

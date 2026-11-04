@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "Checkbox with its label as one 44px target. Ticked and partly ticked states show a check mark or a dash, not only a color.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/checkbox.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Checkbox as BaseCheckbox } from \"@base-ui/react/checkbox\";\n\nimport { Field as BaseField } from \"@base-ui/react/field\";\n\nimport { cn } from \"@/lib/utils\";\nimport { useAksoField } from \"@/registry/akso/lib/akso-form\";\nimport { choiceControlClassName, choiceLabelClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Checkbox\n *\n * Built on @base-ui/react/checkbox, labeled with an enclosing <label> (the Base UI\n * labeling pattern), so the box and its text form one large target. Base UI provides\n * role=\"checkbox\", aria-checked (including \"mixed\"), keyboard support and form integration.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface CheckboxProps extends Omit<BaseCheckbox.Root.Props, \"className\" | \"children\"> {\n  /** The visible label. Required: say what ticking the box means. */\n  children: React.ReactNode;\n  className?: string;\n}\n\n/** A box people can tick or untick. Shows a check mark when ticked and a dash when partly ticked. */\nfunction Checkbox({ children, className, ...props }: CheckboxProps) {\n  return (\n    <ChoiceLabel data-slot=\"checkbox-label\" className={choiceLabelClassName(className)}>\n      <BaseCheckbox.Root data-slot=\"checkbox\" className={cn(choiceControlClassName, \"group rounded-md\")} {...props}>\n        <BaseCheckbox.Indicator data-slot=\"checkbox-indicator\" className=\"flex\">\n          <svg aria-hidden=\"true\" focusable=\"false\" viewBox=\"0 0 24 24\" className=\"size-4 group-data-indeterminate:hidden\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"3.5\" strokeLinecap=\"round\" strokeLinejoin=\"round\">\n            <path d=\"M5 12.5l4.5 4.5L19 7\" />\n          </svg>\n          <svg aria-hidden=\"true\" focusable=\"false\" viewBox=\"0 0 24 24\" className=\"hidden size-4 group-data-indeterminate:block\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"3.5\" strokeLinecap=\"round\">\n            <path d=\"M6 12h12\" />\n          </svg>\n        </BaseCheckbox.Indicator>\n      </BaseCheckbox.Root>\n      <span>{children}</span>\n    </ChoiceLabel>\n  );\n}\n\n/**\n * The enclosing <label>. Inside a Field it is a Field.Item, which gives each option its own\n * label scope (Base UI forms guide); without it, options in one Field share a label id and\n * every option gets the name of the first one.\n */\nfunction ChoiceLabel(props: React.ComponentProps<\"label\">) {\n  const inField = useAksoField() !== null;\n  // The control and its text arrive as children (see the component above), which the lint rule cannot see.\n  // eslint-disable-next-line jsx-a11y/label-has-associated-control\n  if (inField) return <BaseField.Item render={<label />} {...(props as Omit<BaseField.Item.Props, \"render\">)} />;\n  // eslint-disable-next-line jsx-a11y/label-has-associated-control\n  return <label {...props} />;\n}\n\nexport { Checkbox };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Checkbox: the children are the visible label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

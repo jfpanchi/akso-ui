@@ -84,6 +84,8 @@ export const contrastPairs: readonly ContrastPair[] = [
   { foreground: "danger", background: "surface", level: "nonText", usage: "Border of an invalid field" },
   { foreground: "muted-foreground", background: "surface", level: "text", usage: "Placeholder and hint text in fields" },
   { foreground: "primary", background: "background", level: "text", usage: "Links" },
+  { foreground: "primary", background: "surface", level: "nonText", usage: "Radio dot, select check mark, checked borders" },
+  { foreground: "muted-foreground", background: "surface", level: "nonText", usage: "Switch thumb when off" },
   { foreground: "border", background: "background", level: "nonText", usage: "Control borders" },
   { foreground: "border", background: "surface", level: "nonText", usage: "Control borders inside dialogs" },
   { foreground: "focus-ring", background: "background", level: "nonText", usage: "Focus ring on the page" },

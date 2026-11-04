@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox-group",
+  "title": "Checkbox group",
+  "description": "A group of checkboxes named by a legend that screen readers announce when focus enters the group.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/checkbox.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/checkbox-group.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { CheckboxGroup as BaseCheckboxGroup } from \"@base-ui/react/checkbox-group\";\nimport { Fieldset as BaseFieldset } from \"@base-ui/react/fieldset\";\n\nimport { cn } from \"@/lib/utils\";\nimport { legendClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Checkbox group\n *\n * A <fieldset> rendered as a Base UI CheckboxGroup, with a <legend> that names the group\n * (the pattern from the Base UI forms guide). Screen readers announce the legend when focus\n * enters the group. Put Akso <Checkbox> items inside, each with a `value`.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface CheckboxGroupProps extends Omit<BaseCheckboxGroup.Props, \"className\" | \"render\"> {\n  /** The visible name of the group. Required. */\n  legend: React.ReactNode;\n  className?: string;\n}\n\n/** Several checkboxes that answer one question. */\nfunction CheckboxGroup({ legend, className, children, ...props }: CheckboxGroupProps) {\n  return (\n    <BaseFieldset.Root\n      data-slot=\"checkbox-group\"\n      className={cn(\"flex min-w-0 flex-col border-0 p-0\", className)}\n      render={<BaseCheckboxGroup {...props} />}\n    >\n      <BaseFieldset.Legend data-slot=\"checkbox-group-legend\" className={legendClassName}>\n        {legend}\n      </BaseFieldset.Legend>\n      {children}\n    </BaseFieldset.Root>\n  );\n}\n\nexport { CheckboxGroup };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Checkbox group: always set legend; put Checkbox items with a value inside. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

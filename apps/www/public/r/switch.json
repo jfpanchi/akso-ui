@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "title": "Switch",
+  "description": "On/off switch for settings that apply at once. 'On' is shown by position, fill and a check mark.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/switch.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Switch as BaseSwitch } from \"@base-ui/react/switch\";\n\nimport { cn } from \"@/lib/utils\";\nimport { choiceLabelClassName, focusRingClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Switch\n *\n * Built on @base-ui/react/switch, labeled with an enclosing <label> (the Base UI labeling\n * pattern). Base UI provides role=\"switch\", aria-checked and keyboard support.\n * \"On\" is shown three ways: the thumb moves, the track fills, and a check mark appears.\n *\n * Use a switch for settings that apply at once (like \"Dark mode\"). Inside a form that is\n * sent with a button, use a Checkbox instead.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface SwitchProps extends Omit<BaseSwitch.Root.Props, \"className\" | \"children\"> {\n  /** The visible label: the name of the setting. Required. */\n  children: React.ReactNode;\n  className?: string;\n}\n\n/** Turns a setting on or off. */\nfunction Switch({ children, className, ...props }: SwitchProps) {\n  return (\n    <label data-slot=\"switch-label\" className={choiceLabelClassName(className)}>\n      <BaseSwitch.Root\n        data-slot=\"switch\"\n        className={cn(\n          // 44×24px: at least the 24px minimum target size.\n          \"group relative inline-flex h-6 w-11 shrink-0 items-center rounded-full border-2 border-akso-border bg-akso-surface p-0.5\",\n          \"data-checked:border-akso-primary data-checked:bg-akso-primary\",\n          \"motion-safe:transition-[background-color,border-color] motion-safe:duration-150\",\n          focusRingClassName,\n        )}\n        {...props}\n      >\n        <BaseSwitch.Thumb\n          data-slot=\"switch-thumb\"\n          className={cn(\n            \"flex size-4 items-center justify-center rounded-full bg-akso-muted-foreground text-akso-primary\",\n            \"data-checked:translate-x-5 data-checked:bg-akso-primary-foreground\",\n            \"motion-safe:transition-transform motion-safe:duration-150\",\n          )}\n        >\n          <svg aria-hidden=\"true\" focusable=\"false\" viewBox=\"0 0 24 24\" className=\"hidden size-3 group-data-checked:block\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"4\" strokeLinecap=\"round\" strokeLinejoin=\"round\">\n            <path d=\"M5 12.5l4.5 4.5L19 7\" />\n          </svg>\n        </BaseSwitch.Thumb>\n      </BaseSwitch.Root>\n      <span>{children}</span>\n    </label>\n  );\n}\n\nexport { Switch };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Switch: the children are the visible label; inside forms sent with a button, prefer Checkbox. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

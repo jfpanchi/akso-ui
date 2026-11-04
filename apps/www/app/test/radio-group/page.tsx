@@ -1,0 +1,14 @@
+import type { Metadata } from "next";
+import { RadioGroupDemo } from "@/components/radio-group-demo";
+
+export const metadata: Metadata = { title: "Radio group test page", robots: { index: false } };
+
+/** Stable page for Playwright tests. */
+export default function RadioGroupTestPage() {
+  return (
+    <div className="flex flex-col gap-4">
+      <h1 className="text-2xl font-bold">Radio group test page</h1>
+      <RadioGroupDemo />
+    </div>
+  );
+}
