@@ -34,6 +34,7 @@ export default function DrawerDocsPage() {
           <li>It can be closed by swiping, but swiping is never needed: there is always a close button, and Escape and the backdrop close it too (WCAG 2.5.7).</li>
           <li><code>side</code> chooses the edge: <code>right</code> (default), <code>left</code> or <code>bottom</code>.</li>
           <li>The slide does not run with reduced motion.</li>
+          <li>Bottom drawers can have <code>snapPoints</code> (for example <code>[0.4, 1]</code>, as fractions of the screen height). A “Show more / Show less” button changes the height with one tap, so dragging is never needed.</li>
           <li>If you do not need swiping, a <a href="/docs/dialog">Dialog</a> is simpler (Base UI guideline).</li>
         </ul>
       </DocSection>

@@ -69,3 +69,14 @@ test.describe("320px wide (equivalent to 400% zoom)", () => {
     expect(box.x + box.width).toBeLessThanOrEqual(REFLOW_VIEWPORT.width + 1);
   });
 });
+
+test("snap points: the height changes with a button, no dragging needed", async ({ page }) => {
+  const { dialog } = await open(page, "Order summary");
+  const height = () => dialog.evaluate((el) => el.getBoundingClientRect().top);
+  await waitForAnimations(page);
+  const before = await height();
+  await dialog.getByRole("button", { name: "Show more" }).click();
+  await expect(dialog.getByRole("button", { name: "Show less" })).toHaveAttribute("aria-expanded", "true");
+  await waitForAnimations(page);
+  await expect.poll(height).toBeLessThan(before - 20);
+});

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { LiveRegion } from "akso-ui";
-import { Menu, MenuCheckboxItem, MenuContent, MenuGroup, MenuGroupLabel, MenuItem, MenuRadioGroup, MenuRadioItem, MenuSeparator, MenuTrigger } from "@/registry/akso/ui/menu";
+import { Menu, MenuCheckboxItem, MenuContent, MenuGroup, MenuGroupLabel, MenuItem, MenuRadioGroup, MenuRadioItem, MenuSeparator, MenuSub, MenuSubTrigger, MenuTrigger } from "@/registry/akso/ui/menu";
 
 /** Demo used by the docs page and by the e2e tests. */
 export function MenuDemo() {
@@ -15,6 +15,13 @@ export function MenuDemo() {
           <MenuItem onClick={() => setStatus("Rename chosen.")}>Rename</MenuItem>
           <MenuItem onClick={() => setStatus("Duplicate chosen.")}>Duplicate</MenuItem>
           <MenuItem disabled>Move (not available)</MenuItem>
+          <MenuSub>
+            <MenuSubTrigger>Share</MenuSubTrigger>
+            <MenuContent>
+              <MenuItem onClick={() => setStatus("Link copied.")}>Copy link</MenuItem>
+              <MenuItem onClick={() => setStatus("Email chosen.")}>Email</MenuItem>
+            </MenuContent>
+          </MenuSub>
           <MenuSeparator />
           <MenuCheckboxItem defaultChecked>Show hidden files</MenuCheckboxItem>
           <MenuGroup>

@@ -19,6 +19,18 @@ export function DrawerDemo() {
           <DrawerClose variant="primary">Apply filters</DrawerClose>
         </DrawerContent>
       </Drawer>
+      <Drawer side="bottom" snapPoints={[0.4, 1]}>
+        <DrawerTrigger>Order summary</DrawerTrigger>
+        <DrawerContent>
+          <DrawerTitle>Order summary</DrawerTitle>
+          <DrawerDescription>3 items, total $40. Drag the sheet or use the button to see more.</DrawerDescription>
+          <ul className="list-disc pl-6">
+            <li>Notebook, $12</li>
+            <li>Pens, $6</li>
+            <li>Backpack, $22</li>
+          </ul>
+        </DrawerContent>
+      </Drawer>
       <Drawer side="bottom">
         <DrawerTrigger>Share</DrawerTrigger>
         <DrawerContent>

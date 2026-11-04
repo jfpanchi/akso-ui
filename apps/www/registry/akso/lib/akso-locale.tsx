@@ -40,6 +40,9 @@ export interface AksoMessages {
   clear: string;
   /** Textarea counter. */
   charactersLeft: (count: number) => string;
+  /** Drawer with snap points: button to change its height. */
+  showMore: string;
+  showLess: string;
   /** Slider step buttons. */
   decrease: string;
   increase: string;
@@ -60,6 +63,8 @@ export const en: AksoMessages = {
   showOptions: "Show options",
   clear: "Clear",
   charactersLeft: (n) => (n === 1 ? "1 character left" : `${n} characters left`),
+  showMore: "Show more",
+  showLess: "Show less",
   decrease: "Decrease",
   increase: "Increase",
 };
@@ -79,6 +84,8 @@ export const es: AksoMessages = {
   showOptions: "Mostrar opciones",
   clear: "Borrar",
   charactersLeft: (n) => (n === 1 ? "Queda 1 carácter" : `Quedan ${n} caracteres`),
+  showMore: "Mostrar más",
+  showLess: "Mostrar menos",
   decrease: "Disminuir",
   increase: "Aumentar",
 };

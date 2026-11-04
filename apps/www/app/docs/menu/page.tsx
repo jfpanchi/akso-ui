@@ -32,6 +32,7 @@ export default function MenuDocsPage() {
         <ul className="list-disc pl-6">
           <li>The highlighted item has a ring with at least 3:1 contrast, not only a background. Ticked items show a check mark; the chosen radio item shows a dot.</li>
           <li>Items are at least 44px tall.</li>
+          <li>Submenus: put a <code>MenuSub</code> with a <code>MenuSubTrigger</code> and a <code>MenuContent</code> inside the menu. Keep them to one level: deep menus are hard to use with a keyboard or a screen reader.</li>
           <li>Disabled items can be reached with the arrows (ARIA Authoring Practices) so people know they exist, but they do nothing. Say why in the text when you can (“Move (not available)”).</li>
         </ul>
       </DocSection>
@@ -44,6 +45,7 @@ export default function MenuDocsPage() {
             ["A letter", "Jumps to the next item that starts with it."],
             ["Enter / Space", "Runs the item (or ticks it) and closes the menu. Focus returns to the trigger."],
             ["Escape", "Closes the menu. Focus returns to the trigger."],
+            ["Arrow Right / Arrow Left", "On a submenu item: opens the submenu / closes it and returns to the item."],
           ]}
         />
       </DocSection>

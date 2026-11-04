@@ -1,7 +1,7 @@
 import { cleanup, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expectFocused, expectFocusTrapped, expectNoA11yViolations } from "akso-ui/test";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerTitle, DrawerTrigger } from "./drawer";
 
@@ -82,6 +82,52 @@ describe("Drawer", () => {
       for (const token of dialog.className.split(/\s+/)) {
         if (/^(transition|duration|ease|animate)/.test(token)) throw new Error(`"${token}" must be prefixed with motion-safe:`);
       }
+    });
+  });
+
+  describe("snap points (bottom drawer)", () => {
+    function Sheet({ onSnapPointChange }: { onSnapPointChange?: (p: unknown) => void }) {
+      return (
+        <main>
+          <Drawer side="bottom" snapPoints={[0.4, 1]} onSnapPointChange={onSnapPointChange}>
+            <DrawerTrigger>Order summary</DrawerTrigger>
+            <DrawerContent>
+              <DrawerTitle>Order summary</DrawerTitle>
+              <DrawerDescription>3 items.</DrawerDescription>
+            </DrawerContent>
+          </Drawer>
+        </main>
+      );
+    }
+
+    it("a button changes the height without dragging, and says whether it is at its largest", async () => {
+      const onSnapPointChange = vi.fn();
+      const user = userEvent.setup();
+      render(<Sheet onSnapPointChange={onSnapPointChange} />);
+      await user.click(screen.getByRole("button", { name: "Order summary" }));
+      const toggle = await screen.findByRole("button", { name: "Show more" });
+      expect(toggle).toHaveAttribute("aria-expanded", "false");
+      await user.click(toggle);
+      expect(onSnapPointChange).toHaveBeenLastCalledWith(1);
+      const less = screen.getByRole("button", { name: "Show less" });
+      expect(less).toHaveAttribute("aria-expanded", "true");
+      await user.click(less);
+      expect(onSnapPointChange).toHaveBeenLastCalledWith(0.4);
+    });
+
+    it("side drawers do not show the button", async () => {
+      const user = userEvent.setup();
+      render(
+        <Drawer side="right" snapPoints={[0.4, 1]}>
+          <DrawerTrigger>Open</DrawerTrigger>
+          <DrawerContent>
+            <DrawerTitle>Panel</DrawerTitle>
+          </DrawerContent>
+        </Drawer>,
+      );
+      await user.click(screen.getByRole("button", { name: "Open" }));
+      await screen.findByRole("dialog");
+      expect(screen.queryByRole("button", { name: "Show more" })).not.toBeInTheDocument();
     });
   });
 });

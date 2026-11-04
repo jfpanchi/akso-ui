@@ -81,6 +81,23 @@ function MenuRadioItem({ className, children, ...props }: Omit<BaseMenu.RadioIte
   );
 }
 
+/** A menu inside the menu. Put a MenuSubTrigger and a MenuContent inside. */
+function MenuSub(props: BaseMenu.SubmenuRoot.Props) {
+  return <BaseMenu.SubmenuRoot {...props} />;
+}
+
+/** The item that opens a submenu. Arrow Right (or Enter) opens it; Arrow Left closes it (Base UI). */
+function MenuSubTrigger({ className, children, ...props }: Omit<BaseMenu.SubmenuTrigger.Props, "className"> & { className?: string }) {
+  return (
+    <BaseMenu.SubmenuTrigger data-slot="menu-sub-trigger" className={cn(listItemClassName, "justify-between data-popup-open:bg-akso-surface-hover", className)} {...props}>
+      <span>{children}</span>
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="size-5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M9 6l6 6-6 6" />
+      </svg>
+    </BaseMenu.SubmenuTrigger>
+  );
+}
+
 function MenuGroup(props: BaseMenu.Group.Props) {
   return <BaseMenu.Group data-slot="menu-group" {...props} />;
 }
@@ -93,4 +110,4 @@ function MenuSeparator({ className, ...props }: Omit<BaseMenu.Separator.Props, "
   return <BaseMenu.Separator data-slot="menu-separator" className={cn("my-1 h-px bg-akso-border", className)} {...props} />;
 }
 
-export { Menu, MenuCheckboxItem, MenuContent, MenuGroup, MenuGroupLabel, MenuItem, MenuRadioGroup, MenuRadioItem, MenuSeparator, MenuTrigger };
+export { Menu, MenuCheckboxItem, MenuContent, MenuGroup, MenuGroupLabel, MenuItem, MenuRadioGroup, MenuRadioItem, MenuSeparator, MenuSub, MenuSubTrigger, MenuTrigger };
