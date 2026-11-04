@@ -4,7 +4,17 @@ import * as React from "react";
 import { Dialog as BaseDialog } from "@base-ui/react/dialog";
 
 import { cn } from "@/lib/utils";
-import { buttonClassName, focusRingClassName, type ButtonSize, type ButtonVariant } from "@/registry/akso/lib/akso-styles";
+import {
+  buttonClassName,
+  modalBackdropClassName,
+  modalDescriptionClassName,
+  modalFooterClassName,
+  modalPopupClassName,
+  modalTitleClassName,
+  modalViewportClassName,
+  type ButtonSize,
+  type ButtonVariant,
+} from "@/registry/akso/lib/akso-styles";
 
 /*
  * Akso UI · Dialog
@@ -71,28 +81,12 @@ function DialogContent({ className, children, showCloseButton = true, closeLabel
 
   return (
     <BaseDialog.Portal>
-      <BaseDialog.Backdrop
-        data-slot="dialog-backdrop"
-        className={cn(
-          "fixed inset-0 z-50 min-h-dvh bg-akso-overlay",
-          "motion-safe:transition-opacity motion-safe:duration-150",
-          "data-starting-style:opacity-0 data-ending-style:opacity-0",
-        )}
-      />
-      <BaseDialog.Viewport data-slot="dialog-viewport" className="fixed inset-0 z-50 flex overflow-y-auto p-4 sm:p-6">
+      <BaseDialog.Backdrop data-slot="dialog-backdrop" className={modalBackdropClassName} />
+      <BaseDialog.Viewport data-slot="dialog-viewport" className={modalViewportClassName}>
         <BaseDialog.Popup
           ref={setRefs}
           data-slot="dialog-content"
-          className={cn(
-            // m-auto centers the popup but lets it grow and scroll instead of being clipped.
-            "relative m-auto flex w-full max-w-lg min-w-0 flex-col gap-4",
-            "rounded-lg border border-akso-border bg-akso-surface p-5 text-akso-foreground shadow-xl sm:p-6",
-            "break-words",
-            focusRingClassName,
-            "motion-safe:transition-[opacity,scale] motion-safe:duration-150 motion-safe:ease-out",
-            "data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0",
-            className,
-          )}
+          className={cn(modalPopupClassName, className)}
           {...props}
         >
           {children}
@@ -128,7 +122,7 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="dialog-footer"
-      className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:flex-wrap sm:justify-end", className)}
+      className={cn(modalFooterClassName, className)}
       {...props}
     />
   );
@@ -136,12 +130,12 @@ function DialogFooter({ className, ...props }: React.ComponentProps<"div">) {
 
 /** Required. Gives the dialog its accessible name (rendered as `<h2>`). */
 function DialogTitle({ className, ...props }: Omit<BaseDialog.Title.Props, "className"> & { className?: string }) {
-  return <BaseDialog.Title data-slot="dialog-title" className={cn("text-xl font-semibold leading-snug", className)} {...props} />;
+  return <BaseDialog.Title data-slot="dialog-title" className={cn(modalTitleClassName, className)} {...props} />;
 }
 
 /** Optional. Read by screen readers after the title. Keep it short. */
 function DialogDescription({ className, ...props }: Omit<BaseDialog.Description.Props, "className"> & { className?: string }) {
-  return <BaseDialog.Description data-slot="dialog-description" className={cn("text-base text-akso-muted-foreground", className)} {...props} />;
+  return <BaseDialog.Description data-slot="dialog-description" className={cn(modalDescriptionClassName, className)} {...props} />;
 }
 
 /* -------------------------------------------------------------------------- */
