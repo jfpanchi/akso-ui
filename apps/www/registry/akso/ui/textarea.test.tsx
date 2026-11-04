@@ -90,4 +90,65 @@ describe("Textarea", () => {
       }
     });
   });
+
+  describe("character counter (maxLength)", () => {
+    const announcer = () => document.getElementById("akso-announcer");
+
+    function Note({ max = 30 }: { max?: number }) {
+      return (
+        <main>
+          <Field name="note">
+            <FieldLabel>Note</FieldLabel>
+            <Textarea maxLength={max} />
+          </Field>
+        </main>
+      );
+    }
+
+    it("shows how many characters are left, and the textarea has maxLength", async () => {
+      const user = userEvent.setup();
+      render(<Note />);
+      expect(screen.getByText("30 characters left")).toBeVisible();
+      await user.type(screen.getByRole("textbox", { name: "Note" }), "Hello");
+      expect(screen.getByText("25 characters left")).toBeVisible();
+      expect(screen.getByRole("textbox", { name: "Note" })).toHaveAttribute("maxlength", "30");
+      await expectNoA11yViolations(document.body);
+    });
+
+    it("announces only at 20, 10 and 0 left, not on every key", async () => {
+      const user = userEvent.setup();
+      render(<Note />);
+      const box = screen.getByRole("textbox", { name: "Note" });
+      await user.type(box, "abcde");
+      await new Promise((r) => setTimeout(r, 150));
+      expect(announcer()?.textContent ?? "").toBe("");
+      await user.type(box, "fghij");
+      await waitFor(() => expect(announcer()).toHaveTextContent("20 characters left"));
+      await user.type(box, "klmnopqrst");
+      await waitFor(() => expect(announcer()).toHaveTextContent("10 characters left"));
+      await user.type(box, "uvwxyz1234");
+      await waitFor(() => expect(announcer()).toHaveTextContent("0 characters left"));
+    });
+
+    it("can be hidden with showCount={false}", () => {
+      render(
+        <Field>
+          <FieldLabel>Short note</FieldLabel>
+          <Textarea maxLength={10} showCount={false} />
+        </Field>,
+      );
+      expect(screen.queryByText(/characters left/)).not.toBeInTheDocument();
+    });
+
+    it("leaves the description from the Field untouched", () => {
+      render(
+        <Field>
+          <FieldLabel>Bio</FieldLabel>
+          <Textarea maxLength={10} />
+          <FieldDescription>A few words.</FieldDescription>
+        </Field>,
+      );
+      expect(screen.getByRole("textbox", { name: "Bio" })).toHaveAccessibleDescription("A few words.");
+    });
+  });
 });

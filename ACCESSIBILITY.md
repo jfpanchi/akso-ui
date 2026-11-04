@@ -169,6 +169,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Native `<textarea>`, named and described by its Field | 1.3.1, 4.1.2 | Vitest |
 | Validated like Input; focus moves to it on submit with errors | 3.3.1 | Vitest |
 | Enter adds a line instead of submitting | 2.1.1 | Vitest + Playwright |
+| With `maxLength`: visible "characters left" counter, announced politely at 20, 10 and 0 left; Base UI's description link is untouched | 4.1.3, 3.3.2 | Vitest |
 | Visible focus ring with ≥ 3:1 contrast; resizes vertically only | 2.4.7, 1.4.10 | Playwright |
 
 ### Manual testing with assistive technology
@@ -185,7 +186,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 
 ### Known limitations
 
-- There is no live character counter yet. If you set `maxLength`, say the limit in a `FieldDescription`.
+- The character counter is announced only at 20, 10 and 0 characters left, so it does not interrupt on every key. Whether that is often enough is not confirmed with users yet.
 
 ## Fieldset
 

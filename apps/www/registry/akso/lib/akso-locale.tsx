@@ -36,6 +36,8 @@ export interface AksoMessages {
   results: (count: number) => string;
   showOptions: string;
   clear: string;
+  /** Textarea counter. */
+  charactersLeft: (count: number) => string;
   /** Slider step buttons. */
   decrease: string;
   increase: string;
@@ -53,6 +55,7 @@ export const en: AksoMessages = {
   results: (n) => (n === 1 ? "1 result" : `${n} results`),
   showOptions: "Show options",
   clear: "Clear",
+  charactersLeft: (n) => (n === 1 ? "1 character left" : `${n} characters left`),
   decrease: "Decrease",
   increase: "Increase",
 };
@@ -69,6 +72,7 @@ export const es: AksoMessages = {
   results: (n) => (n === 1 ? "1 resultado" : `${n} resultados`),
   showOptions: "Mostrar opciones",
   clear: "Borrar",
+  charactersLeft: (n) => (n === 1 ? "Queda 1 carácter" : `Quedan ${n} caracteres`),
   decrease: "Disminuir",
   increase: "Aumentar",
 };

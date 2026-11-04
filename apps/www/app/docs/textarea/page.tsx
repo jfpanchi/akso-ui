@@ -27,7 +27,7 @@ export default function TextareaDocsPage() {
       <DocSection id="usage" title="Usage">
         <CodeBlock>{usage}</CodeBlock>
         <ul className="list-disc pl-6">
-          <li>If there is a length limit, say it in a <code>FieldDescription</code>. People who cannot see the field fill up need to know it before they start typing.</li>
+          <li>With <code>maxLength</code>, a counter shows how many characters are left. Screen readers hear it at 20, 10 and 0 left, not on every key. Hide it with <code>showCount=&#123;false&#125;</code>. Also say the limit in a <code>FieldDescription</code>, so people know it before they start typing.</li>
           <li>It shows 4 lines by default (<code>rows</code>) and can be resized vertically.</li>
         </ul>
       </DocSection>
