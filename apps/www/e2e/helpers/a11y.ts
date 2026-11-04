@@ -21,14 +21,22 @@ const BASE_UI_FOCUS_GUARD = "[data-base-ui-focus-guard]";
  * Infinite animations (spinners) are ignored, and cancelled ones (element removed) are tolerated.
  */
 export async function waitForAnimations(page: Page, scope?: Locator) {
-  const wait = (root: Element | Document) => {
-    const animations = (root instanceof Document ? root.getAnimations() : root.getAnimations({ subtree: true })).filter(
-      (a) => a.effect?.getComputedTiming().endTime !== Infinity,
-    );
-    return Promise.all(animations.map((a) => a.finished.catch(() => undefined))).then(() => undefined);
+  // A CSS transition starts on the frame after its trigger: wait two frames first, then for every
+  // finite animation, and repeat until none are left. Infinite ones (spinners) are ignored.
+  const settle = async (root: Element | Document) => {
+    const frame = () => new Promise<void>((r) => requestAnimationFrame(() => r()));
+    for (let i = 0; i < 10; i++) {
+      await frame();
+      await frame();
+      const running = (root instanceof Document ? root.getAnimations() : root.getAnimations({ subtree: true })).filter(
+        (a) => a.playState === "running" && a.effect?.getComputedTiming().endTime !== Infinity,
+      );
+      if (running.length === 0) return;
+      await Promise.all(running.map((a) => a.finished.catch(() => undefined)));
+    }
   };
-  if (scope) await scope.evaluate(wait);
-  else await page.evaluate(wait, await page.evaluateHandle(() => document));
+  if (scope) await scope.evaluate(settle);
+  else await page.evaluate(settle, await page.evaluateHandle(() => document));
 }
 
 /** Runs axe (WCAG 2.0–2.2 A/AA) on the page, or on `include` only. Lists every violation on failure. */

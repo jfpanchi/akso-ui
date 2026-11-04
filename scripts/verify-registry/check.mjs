@@ -8,6 +8,24 @@ const browser = await chromium.launch(executablePath ? { executablePath } : {});
 const context = await browser.newContext();
 const page = await context.newPage();
 const failures = [];
+
+/**
+ * Waits until no finite animation is running. A CSS transition only starts on the frame after its
+ * trigger, so wait two frames first, then for every finite animation, and repeat until none are left.
+ * Infinite animations (spinners) are ignored.
+ */
+async function settle(p) {
+  await p.evaluate(async () => {
+    const frame = () => new Promise((r) => requestAnimationFrame(() => r()));
+    for (let i = 0; i < 10; i++) {
+      await frame();
+      await frame();
+      const running = document.getAnimations().filter((a) => a.playState === "running" && a.effect?.getComputedTiming().endTime !== Infinity);
+      if (running.length === 0) return;
+      await Promise.all(running.map((a) => a.finished.catch(() => undefined)));
+    }
+  });
+}
 const check = (ok, message) => (ok ? console.log(`  ✓ ${message}`) : failures.push(message) && console.log(`  ✗ ${message}`));
 const tags = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
@@ -24,15 +42,7 @@ await page.keyboard.press("Enter");
 const dialog = page.getByRole("dialog", { name: "Installed from the registry" });
 await dialog.waitFor();
 // Wait for the opening transition: mid-fade text has lower contrast than the final state.
-// Infinite animations (the loading spinner) are skipped.
-await page.evaluate(() =>
-  Promise.all(
-    document
-      .getAnimations()
-      .filter((a) => a.effect?.getComputedTiming().endTime !== Infinity)
-      .map((a) => a.finished.catch(() => undefined)),
-  ),
-);
+await settle(page);
 check(true, "dialog opens with Enter and has an accessible name");
 
 axe = await new AxeBuilder({ page }).withTags(tags).analyze();
@@ -55,6 +65,7 @@ check(await name.evaluate((el) => el === document.activeElement), "form: submit 
 check((await name.getAttribute("aria-invalid")) === "true", "form: the invalid field has aria-invalid");
 await page.waitForFunction(() => document.getElementById("akso-announcer")?.textContent === "3 fields need attention.");
 check(true, "form: the number of fields needing attention is announced");
+await settle(page);
 axe = await new AxeBuilder({ page }).withTags(tags).analyze();
 check(axe.violations.length === 0, `axe form with errors: ${axe.violations.map((v) => v.id).join(", ") || "no violations"}`);
 
