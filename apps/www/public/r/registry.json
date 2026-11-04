@@ -73,6 +73,18 @@
       ]
     },
     {
+      "name": "akso-form",
+      "type": "registry:lib",
+      "title": "Akso UI form helpers",
+      "description": "Field context, a shared polite live region for announcements, and a submit marker. Used by Field, Input, Textarea and Form. Installed automatically.",
+      "files": [
+        {
+          "path": "registry/akso/lib/akso-form.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
       "name": "button",
       "type": "registry:ui",
       "title": "Button",
@@ -109,6 +121,108 @@
         }
       ],
       "docs": "Akso UI Dialog: always include a <DialogTitle>. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "field",
+      "type": "registry:ui",
+      "title": "Field",
+      "description": "Label, description and error messages for a form control, linked for screen readers. Shows required fields as text and announces errors as they appear.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Field: every field needs a FieldLabel; write clear messages with <FieldError match=\"...\">. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "Single-line text field for use inside Field. 44px tall, 16px text, visible focus ring and an invalid state that does not rely on color alone.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Input: use it inside <Field> with a <FieldLabel>, and set type and autoComplete. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "Multi-line text field for use inside Field, with the same accessible states as Input.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Textarea: use it inside <Field> with a <FieldLabel>. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "fieldset",
+      "type": "registry:ui",
+      "title": "Fieldset",
+      "description": "Groups related fields under a legend that screen readers announce when focus enters the group.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/fieldset.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Fieldset: always include a FieldsetLegend. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "form",
+      "type": "registry:ui",
+      "title": "Form",
+      "description": "Form that validates its Fields, moves focus to the first error on submit and announces how many fields need attention.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/form.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Form: use it with Field; translate the message with invalidMessage. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

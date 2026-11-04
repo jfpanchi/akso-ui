@@ -47,3 +47,19 @@ export interface ButtonClassNameOptions {
 export function buttonClassName({ variant = "secondary", size = "default", className }: ButtonClassNameOptions = {}) {
   return cn(base, variants[variant], sizes[size], className);
 }
+
+/**
+ * Text field styles (Input, Textarea). 16px text avoids automatic zoom on iOS; 44px minimum height.
+ * Invalid fields get a thicker danger border, and the error message adds an icon and text,
+ * so the state never depends on color alone.
+ */
+export function inputClassName(className?: string) {
+  return cn(
+    "block w-full min-w-0 min-h-11 rounded-md border border-akso-border bg-akso-surface px-3 py-2 text-base text-akso-foreground",
+    "placeholder:text-akso-muted-foreground",
+    "data-invalid:border-2 data-invalid:border-akso-danger",
+    "data-disabled:cursor-not-allowed data-disabled:opacity-60",
+    focusRingClassName,
+    className,
+  );
+}

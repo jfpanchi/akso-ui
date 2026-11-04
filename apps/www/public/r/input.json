@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "title": "Input",
+  "description": "Single-line text field for use inside Field. 44px tall, 16px text, visible focus ring and an invalid state that does not rely on color alone.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/input.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Input as BaseInput } from \"@base-ui/react/input\";\n\nimport { useAksoField } from \"@/registry/akso/lib/akso-form\";\nimport { inputClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Input\n *\n * Built on @base-ui/react/input, which works with Field automatically: inside a\n * <Field>, the label, description and errors are linked for you.\n *\n * Every input needs a visible label. Use it inside <Field> with <FieldLabel>.\n * Set `type` and `autoComplete` (for example `type=\"email\" autoComplete=\"email\"`) so browsers\n * and password managers can fill it in (WCAG 1.3.5).\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface InputProps extends Omit<BaseInput.Props, \"className\"> {\n  className?: string;\n}\n\n/** A single-line text field. */\nfunction Input({ className, required, ...props }: InputProps) {\n  const field = useAksoField();\n  return <BaseInput data-slot=\"input\" required={required ?? field?.required} className={inputClassName(className)} {...props} />;\n}\n\nexport { Input };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Input: use it inside <Field> with a <FieldLabel>, and set type and autoComplete. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

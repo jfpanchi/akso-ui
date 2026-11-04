@@ -6,7 +6,7 @@ Componentes React accesibles construidos sobre [Base UI](https://base-ui.com) (`
 
 Cada componente está **probado con herramientas automáticas** (axe, teclado y pruebas visuales) y **documenta qué se ha comprobado y qué no** con tecnologías de asistencia. Probamos pensando en personas ciegas, con baja visión, con daltonismo y con discapacidad motora, auditiva, cognitiva y vestibular. Los detalles están en la [declaración de accesibilidad](./ACCESSIBILITY.md) (en inglés). Nunca afirmamos que algo sea "100% accesible".
 
-> Estado: trabajo inicial. Componentes disponibles: **Button** y **Dialog**.
+> Estado: trabajo inicial. Componentes disponibles: **Button**, **Dialog**, **Field**, **Input**, **Textarea**, **Fieldset** y **Form**.
 
 ## Qué hay en este repositorio
 
@@ -26,6 +26,8 @@ npx shadcn@latest add https://raw.githubusercontent.com/jfpanchi/akso-ui/main/ap
 ```
 
 Esto añade `components/ui/dialog.tsx` y el `components/ui/button.tsx` de Akso del que depende, instala `@base-ui/react` y agrega los tokens de color de Akso (`--akso-*`) a tu CSS. Los tokens tienen su propio prefijo, así que no cambian tu tema actual. El modo oscuro sigue la clase `.dark`.
+
+Los componentes de Akso nunca se importan entre sí: el código compartido se instala en `lib/` (`akso-styles.ts`, `akso-form.ts`). Si tu proyecto ya tiene un archivo con el mismo nombre (por ejemplo, el `components/ui/button.tsx` o `input.tsx` de shadcn), shadcn pregunta antes de reemplazarlo, y los demás componentes de Akso siguen funcionando si respondes que no.
 
 ```tsx
 import {

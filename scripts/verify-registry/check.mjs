@@ -48,6 +48,16 @@ await page.keyboard.press("Escape");
 await dialog.waitFor({ state: "hidden" });
 check(await trigger.evaluate((el) => el === document.activeElement), "Escape closes and focus returns to the trigger");
 
+await page.getByRole("button", { name: "Send" }).click();
+const name = page.getByRole("textbox", { name: "Name" });
+await page.getByText("Enter your name.").waitFor();
+check(await name.evaluate((el) => el === document.activeElement), "form: submit with errors moves focus to the first invalid field");
+check((await name.getAttribute("aria-invalid")) === "true", "form: the invalid field has aria-invalid");
+await page.waitForFunction(() => document.getElementById("akso-announcer")?.textContent === "2 fields need attention.");
+check(true, "form: the number of fields needing attention is announced");
+axe = await new AxeBuilder({ page }).withTags(tags).analyze();
+check(axe.violations.length === 0, `axe form with errors: ${axe.violations.map((v) => v.id).join(", ") || "no violations"}`);
+
 await browser.close();
 if (failures.length) {
   console.error(`\n${failures.length} check(s) failed`);
