@@ -6,7 +6,7 @@ Accessible React components built on [Base UI](https://base-ui.com) (`@base-ui/r
 
 Each component is **tested with automated tools** (axe, keyboard and visual tests) and **documents what has and has not been checked** with assistive technology. We test with blind and low-vision users in mind, as well as people with color blindness and with motor, hearing, cognitive and vestibular disabilities. See the [accessibility statement](./ACCESSIBILITY.md) for the details. We never claim "100% accessible".
 
-> Status: early work. Available components: **Button**, **Dialog**, **Field**, **Input**, **Textarea**, **Fieldset**, **Form**, **Checkbox**, **Checkbox group**, **Radio group**, **Switch**, **Select**, **Alert dialog**, **Toast**, **Alert**, **Progress** and **Meter**.
+> Status: early work. Available components: **Button**, **Dialog**, **Field**, **Input**, **Textarea**, **Fieldset**, **Form**, **Checkbox**, **Checkbox group**, **Radio group**, **Switch**, **Select**, **Alert dialog**, **Toast**, **Alert**, **Progress**, **Meter**, **Tabs**, **Accordion**, **Collapsible**, **Popover**, **Tooltip** and **Menu**.
 
 ## What's in this repository
 

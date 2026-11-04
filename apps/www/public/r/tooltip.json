@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "tooltip",
+  "title": "Tooltip",
+  "description": "Visual label for icons on hover and focus. Names icon-only triggers with its text and keeps visible text as the name.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/tooltip.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Tooltip as BaseTooltip } from \"@base-ui/react/tooltip\";\n\nimport { cn } from \"@/lib/utils\";\n\n/*\n * Akso UI · Tooltip\n *\n * Built on @base-ui/react/tooltip. A tooltip is a VISUAL label for sighted mouse and keyboard\n * users (Base UI guideline): it does not appear on touch screens and screen readers do not\n * rely on it. So:\n * - the trigger always needs its own accessible name. An icon-only trigger without one gets the\n *   tooltip text as its aria-label. A trigger with visible text keeps it as its name, so the\n *   name matches what people see and say to voice control (WCAG 2.5.3 Label in Name);\n * - never put information people need only in a tooltip. Use Popover or text on the page.\n *\n * Base UI shows it on hover and keyboard focus, keeps it open while the pointer is over it,\n * and closes it with Escape (WCAG 1.4.13 Content on Hover or Focus).\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\n/** Put it once around the app (or a toolbar) so tooltips share their open delay. */\nfunction TooltipProvider({ delay = 500, ...props }: BaseTooltip.Provider.Props) {\n  return <BaseTooltip.Provider delay={delay} {...props} />;\n}\n\nexport interface TooltipProps {\n  /** Short text, the same words as the trigger's accessible name (\"Bold\", \"Settings\"). */\n  content: string;\n  /** A single focusable element, usually a Button. */\n  children: React.ReactElement<Record<string, unknown>>;\n  side?: BaseTooltip.Positioner.Props[\"side\"];\n  className?: string;\n}\n\n/** A short visual label for an icon or control. */\nfunction Tooltip({ content, children, side = \"top\", className }: TooltipProps) {\n  const childProps = children.props;\n  const hasName = Boolean(childProps[\"aria-label\"] || childProps[\"aria-labelledby\"] || hasVisibleText(childProps.children));\n  // Give icon-only triggers a name that matches the tooltip text (Base UI guideline).\n  const trigger = hasName ? children : React.cloneElement(children, { \"aria-label\": content });\n  return (\n    <BaseTooltip.Root>\n      <BaseTooltip.Trigger data-slot=\"tooltip-trigger\" render={trigger} />\n      <BaseTooltip.Portal>\n        <BaseTooltip.Positioner data-slot=\"tooltip-positioner\" className=\"z-50\" side={side} sideOffset={8} collisionPadding={8}>\n          <BaseTooltip.Popup\n            data-slot=\"tooltip-content\"\n            className={cn(\n              \"max-w-xs rounded-md bg-akso-foreground px-3 py-1.5 text-sm text-akso-background shadow-md\",\n              \"motion-safe:transition-opacity motion-safe:duration-100\",\n              \"data-starting-style:opacity-0 data-ending-style:opacity-0\",\n              className,\n            )}\n          >\n            {content}\n          </BaseTooltip.Popup>\n        </BaseTooltip.Positioner>\n      </BaseTooltip.Portal>\n    </BaseTooltip.Root>\n  );\n}\n\n/** True when the children contain text (strings or numbers), at any depth. */\nfunction hasVisibleText(node: unknown): boolean {\n  if (typeof node === \"string\") return node.trim().length > 0;\n  if (typeof node === \"number\") return true;\n  if (Array.isArray(node)) return node.some(hasVisibleText);\n  if (React.isValidElement<{ children?: unknown; \"aria-hidden\"?: unknown }>(node)) {\n    if (node.props[\"aria-hidden\"] === true || node.props[\"aria-hidden\"] === \"true\") return false;\n    return hasVisibleText(node.props.children);\n  }\n  return false;\n}\n\nexport { Tooltip, TooltipProvider };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Tooltip: never put needed information only in a tooltip; wrap the app in TooltipProvider. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

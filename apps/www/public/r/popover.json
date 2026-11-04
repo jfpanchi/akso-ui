@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "title": "Popover",
+  "description": "Popover that moves focus inside, closes with Escape and returns focus. Use it for info icons instead of a tooltip.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/popover.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Popover as BasePopover } from \"@base-ui/react/popover\";\n\nimport { cn } from \"@/lib/utils\";\nimport { buttonClassName, popupSurfaceClassName, type ButtonSize, type ButtonVariant } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Popover\n *\n * Built on @base-ui/react/popover: the trigger has aria-expanded and aria-haspopup, focus\n * moves into the popup when it opens, Escape closes it and focus returns to the trigger.\n * Use it for extra content that people open on purpose, including \"info\" icons\n * (`openOnHover` on Popover; Base UI's alternative to tooltips, so touch and screen reader\n * users can open it too).\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nfunction Popover(props: BasePopover.Root.Props) {\n  return <BasePopover.Root {...props} />;\n}\n\ntype ButtonPartProps<P> = Omit<P, \"className\"> & { className?: string; variant?: ButtonVariant; size?: ButtonSize };\n\n/** The button that opens the popover. Icon-only triggers need an aria-label (\"More information\"). */\nfunction PopoverTrigger({ className, variant = \"secondary\", size, ...props }: ButtonPartProps<BasePopover.Trigger.Props>) {\n  return <BasePopover.Trigger data-slot=\"popover-trigger\" className={buttonClassName({ variant, size, className })} {...props} />;\n}\n\nexport interface PopoverContentProps extends Omit<BasePopover.Popup.Props, \"className\"> {\n  className?: string;\n  side?: BasePopover.Positioner.Props[\"side\"];\n  align?: BasePopover.Positioner.Props[\"align\"];\n}\n\n/** The floating panel. Add a PopoverTitle so screen readers announce what it is. */\nfunction PopoverContent({ className, side = \"bottom\", align = \"center\", ...props }: PopoverContentProps) {\n  return (\n    <BasePopover.Portal>\n      <BasePopover.Positioner data-slot=\"popover-positioner\" className=\"z-50\" side={side} align={align} sideOffset={8} collisionPadding={16}>\n        <BasePopover.Popup data-slot=\"popover-content\" className={cn(popupSurfaceClassName, \"flex w-80 flex-col gap-2 p-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-akso-focus-ring\", className)} {...props} />\n      </BasePopover.Positioner>\n    </BasePopover.Portal>\n  );\n}\n\nfunction PopoverTitle({ className, ...props }: Omit<BasePopover.Title.Props, \"className\"> & { className?: string }) {\n  return <BasePopover.Title data-slot=\"popover-title\" className={cn(\"text-base font-semibold\", className)} {...props} />;\n}\n\nfunction PopoverDescription({ className, ...props }: Omit<BasePopover.Description.Props, \"className\"> & { className?: string }) {\n  return <BasePopover.Description data-slot=\"popover-description\" className={cn(\"text-base text-akso-muted-foreground\", className)} {...props} />;\n}\n\n/** A button that closes the popover. */\nfunction PopoverClose({ className, variant = \"secondary\", size = \"sm\", ...props }: ButtonPartProps<BasePopover.Close.Props>) {\n  return <BasePopover.Close data-slot=\"popover-close\" className={buttonClassName({ variant, size, className: cn(\"self-start\", className) })} {...props} />;\n}\n\nexport { Popover, PopoverClose, PopoverContent, PopoverDescription, PopoverTitle, PopoverTrigger };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Popover: add a PopoverTitle; icon-only triggers need an aria-label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}
