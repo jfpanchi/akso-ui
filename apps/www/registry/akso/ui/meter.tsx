@@ -4,6 +4,7 @@ import * as React from "react";
 import { Meter as BaseMeter } from "@base-ui/react/meter";
 
 import { cn } from "@/lib/utils";
+import { forcedBarClassName } from "@/registry/akso/lib/akso-styles";
 
 /*
  * Akso UI · Meter
@@ -31,7 +32,7 @@ function Meter({ label, showValue = true, className, ...props }: MeterProps) {
       </BaseMeter.Label>
       {showValue ? <BaseMeter.Value data-slot="meter-value" className="text-sm text-akso-muted-foreground tabular-nums" /> : <span />}
       <BaseMeter.Track data-slot="meter-track" className="col-span-2 h-3 overflow-hidden rounded-full border border-akso-border bg-akso-surface-hover">
-        <BaseMeter.Indicator data-slot="meter-indicator" className="block h-full bg-akso-primary motion-safe:transition-[width] motion-safe:duration-300" />
+        <BaseMeter.Indicator data-slot="meter-indicator" className={cn("block h-full bg-akso-primary motion-safe:transition-[width] motion-safe:duration-300", forcedBarClassName)} />
       </BaseMeter.Track>
     </BaseMeter.Root>
   );

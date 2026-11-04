@@ -17,6 +17,9 @@ export const focusRingClassName =
 
 const base = cn(
   "relative inline-flex cursor-pointer items-center justify-center gap-2 rounded-md font-medium leading-tight text-balance",
+  // A transparent border becomes a visible outline in Windows high contrast (forced colors),
+  // where background colors are removed.
+  "border border-transparent",
   "data-disabled:cursor-not-allowed data-disabled:opacity-60",
   "motion-safe:transition-[color,background-color,border-color] motion-safe:duration-150",
   focusRingClassName,
@@ -24,7 +27,7 @@ const base = cn(
 
 const variants: Record<ButtonVariant, string> = {
   primary: "bg-akso-primary text-akso-primary-foreground hover:not-data-disabled:bg-akso-primary-hover",
-  secondary: "border border-akso-border bg-akso-surface text-akso-foreground hover:not-data-disabled:bg-akso-surface-hover",
+  secondary: "border-akso-border bg-akso-surface text-akso-foreground hover:not-data-disabled:bg-akso-surface-hover",
   // The hover state adds an underline so it does not depend on a color change alone.
   danger: "bg-akso-danger text-akso-danger-foreground hover:not-data-disabled:underline",
   ghost: "bg-transparent text-akso-foreground hover:not-data-disabled:bg-akso-surface-hover",
@@ -129,3 +132,11 @@ export const listItemClassName = cn(
   "data-highlighted:bg-akso-surface-hover data-highlighted:outline-2 data-highlighted:-outline-offset-2 data-highlighted:outline-solid data-highlighted:outline-akso-focus-ring",
   "data-disabled:cursor-not-allowed data-disabled:opacity-60",
 );
+
+/**
+ * For parts drawn only with a background (radio dot, switch thumb, progress bars).
+ * In forced colors (Windows high contrast) backgrounds are replaced, so these keep a system
+ * color that follows the person's theme.
+ */
+export const forcedFillClassName = "forced-colors:forced-color-adjust-none forced-colors:bg-[CanvasText]";
+export const forcedBarClassName = "forced-colors:forced-color-adjust-none forced-colors:bg-[Highlight]";

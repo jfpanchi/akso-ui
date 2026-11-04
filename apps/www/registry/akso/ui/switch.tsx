@@ -4,7 +4,7 @@ import * as React from "react";
 import { Switch as BaseSwitch } from "@base-ui/react/switch";
 
 import { cn } from "@/lib/utils";
-import { choiceLabelClassName, focusRingClassName } from "@/registry/akso/lib/akso-styles";
+import { choiceLabelClassName, focusRingClassName, forcedFillClassName } from "@/registry/akso/lib/akso-styles";
 
 /*
  * Akso UI · Switch
@@ -46,9 +46,12 @@ function Switch({ children, className, ...props }: SwitchProps) {
             "flex size-4 items-center justify-center rounded-full bg-akso-muted-foreground text-akso-primary",
             "data-checked:translate-x-5 data-checked:bg-akso-primary-foreground",
             "motion-safe:transition-transform motion-safe:duration-150",
+            forcedFillClassName,
+            // data-checked would otherwise win over forced-colors and paint the thumb white on white.
+            "forced-colors:data-checked:bg-[CanvasText]",
           )}
         >
-          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="hidden size-3 group-data-checked:block" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="hidden size-3 group-data-checked:block forced-colors:text-[Canvas]" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
             <path d="M5 12.5l4.5 4.5L19 7" />
           </svg>
         </BaseSwitch.Thumb>
