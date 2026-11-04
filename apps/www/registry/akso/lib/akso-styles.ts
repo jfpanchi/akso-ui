@@ -63,3 +63,26 @@ export function inputClassName(className?: string) {
     className,
   );
 }
+
+/**
+ * The row of a checkbox, radio or switch: an enclosing <label> (the Base UI labeling pattern).
+ * The whole row is the click/touch target, at least 44px tall.
+ */
+export function choiceLabelClassName(className?: string) {
+  return cn(
+    "inline-flex min-h-11 cursor-pointer items-center gap-3 py-1 text-base text-akso-foreground",
+    "has-[[data-disabled]]:cursor-not-allowed has-[[data-disabled]]:opacity-60",
+    className,
+  );
+}
+
+/** The visible box of a checkbox or radio. 2px border with ≥3:1 contrast; checked state adds a shape, not only a color. */
+export const choiceControlClassName = cn(
+  "relative inline-flex size-6 shrink-0 items-center justify-center border-2 border-akso-border bg-akso-surface text-akso-primary-foreground",
+  "data-checked:border-akso-primary data-checked:bg-akso-primary data-indeterminate:border-akso-primary data-indeterminate:bg-akso-primary",
+  "data-invalid:border-akso-danger",
+  focusRingClassName,
+);
+
+/** Legend of a group of checkboxes or radios. */
+export const legendClassName = "mb-1 text-base font-semibold text-akso-foreground";

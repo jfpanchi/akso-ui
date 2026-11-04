@@ -3,6 +3,8 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Fieldset, FieldsetLegend } from "@/components/ui/fieldset";
 import { Form } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { Radio, RadioGroup } from "@/components/ui/radio-group";
+import { Select, SelectContent, SelectItem, SelectLabel, SelectTrigger } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
@@ -44,6 +46,23 @@ export default function Page() {
             <FieldError match="valueMissing">Enter your name.</FieldError>
           </Field>
         </Fieldset>
+        <Field name="speed" required>
+          <RadioGroup legend="Delivery speed">
+            <Radio value="standard">Standard</Radio>
+            <Radio value="express">Express</Radio>
+          </RadioGroup>
+          <FieldError match="valueMissing">Choose a delivery speed.</FieldError>
+        </Field>
+        <Field name="country">
+          <Select items={[{ value: "ec", label: "Ecuador" }, { value: "pe", label: "Peru" }]}>
+            <SelectLabel>Country</SelectLabel>
+            <SelectTrigger placeholder="Choose a country" />
+            <SelectContent>
+              <SelectItem value="ec">Ecuador</SelectItem>
+              <SelectItem value="pe">Peru</SelectItem>
+            </SelectContent>
+          </Select>
+        </Field>
         <Field name="message" required>
           <FieldLabel>Message</FieldLabel>
           <Textarea />

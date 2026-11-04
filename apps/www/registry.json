@@ -223,6 +223,110 @@
         }
       ],
       "docs": "Akso UI Form: use it with Field; translate the message with invalidMessage. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "Checkbox with its label as one 44px target. Ticked and partly ticked states show a check mark or a dash, not only a color.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Checkbox: the children are the visible label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "checkbox-group",
+      "type": "registry:ui",
+      "title": "Checkbox group",
+      "description": "A group of checkboxes named by a legend that screen readers announce when focus enters the group.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/checkbox.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/checkbox-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Checkbox group: always set legend; put Checkbox items with a value inside. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio group",
+      "description": "Radio buttons named by a legend, with arrow-key navigation. The chosen option shows a dot, not only a color.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Radio group: always set legend; each Radio needs a value and visible text. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "On/off switch for settings that apply at once. 'On' is shown by position, fill and a check mark.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Switch: the children are the visible label; inside forms sent with a button, prefer Checkbox. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "Select with a visible label, keyboard and typeahead support, a high-contrast highlight ring and a check mark on the chosen option.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Select: always add a SelectLabel; for long searchable lists use a combobox. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

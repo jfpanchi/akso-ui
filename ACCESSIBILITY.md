@@ -244,6 +244,149 @@ Other checks still pending: Windows High Contrast Mode / `forced-colors`, browse
 - Focus moves to the first invalid field instead of to an error summary at the top of the form. This is Base UI's behavior and we keep it. For long forms, an error summary with links may work better for some people; we have not built one yet.
 - The count message is in English by default. Translate it with `invalidMessage`.
 
+## Checkbox
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: unchecked, checked, partly checked, disabled, invalid | Several | Vitest + Playwright (light and dark) |
+| `role=checkbox` named by its visible text; `aria-checked` true / false / mixed (Base UI) | 4.1.2 | Vitest + Playwright |
+| The box and its text are one target, at least 44px tall; clicking the text toggles | 2.5.8 Target Size | Vitest + Playwright |
+| Checked shows a check mark, mixed shows a dash: shape, not only color | 1.4.1 Use of Color | Vitest + Playwright |
+| Space toggles; disabled is skipped by Tab | 2.1.1 Keyboard | Vitest + Playwright |
+| Required inside a Field: `aria-invalid` and the error as description | 3.3.1 | Vitest |
+| Visible focus ring with ≥ 3:1 contrast, appearing at once | 2.4.7, 1.4.11 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Inside a Field, each option is wrapped in Base UI `Field.Item` so options never share a label id. Without it, every option in one Field got the name of the first one (found by our tests).
+
+## Checkbox group
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, enabled and disabled | Several | Vitest + Playwright (light and dark) |
+| A group named by its legend (Base UI forms guide pattern) | 1.3.1 | Vitest + Playwright |
+| Each checkbox is its own Tab stop; Space toggles | 2.1.1 | Vitest + Playwright |
+| No horizontal scroll at 320px wide | 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+## Radio group
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: no choice, a choice, invalid | Several | Vitest + Playwright (light and dark) |
+| `role=radiogroup` named by its legend; radios named by their text | 1.3.1, 4.1.2 | Vitest + Playwright |
+| One Tab stop; arrow keys move and choose; disabled options skipped (Base UI) | 2.1.1 | Vitest + Playwright |
+| The chosen option shows a dot, not only a color | 1.4.1 | Playwright |
+| Required (from the Field): submit marks the group invalid, moves focus into it and announces the count | 3.3.1, 4.1.3 | Vitest + Playwright |
+| Rows at least 44px; visible focus ring with ≥ 3:1 contrast | 2.5.8, 2.4.7, 1.4.11 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Some screen readers read the legend before every option. Keep legends short.
+
+## Switch
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: off, on and disabled | Several | Vitest + Playwright (light and dark) |
+| `role=switch` named by its text, with `aria-checked` (Base UI) | 4.1.2 | Vitest + Playwright |
+| Space and Enter toggle it; clicking the text toggles it | 2.1.1 | Vitest + Playwright |
+| On is shown by thumb position, fill and a check mark | 1.4.1 Use of Color | Vitest + Playwright |
+| Track 44×24px; row 44px tall | 2.5.8 | Playwright |
+| The thumb does not slide with `prefers-reduced-motion: reduce` | 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Screen readers announce switches differently ("switch, on" or "toggle button, pressed"). This is not confirmed manually yet.
+
+## Select
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: closed, open, invalid | Several | Vitest + Playwright (light and dark) |
+| Trigger named by the visible label; `aria-expanded` (Base UI) | 1.3.1, 4.1.2 | Vitest + Playwright |
+| Options named; the chosen one is `aria-selected` and shows a check mark and bold text | 1.4.1, 4.1.2 | Vitest + Playwright |
+| Arrows, Home/End, Enter, Escape and typeahead; focus returns to the trigger (Base UI) | 2.1.1, 2.4.3 | Vitest + Playwright |
+| The highlighted option has a 2px ring with ≥ 3:1 contrast, not only a background | 1.4.11, 2.4.7 | Playwright |
+| Required (from the Field): error linked and focus moves to the trigger on submit | 3.3.1 | Vitest + Playwright |
+| Trigger and options at least 44px tall | 2.5.8 | Playwright |
+| No motion with `prefers-reduced-motion`; open list fits at 320px wide | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Select is not searchable beyond typeahead. For long lists, a combobox is better (not built yet).
+- The open list is rendered in a portal at the end of the page. Screen readers handle this through `aria-controls`/focus, which is not confirmed manually yet.
+
 ## By disability
 
 | Group | What we do | Status |
