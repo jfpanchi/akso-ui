@@ -67,6 +67,16 @@ npx -y "shadcn@$SHADCN_VERSION" add "$REGISTRY_URL/button.json" -y --overwrite <
 grep -q "Akso UI · Button" components/ui/button.tsx || fail "components/ui/button.tsx is not the Akso Button"
 echo "  ✓ Akso button installed"
 
+echo "→ add the form components"
+npx -y "shadcn@$SHADCN_VERSION" add "$REGISTRY_URL/form.json" "$REGISTRY_URL/field.json" "$REGISTRY_URL/input.json" \
+  "$REGISTRY_URL/textarea.json" "$REGISTRY_URL/fieldset.json" -y < /dev/null
+for f in form field input textarea fieldset; do
+  test -f "components/ui/$f.tsx" || fail "components/ui/$f.tsx was not created"
+done
+test -f lib/akso-form.ts || fail "lib/akso-form.ts was not created"
+if grep -rq '@/registry/' components lib; then fail "an installed file still imports @/registry/"; fi
+echo "  ✓ form, field, input, textarea, fieldset and lib/akso-form.ts installed"
+
 echo "→ Building the test project"
 cp "$ROOT/scripts/verify-registry/page.tsx" app/page.tsx
 npm run build >/dev/null

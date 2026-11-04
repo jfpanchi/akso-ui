@@ -1,4 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Fieldset, FieldsetLegend } from "@/components/ui/fieldset";
+import { Form } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
   DialogClose,
@@ -30,6 +35,24 @@ export default function Page() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+      <Form className="mt-8 max-w-md">
+        <Fieldset>
+          <FieldsetLegend>Contact</FieldsetLegend>
+          <Field name="name" required>
+            <FieldLabel>Name</FieldLabel>
+            <Input autoComplete="name" />
+            <FieldError match="valueMissing">Enter your name.</FieldError>
+          </Field>
+        </Fieldset>
+        <Field name="message" required>
+          <FieldLabel>Message</FieldLabel>
+          <Textarea />
+          <FieldError match="valueMissing">Write a message.</FieldError>
+        </Field>
+        <Button type="submit" variant="primary">
+          Send
+        </Button>
+      </Form>
     </main>
   );
 }

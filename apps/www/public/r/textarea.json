@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "textarea",
+  "title": "Textarea",
+  "description": "Multi-line text field for use inside Field, with the same accessible states as Input.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/textarea.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Input as BaseInput } from \"@base-ui/react/input\";\n\nimport { cn } from \"@/lib/utils\";\nimport { useAksoField } from \"@/registry/akso/lib/akso-form\";\nimport { inputClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Textarea\n *\n * A multi-line text field. Built on @base-ui/react/input rendered as a <textarea>,\n * so it works with Field (label, description, errors, validation) like Input.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface TextareaProps extends Omit<BaseInput.Props, \"className\" | \"render\"> {\n  className?: string;\n  /** Visible number of lines. Default: 4. */\n  rows?: number;\n}\n\n/** A multi-line text field. It can be resized vertically. */\nfunction Textarea({ className, required, rows = 4, ...props }: TextareaProps) {\n  const field = useAksoField();\n  return (\n    <BaseInput\n      data-slot=\"textarea\"\n      render={<textarea rows={rows} />}\n      required={required ?? field?.required}\n      className={inputClassName(cn(\"min-h-24 resize-y\", className))}\n      {...props}\n    />\n  );\n}\n\nexport { Textarea };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Textarea: use it inside <Field> with a <FieldLabel>. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}
