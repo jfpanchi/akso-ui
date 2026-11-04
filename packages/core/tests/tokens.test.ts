@@ -21,6 +21,7 @@ describe("contrastRatio", () => {
     expect(parseColor("#fff")).toEqual([255, 255, 255]);
     expect(parseColor("rgb(29, 78, 216)")).toEqual([29, 78, 216]);
     expect(parseColor("rgb(29 78 216 / 0.5)")).toEqual([29, 78, 216]);
+    expect(parseColor("color(srgb 1 0.5 0)")).toEqual([255, 127.5, 0]);
     expect(() => parseColor("blue")).toThrow(/Unsupported/);
   });
 });

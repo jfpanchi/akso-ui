@@ -53,8 +53,18 @@ jobs:
       - run: pnpm test
 
   e2e:
-    name: E2E tests (Playwright + axe)
+    name: E2E tests (${{ matrix.browser }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - browser: chromium
+            projects: --project=chromium-light --project=chromium-dark
+          - browser: firefox
+            projects: --project=firefox
+          - browser: webkit
+            projects: --project=webkit
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
@@ -63,17 +73,17 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter www exec playwright install --with-deps chromium
+      - run: pnpm --filter www exec playwright install --with-deps ${{ matrix.browser }}
       - run: pnpm build
       - name: Registry output is committed and up to date
         run: git diff --exit-code -- apps/www/public/r apps/www/registry.json
-      - run: pnpm --filter www test:e2e
+      - run: pnpm --filter www exec playwright test ${{ matrix.projects }}
         env:
           CI: "true"
       - uses: actions/upload-artifact@v7
         if: failure()
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.browser }}
           path: apps/www/playwright-report
           retention-days: 7
 

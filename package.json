@@ -12,11 +12,12 @@
     "lint": "eslint .",
     "typecheck": "pnpm build:core && pnpm -r typecheck",
     "test": "pnpm build:core && pnpm -r test",
-    "test:e2e": "pnpm --filter www build && pnpm --filter www test:e2e",
+    "test:e2e": "pnpm --filter www build && pnpm --filter www test:e2e:chromium",
     "registry:build": "pnpm --filter www registry:build",
     "verify:registry": "scripts/verify-registry.sh",
     "changeset": "changeset",
-    "new:component": "node scripts/new-component.ts"
+    "new:component": "node scripts/new-component.ts",
+    "test:e2e:all": "pnpm --filter www build && pnpm --filter www test:e2e"
   },
   "devDependencies": {
     "@changesets/cli": "3.0.3",
