@@ -532,6 +532,170 @@ Other checks still pending: Windows High Contrast Mode / `forced-colors`, browse
 
 - Support for `role=meter` varies between screen readers; some read it as a progress bar. Not confirmed manually yet.
 
+## Tabs
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations | Several | Vitest + Playwright (light and dark) |
+| Named `tablist`; tabs with `aria-selected` and `aria-controls` linked to panels (Base UI) | 1.3.1, 4.1.2 | Vitest + Playwright |
+| One Tab stop; arrows move; Enter/Space activate (manual activation); panel focusable | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Selected tab: 4px underline with ≥ 3:1 contrast and bold text, not only color | 1.4.1, 1.4.11 | Playwright |
+| Tabs 44px tall; visible focus ring ≥ 3:1; tabs wrap at 320px | 2.5.8, 2.4.7, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Disabled tabs can be reached with the arrow keys (Base UI, following the ARIA Authoring Practices), but not opened.
+
+## Accordion
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
+| Each trigger is a button inside a real heading (level configurable), with `aria-expanded` (Base UI) | 1.3.1, 2.4.6, 4.1.2 | Vitest + Playwright |
+| Closed panels use `hidden="until-found"`, so find-in-page reveals them | 2.4, cognitive | Vitest + Playwright |
+| Enter/Space toggle; Tab moves between triggers | 2.1.1 | Vitest + Playwright |
+| The arrow changes direction with the state | 1.4.1 | Playwright |
+| No height animation with reduced motion; no horizontal scroll at 320px | 2.3.3, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Base UI removed arrow-key navigation between triggers, following the updated ARIA Authoring Practices; Tab moves between them.
+- `aria-controls` is only set while a panel is open (Base UI).
+
+## Collapsible
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
+| Button with `aria-expanded` and `aria-controls` (Base UI) | 4.1.2 | Vitest + Playwright |
+| Closed panel uses `hidden="until-found"` | cognitive | Vitest |
+| Enter/Space toggle; 44px trigger; visible focus ring ≥ 3:1 | 2.1.1, 2.5.8, 2.4.7 | Vitest + Playwright |
+| No animation with reduced motion | 2.3.3 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+## Popover
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
+| Trigger with `aria-expanded`; popup named by its title and described (Base UI) | 4.1.2 | Vitest + Playwright |
+| Focus moves inside on open; Escape and Close return focus to the trigger (Base UI) | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Also opens on hover for info icons, while staying reachable by keyboard and touch | 1.4.13, 2.5 | Playwright |
+| Trigger 44px with a visible focus ring; open popover fits at 320px | 2.5.8, 2.4.7, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+## Tooltip
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open (including contrast) | Several | Vitest + Playwright (light and dark) |
+| Icon-only triggers without a name get the tooltip text as `aria-label`; visible text is kept as the name | 4.1.2, 2.5.3 Label in Name | Vitest + Playwright |
+| Appears on keyboard focus; Escape hides it without moving focus (Base UI) | 1.4.13, 2.1.1 | Vitest + Playwright |
+| Stays open while the pointer is over it (hoverable, Base UI) | 1.4.13 | Playwright |
+| No motion with reduced motion | 2.3.3 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Tooltips do not appear on touch screens (Base UI). Never put information people need only in a tooltip; use Popover or text on the page.
+
+## Menu
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
+| `menu`, `menuitem`, `menuitemcheckbox`, `menuitemradio` with their states (Base UI) | 4.1.2 | Vitest + Playwright |
+| Arrows, Home/End, typeahead, Enter, Escape; focus returns to the trigger (Base UI) | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Highlighted item: 2px ring with ≥ 3:1 contrast, not only a background | 1.4.11, 2.4.7 | Playwright |
+| Checked items show a check mark or a dot | 1.4.1 | Vitest |
+| Items 44px tall; open menu fits at 320px; no motion with reduced motion | 2.5.8, 1.4.10, 2.3.3 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Disabled items can be reached with the arrow keys (Base UI, ARIA Authoring Practices) but do nothing.
+- Submenus and filterable menus from Base UI are not wrapped yet.
+
 ## By disability
 
 | Group | What we do | Status |

@@ -447,6 +447,126 @@
         }
       ],
       "docs": "Akso UI Meter: always set label; use getAriaValueText for friendly text. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Tabs with one Tab stop, arrow keys and manual activation. The selected tab has a thick underline and bold text, not only a color.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Tabs: name the TabsList with aria-label when no heading is above it. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Accordion with real headings, aria-expanded, and closed panels that find-in-page can open (hidden=until-found).",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Accordion: set the heading level with level to fit the page outline. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "Show/hide section with aria-expanded and an arrow that shows the state; findable by find-in-page.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Collapsible: the trigger text says what is inside. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "Popover that moves focus inside, closes with Escape and returns focus. Use it for info icons instead of a tooltip.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Popover: add a PopoverTitle; icon-only triggers need an aria-label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "Visual label for icons on hover and focus. Names icon-only triggers with its text and keeps visible text as the name.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Tooltip: never put needed information only in a tooltip; wrap the app in TooltipProvider. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "menu",
+      "type": "registry:ui",
+      "title": "Menu",
+      "description": "Action menu with arrow keys, typeahead and a high-contrast highlight ring; checkbox and radio items show a mark.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Menu: use it for actions; use links for navigation. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

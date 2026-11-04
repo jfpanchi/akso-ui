@@ -111,3 +111,21 @@ export const modalPopupClassName = cn(
 export const modalTitleClassName = "text-xl font-semibold leading-snug";
 export const modalDescriptionClassName = "text-base text-akso-muted-foreground";
 export const modalFooterClassName = "flex flex-col-reverse gap-2 sm:flex-row sm:flex-wrap sm:justify-end";
+
+/* Floating surfaces (Popover, Menu, Tooltip). */
+
+export const popupSurfaceClassName = cn(
+  "max-w-[calc(100vw-2rem)] origin-[var(--transform-origin)] rounded-md border border-akso-border bg-akso-surface text-akso-foreground shadow-lg outline-none",
+  "motion-safe:transition-[opacity,scale] motion-safe:duration-150 motion-safe:ease-out",
+  "data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0",
+);
+
+/**
+ * An item in a list popup (Menu). The highlighted item gets a background AND a 2px inset ring
+ * with ≥3:1 contrast: the background change alone is too subtle to see.
+ */
+export const listItemClassName = cn(
+  "flex min-h-11 w-full cursor-pointer items-center gap-2 rounded-sm px-2 py-2 text-left text-base outline-none select-none",
+  "data-highlighted:bg-akso-surface-hover data-highlighted:outline-2 data-highlighted:-outline-offset-2 data-highlighted:outline-solid data-highlighted:outline-akso-focus-ring",
+  "data-disabled:cursor-not-allowed data-disabled:opacity-60",
+);
