@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "./fixtures";
 import { contrastRatio, WCAG_AA } from "akso-ui/tokens";
 import { expectMinTargetSize, expectNoAxeViolations, expectNoHorizontalScroll, expectNoMotion, expectVisibleFocusRing, REFLOW_VIEWPORT, waitForAnimations } from "./helpers/a11y";
 

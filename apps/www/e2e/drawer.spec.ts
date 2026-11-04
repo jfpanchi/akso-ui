@@ -1,4 +1,4 @@
-import { expect, test, type Page } from "@playwright/test";
+import { expect, test, type Page } from "./fixtures";
 import { expectMinTargetSize, expectNoAxeViolations, expectNoHorizontalScroll, expectNoMotion, focusIsInside, REFLOW_VIEWPORT, waitForAnimations } from "./helpers/a11y";
 
 test.beforeEach(async ({ page }) => {
