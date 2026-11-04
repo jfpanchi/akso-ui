@@ -1,5 +1,7 @@
 /** Components with a docs page. `pnpm new:component` adds entries here. Keep alphabetical. */
 export const components = [
+  { slug: "alert", name: "Alert" },
+  { slug: "alert-dialog", name: "Alert dialog" },
   { slug: "button", name: "Button" },
   { slug: "checkbox", name: "Checkbox" },
   { slug: "checkbox-group", name: "Checkbox group" },
@@ -8,8 +10,11 @@ export const components = [
   { slug: "fieldset", name: "Fieldset" },
   { slug: "form", name: "Form" },
   { slug: "input", name: "Input" },
+  { slug: "meter", name: "Meter" },
+  { slug: "progress", name: "Progress" },
   { slug: "radio-group", name: "Radio group" },
   { slug: "select", name: "Select" },
   { slug: "switch", name: "Switch" },
   { slug: "textarea", name: "Textarea" },
+  { slug: "toast", name: "Toast" },
 ] as const;

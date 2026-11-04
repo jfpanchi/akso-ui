@@ -21,6 +21,8 @@
           "color-akso-primary-foreground": "var(--akso-primary-foreground)",
           "color-akso-danger": "var(--akso-danger)",
           "color-akso-danger-foreground": "var(--akso-danger-foreground)",
+          "color-akso-success": "var(--akso-success)",
+          "color-akso-warning": "var(--akso-warning)",
           "color-akso-focus-ring": "var(--akso-focus-ring)",
           "color-akso-overlay": "var(--akso-overlay)"
         },
@@ -36,6 +38,8 @@
           "akso-primary-foreground": "#ffffff",
           "akso-danger": "#b91c1c",
           "akso-danger-foreground": "#ffffff",
+          "akso-success": "#15803d",
+          "akso-warning": "#a16207",
           "akso-focus-ring": "#1d4ed8",
           "akso-overlay": "rgb(9 9 11 / 0.6)"
         },
@@ -51,6 +55,8 @@
           "akso-primary-foreground": "#09090b",
           "akso-danger": "#fca5a5",
           "akso-danger-foreground": "#09090b",
+          "akso-success": "#86efac",
+          "akso-warning": "#fde047",
           "akso-focus-ring": "#93c5fd",
           "akso-overlay": "rgb(0 0 0 / 0.75)"
         }
@@ -80,6 +86,22 @@
       "files": [
         {
           "path": "registry/akso/lib/akso-form.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "akso-status",
+      "type": "registry:lib",
+      "title": "Akso UI status styles",
+      "description": "Status icons (a different shape for each status) and colors shared by Alert and Toast. Installed automatically.",
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/lib/akso-status.tsx",
           "type": "registry:lib"
         }
       ]
@@ -327,6 +349,104 @@
         }
       ],
       "docs": "Akso UI Select: always add a SelectLabel; for long searchable lists use a combobox. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert dialog",
+      "description": "Confirmation dialog for actions that cannot be undone. Focus starts on the safe choice; clicking outside does not close it.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Alert dialog: put AlertDialogCancel first; always add a title and a description. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "Notifications that pause on hover and focus, stay until dismissed when they are errors or have an action, and show an icon and a status word for each type.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-status.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/toast.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Toast: wrap the app in ToastProvider and use useToast(); never put information people need only in a toast. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "Message on the page (info, success, warning, error) with an icon shape and a hidden status word for each type. Optional live announcement.",
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-status.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Alert: set live=\"polite\" only for messages that appear after an action. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "Progress bar named by its visible label, with the value also shown as text. The unknown-amount state does not move with reduced motion.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Progress: always set label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "meter",
+      "type": "registry:ui",
+      "title": "Meter",
+      "description": "Meter for a measurement in a known range, named by its visible label and shown as text.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/meter.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Meter: always set label; use getAriaValueText for friendly text. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

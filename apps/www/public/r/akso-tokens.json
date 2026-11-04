@@ -16,6 +16,8 @@
       "color-akso-primary-foreground": "var(--akso-primary-foreground)",
       "color-akso-danger": "var(--akso-danger)",
       "color-akso-danger-foreground": "var(--akso-danger-foreground)",
+      "color-akso-success": "var(--akso-success)",
+      "color-akso-warning": "var(--akso-warning)",
       "color-akso-focus-ring": "var(--akso-focus-ring)",
       "color-akso-overlay": "var(--akso-overlay)"
     },
@@ -31,6 +33,8 @@
       "akso-primary-foreground": "#ffffff",
       "akso-danger": "#b91c1c",
       "akso-danger-foreground": "#ffffff",
+      "akso-success": "#15803d",
+      "akso-warning": "#a16207",
       "akso-focus-ring": "#1d4ed8",
       "akso-overlay": "rgb(9 9 11 / 0.6)"
     },
@@ -46,6 +50,8 @@
       "akso-primary-foreground": "#09090b",
       "akso-danger": "#fca5a5",
       "akso-danger-foreground": "#09090b",
+      "akso-success": "#86efac",
+      "akso-warning": "#fde047",
       "akso-focus-ring": "#93c5fd",
       "akso-overlay": "rgb(0 0 0 / 0.75)"
     }

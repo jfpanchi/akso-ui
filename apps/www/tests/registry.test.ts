@@ -55,7 +55,7 @@ describe("registry", () => {
 
   it("every lib item lives in registry/akso/lib so shadcn installs it in lib/", () => {
     for (const item of registry.items.filter((i) => i.type === "registry:lib")) {
-      for (const file of item.files ?? []) expect(file.path).toMatch(/^registry\/akso\/lib\/[a-z-]+\.ts$/);
+      for (const file of item.files ?? []) expect(file.path).toMatch(/^registry\/akso\/lib\/[a-z-]+\.tsx?$/);
     }
   });
 

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress",
+  "title": "Progress",
+  "description": "Progress bar named by its visible label, with the value also shown as text. The unknown-amount state does not move with reduced motion.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/progress.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Progress as BaseProgress } from \"@base-ui/react/progress\";\n\nimport { cn } from \"@/lib/utils\";\n\n/*\n * Akso UI · Progress\n *\n * Built on @base-ui/react/progress: role=\"progressbar\" with aria-valuenow/min/max, named by\n * its visible label. Shows the value as text next to the bar, so it does not depend on the\n * length of the bar alone. `value={null}` means \"in progress, unknown amount\".\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface ProgressProps extends Omit<BaseProgress.Root.Props, \"className\" | \"children\"> {\n  /** Visible label. Required. */\n  label: React.ReactNode;\n  /** Show the value as text, for example \"40%\". Default: true. */\n  showValue?: boolean;\n  className?: string;\n}\n\n/** Shows how much of a task is done. */\nfunction Progress({ label, showValue = true, className, ...props }: ProgressProps) {\n  return (\n    <BaseProgress.Root data-slot=\"progress\" className={cn(\"grid w-full grid-cols-[1fr_auto] items-center gap-x-3 gap-y-1.5\", className)} {...props}>\n      <BaseProgress.Label data-slot=\"progress-label\" className=\"font-medium text-akso-foreground\">\n        {label}\n      </BaseProgress.Label>\n      {showValue ? <BaseProgress.Value data-slot=\"progress-value\" className=\"text-sm text-akso-muted-foreground tabular-nums\" /> : <span />}\n      <BaseProgress.Track data-slot=\"progress-track\" className=\"col-span-2 h-3 overflow-hidden rounded-full border border-akso-border bg-akso-surface-hover\">\n        <BaseProgress.Indicator\n          data-slot=\"progress-indicator\"\n          className={cn(\n            \"block h-full bg-akso-primary\",\n            \"motion-safe:transition-[width] motion-safe:duration-300\",\n            // Unknown amount: a half bar that pulses, and stays still when motion is reduced.\n            \"data-indeterminate:w-1/2 motion-safe:data-indeterminate:animate-pulse\",\n          )}\n        />\n      </BaseProgress.Track>\n    </BaseProgress.Root>\n  );\n}\n\nexport { Progress };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Progress: always set label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

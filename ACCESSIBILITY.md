@@ -387,6 +387,151 @@ Other checks still pending: Windows High Contrast Mode / `forced-colors`, browse
 - Select is not searchable beyond typeahead. For long lists, a combobox is better (not built yet).
 - The open list is rendered in a portal at the end of the page. Screen readers handle this through `aria-controls`/focus, which is not confirmed manually yet.
 
+## Alert dialog
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, open and closed | Several | Vitest + Playwright (light and dark) |
+| `role=alertdialog` named by its title and described by its description (Base UI) | 4.1.2 | Vitest |
+| Focus starts on the safe choice (Cancel first in the DOM); trapped; returns to the trigger | 2.4.3, 3.3.4 | Vitest + Playwright |
+| Escape cancels; clicking outside does not close it | 2.1.1, 3.3.4 | Vitest + Playwright |
+| Buttons say what they do; danger style has a text label | 1.4.1, 2.4.6 | Code review + Vitest |
+| Visible focus ring ≥ 3:1; buttons 44px; no motion with reduced motion; fits at 320px | 2.4.7, 2.5.8, 2.3.3, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- On narrow screens the buttons are stacked with the action above Cancel, while focus starts on Cancel. Visual and focus order differ slightly there; not confirmed with users yet.
+
+## Toast
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations with toasts shown | Several | Vitest + Playwright (light and dark) |
+| Toasts live in a labeled "Notifications" region; errors are announced with `role=alert` (Base UI) | 4.1.3 Status Messages | Vitest + Playwright |
+| Showing a toast does not move focus | 2.4.3, 3.2.1 | Playwright |
+| Errors and toasts with an action stay until dismissed; others stay 6 s and pause on hover/focus (Base UI) | 2.2.1 Timing Adjustable | Vitest + Playwright |
+| F6 moves focus to the toasts; action and close buttons work with the keyboard (Base UI) | 2.1.1 | Vitest + Playwright |
+| Each type has an icon shape and a hidden status word | 1.4.1 Use of Color | Vitest + Playwright |
+| Toasts are listed one under another, fully visible (not piled up) | 1.4.13, 1.4.10 | Playwright |
+| No motion with reduced motion; fits at 320px | 2.3.3, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Base UI hides each toast's close button from assistive technology until the notifications region has focus or the pointer (F6 or hover). We keep this Base UI behavior; it is not confirmed manually with screen readers yet.
+- Toasts that close on their own (6 s) can still be missed. Do not put information people need only in a toast.
+- The hidden status words ("Error:") are in English by default. Translate them with `statusLabels` on ToastProvider.
+
+## Alert
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations in every status, including color contrast | Several | Vitest + Playwright (light and dark) |
+| Each status has a different icon shape and a hidden status word before the title | 1.4.1 Use of Color, 1.3.1 | Vitest + Playwright |
+| Not a live region by default; `live` sets `role=status` or `role=alert` | 4.1.3 | Vitest + Playwright |
+| Success and warning colors meet 4.5:1 (new tokens) | 1.4.3 | Token tests |
+| No horizontal scroll at 320px | 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Alert is plain HTML (no Base UI primitive): Base UI has no static alert component.
+
+## Progress
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: value, complete, unknown | Several | Vitest + Playwright (light and dark) |
+| `role=progressbar` named by its visible label, with `aria-valuenow/min/max` (Base UI) | 4.1.2 | Vitest + Playwright |
+| The value is also shown as text; friendly `aria-valuetext` supported | 1.1.1, 1.3.1 | Vitest + Playwright |
+| The bar has ≥ 3:1 contrast against its track | 1.4.11 | Playwright + token tests |
+| The unknown-amount pulse does not run with reduced motion | 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Screen readers do not always announce value changes of a progress bar. Announce the end of the task with a status message.
+
+## Meter
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations | Several | Vitest + Playwright (light and dark) |
+| `role=meter` named by its visible label, with value and friendly text (Base UI) | 4.1.2 | Vitest + Playwright |
+| The value is also shown as text | 1.1.1 | Vitest + Playwright |
+| No horizontal scroll at 320px | 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Support for `role=meter` varies between screen readers; some read it as a progress bar. Not confirmed manually yet.
+
 ## By disability
 
 | Group | What we do | Status |

@@ -6,7 +6,7 @@ Componentes React accesibles construidos sobre [Base UI](https://base-ui.com) (`
 
 Cada componente está **probado con herramientas automáticas** (axe, teclado y pruebas visuales) y **documenta qué se ha comprobado y qué no** con tecnologías de asistencia. Probamos pensando en personas ciegas, con baja visión, con daltonismo y con discapacidad motora, auditiva, cognitiva y vestibular. Los detalles están en la [declaración de accesibilidad](./ACCESSIBILITY.md) (en inglés). Nunca afirmamos que algo sea "100% accesible".
 
-> Estado: trabajo inicial. Componentes disponibles: **Button**, **Dialog**, **Field**, **Input**, **Textarea**, **Fieldset**, **Form**, **Checkbox**, **Checkbox group**, **Radio group**, **Switch** y **Select**.
+> Estado: trabajo inicial. Componentes disponibles: **Button**, **Dialog**, **Field**, **Input**, **Textarea**, **Fieldset**, **Form**, **Checkbox**, **Checkbox group**, **Radio group**, **Switch**, **Select**, **Alert dialog**, **Toast**, **Alert**, **Progress** y **Meter**.
 
 ## Qué hay en este repositorio
 

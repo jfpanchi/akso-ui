@@ -86,3 +86,28 @@ export const choiceControlClassName = cn(
 
 /** Legend of a group of checkboxes or radios. */
 export const legendClassName = "mb-1 text-base font-semibold text-akso-foreground";
+
+/* Modal dialogs (Dialog, AlertDialog) share these, so both look and behave the same. */
+
+export const modalBackdropClassName = cn(
+  "fixed inset-0 z-50 min-h-dvh bg-akso-overlay",
+  "motion-safe:transition-opacity motion-safe:duration-150",
+  "data-starting-style:opacity-0 data-ending-style:opacity-0",
+);
+
+/** The viewport scrolls vertically when the content is taller than the screen, so nothing is cut off at 320px or 400% zoom. */
+export const modalViewportClassName = "fixed inset-0 z-50 flex overflow-y-auto p-4 sm:p-6";
+
+export const modalPopupClassName = cn(
+  // m-auto centers the popup but lets it grow and scroll instead of being clipped.
+  "relative m-auto flex w-full max-w-lg min-w-0 flex-col gap-4",
+  "rounded-lg border border-akso-border bg-akso-surface p-5 text-akso-foreground shadow-xl sm:p-6",
+  "break-words",
+  focusRingClassName,
+  "motion-safe:transition-[opacity,scale] motion-safe:duration-150 motion-safe:ease-out",
+  "data-starting-style:scale-95 data-starting-style:opacity-0 data-ending-style:scale-95 data-ending-style:opacity-0",
+);
+
+export const modalTitleClassName = "text-xl font-semibold leading-snug";
+export const modalDescriptionClassName = "text-base text-akso-muted-foreground";
+export const modalFooterClassName = "flex flex-col-reverse gap-2 sm:flex-row sm:flex-wrap sm:justify-end";
