@@ -90,6 +90,8 @@ export async function expectVisibleFocusRing(page: Page): Promise<FocusRing> {
  * Returns the labels visited.
  */
 export async function expectVisibleFocusRingsWhileTabbing(page: Page, presses: number): Promise<string[]> {
+  // Opening animations (scale/opacity) can still be running, e.g. on slower CI machines.
+  await waitForAnimations(page);
   const labels: string[] = [];
   for (let i = 0; i < presses; i++) {
     await page.keyboard.press("Tab");
@@ -142,6 +144,8 @@ export async function expectNoHorizontalScroll(page: Page, scroller?: Locator) {
 /** Each target is at least `min`×`min` CSS px (WCAG 2.5.8 Target Size (Minimum) = 24). */
 export async function expectMinTargetSize(targets: Locator[], min = 24) {
   expect(targets.length, "number of targets").toBeGreaterThan(0);
+  // Measure the final size, not a frame of an opening animation (popups scale from 95%).
+  await waitForAnimations(targets[0]!.page());
   for (const target of targets) {
     const box = await target.boundingBox();
     const name = (await target.getAttribute("aria-label")) ?? (await target.textContent())?.trim() ?? "target";

@@ -20,6 +20,8 @@ async function open(page: Page) {
   await page.keyboard.press("Enter");
   const dialog = page.getByRole("alertdialog", { name: "Delete your account?" });
   await expect(dialog).toBeVisible();
+  // Base UI moves focus to the first button once the popup is ready.
+  await expect(page.getByRole("button", { name: "Keep my account" })).toBeFocused();
   return { trigger, dialog };
 }
 
