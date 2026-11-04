@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { useAksoMessages } from "@/registry/akso/lib/akso-locale";
 import {
   buttonClassName,
+  isDevelopment,
   modalBackdropClassName,
   modalDescriptionClassName,
   modalFooterClassName,
@@ -148,7 +149,7 @@ function DialogDescription({ className, ...props }: Omit<BaseDialog.Description.
 function useWarnIfUnlabelled(ref: React.RefObject<HTMLElement | null>) {
   const warned = React.useRef(false);
   React.useEffect(() => {
-    if (process.env.NODE_ENV === "production" || warned.current) return;
+    if (!isDevelopment() || warned.current) return;
     const frame = requestAnimationFrame(() => {
       const popup = ref.current;
       if (!popup) return;

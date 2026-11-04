@@ -7,12 +7,27 @@
 # copy of apps/www/public/r with those URLs pointed at localhost, so it tests the
 # files in your working tree, not what is on GitHub.
 #
-# Usage: scripts/verify-registry.sh [work-dir]
+# Usage: scripts/verify-registry.sh [--framework next|vite|react-router] [work-dir]
 # Requires: pnpm registry:build. Uses the network to install npm packages.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+FRAMEWORK=next
+if [ "${1:-}" = "--framework" ]; then
+  FRAMEWORK="$2"
+  shift 2
+fi
 WORK="${1:-$(mktemp -d)}"
+
+# Where each framework template keeps things, and how it imports them.
+case "$FRAMEWORK" in
+  next) SRC="."; ALIAS="@"; CSS="app/globals.css"; PAGE="app/page.tsx" ;;
+  vite) SRC="src"; ALIAS="@"; CSS="src/index.css"; PAGE="src/App.tsx" ;;
+  react-router) SRC="app"; ALIAS="~"; CSS="app/app.css"; PAGE="app/routes/home.tsx" ;;
+  *) echo "Unknown framework: $FRAMEWORK (use next, vite or react-router)"; exit 1 ;;
+esac
+UI="$SRC/components/ui"
+LIB="$SRC/lib"
 REGISTRY_PORT=3101
 APP_PORT=3200
 REGISTRY_URL="http://localhost:$REGISTRY_PORT/r"
@@ -40,31 +55,36 @@ done
 REGISTRY_PID=$!
 npx -y wait-on@8 -t 30000 "$REGISTRY_URL/dialog.json"
 
-echo "→ Creating a test project in $WORK/consumer"
-rm -rf "$WORK/consumer"
-(cd "$WORK" && npx -y "create-next-app@$NEXT_VERSION" consumer --ts --tailwind --app --eslint --no-src-dir \
-  --import-alias "@/*" --use-npm --turbopack --yes >/dev/null)
-cd "$WORK/consumer"
-
 fail() { echo "✗ $1"; exit 1; }
 
-echo "→ shadcn init (installs shadcn's own components/ui/button.tsx, like most real projects)"
-npx -y "shadcn@$SHADCN_VERSION" init -d --base base >/dev/null
-SHADCN_BUTTON_SUM=$(sha1sum components/ui/button.tsx)
+echo "→ Creating a $FRAMEWORK test project in $WORK/consumer"
+rm -rf "$WORK/consumer"
+if [ "$FRAMEWORK" = "next" ]; then
+  (cd "$WORK" && npx -y "create-next-app@$NEXT_VERSION" consumer --ts --tailwind --app --eslint --no-src-dir \
+    --import-alias "@/*" --use-npm --turbopack --yes >/dev/null)
+  cd "$WORK/consumer"
+  echo "→ shadcn init (installs shadcn's own components/ui/button.tsx, like most real projects)"
+  npx -y "shadcn@$SHADCN_VERSION" init -d --base base >/dev/null
+else
+  # shadcn's own templates; they also install shadcn's button.
+  (cd "$WORK" && npx -y "shadcn@$SHADCN_VERSION" init -t "$FRAMEWORK" -n consumer -d --base base --no-monorepo >/dev/null)
+  cd "$WORK/consumer"
+fi
+SHADCN_BUTTON_SUM=$(sha1sum "$UI/button.tsx")
 
 echo "→ add dialog: must bring lib/akso-styles.ts and the tokens, and leave the existing button alone"
 npx -y "shadcn@$SHADCN_VERSION" add "$REGISTRY_URL/dialog.json" -y < /dev/null
-test -f components/ui/dialog.tsx || fail "components/ui/dialog.tsx was not created"
-test -f lib/akso-styles.ts || fail "lib/akso-styles.ts was not created"
-grep -q '@/lib/akso-styles' components/ui/dialog.tsx || fail "dialog.tsx does not import @/lib/akso-styles"
-[ "$(sha1sum components/ui/button.tsx)" = "$SHADCN_BUTTON_SUM" ] || fail "installing dialog changed the existing button.tsx"
+test -f "$UI/dialog.tsx" || fail "$UI/dialog.tsx was not created"
+test -f "$LIB/akso-styles.ts" || fail "$LIB/akso-styles.ts was not created"
+grep -q "$ALIAS/lib/akso-styles" "$UI/dialog.tsx" || fail "dialog.tsx does not import $ALIAS/lib/akso-styles"
+[ "$(sha1sum "$UI/button.tsx")" = "$SHADCN_BUTTON_SUM" ] || fail "installing dialog changed the existing button.tsx"
 grep -q '"@base-ui/react"' package.json || fail "@base-ui/react was not installed"
-grep -q -- "--akso-focus-ring" app/globals.css || fail "Akso tokens were not added to globals.css"
+grep -q -- "--akso-focus-ring" "$CSS" || fail "Akso tokens were not added to $CSS"
 echo "  ✓ dialog, lib/akso-styles.ts, @base-ui/react and tokens installed; existing button untouched"
 
 echo "→ add button with --overwrite (replaces shadcn's button on purpose)"
 npx -y "shadcn@$SHADCN_VERSION" add "$REGISTRY_URL/button.json" -y --overwrite < /dev/null
-grep -q "Akso UI · Button" components/ui/button.tsx || fail "components/ui/button.tsx is not the Akso Button"
+grep -q "Akso UI · Button" "$UI/button.tsx" || fail "$UI/button.tsx is not the Akso Button"
 echo "  ✓ Akso button installed"
 
 echo "→ add every other component in the registry"
@@ -76,18 +96,27 @@ console.log(r.items.filter(i => i.type === 'registry:ui' && !['button', 'dialog'
 npx -y "shadcn@$SHADCN_VERSION" add $OTHERS -y < /dev/null
 for url in $OTHERS; do
   name=$(basename "$url" .json)
-  test -f "components/ui/$name.tsx" || fail "components/ui/$name.tsx was not created"
+  test -f "$UI/$name.tsx" || fail "$UI/$name.tsx was not created"
 done
-if grep -rq '@/registry/' components lib; then fail "an installed file still imports @/registry/"; fi
+if grep -rq '@/registry/' "$SRC/components" "$LIB"; then fail "an installed file still imports @/registry/"; fi
 echo "  ✓ $(echo "$OTHERS" | wc -w) more components installed; no file imports @/registry/"
 
 echo "→ Building the test project"
-cp "$ROOT/scripts/verify-registry/page.tsx" app/page.tsx
+# The same test page for every framework, with the template's import alias.
+sed "s#@/components/#$ALIAS/components/#g" "$ROOT/scripts/verify-registry/page.tsx" > "$PAGE"
+if [ "$FRAMEWORK" = "react-router" ]; then
+  # React Router sets the page <title> from each route's meta(); the template's route had one.
+  echo 'export function meta() { return [{ title: "Registry install check" }]; }' >> "$PAGE"
+fi
 npm run build >/dev/null
 
 echo "→ Running axe and keyboard checks"
 npm install --no-save "@playwright/test@$PW_VERSION" "@axe-core/playwright@$AXE_PW_VERSION" >/dev/null
-(exec setsid npx next start -p "$APP_PORT" >/dev/null 2>&1) &
+case "$FRAMEWORK" in
+  next) (exec setsid npx next start -p "$APP_PORT" >/dev/null 2>&1) & ;;
+  vite) (exec setsid npx vite preview --port "$APP_PORT" --strictPort >/dev/null 2>&1) & ;;
+  react-router) (PORT="$APP_PORT" exec setsid npx react-router-serve ./build/server/index.js >/dev/null 2>&1) & ;;
+esac
 APP_PID=$!
 npx -y wait-on@8 -t 60000 "http://localhost:$APP_PORT"
 cp "$ROOT/scripts/verify-registry/check.mjs" ./check.mjs

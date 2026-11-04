@@ -103,7 +103,7 @@ pnpm registry:build
 pnpm verify:registry
 ```
 
-`verify:registry` creates a new Next.js + shadcn project, installs the Dialog (and, through it, the Button and the tokens) from your local registry files, builds the project and runs axe and keyboard checks on it. Run `pnpm registry:build` first.
+`verify:registry` creates a new Next.js + shadcn project (or Vite / React Router with `scripts/verify-registry.sh --framework vite|react-router`; CI runs all three), installs the Dialog (and, through it, the Button and the tokens) from your local registry files, builds the project and runs axe and keyboard checks on it. Run `pnpm registry:build` first.
 
 To start a new component:
 

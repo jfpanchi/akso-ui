@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { Input as BaseInput } from "@base-ui/react/input";
 
 import { useAksoField } from "@/registry/akso/lib/akso-form";

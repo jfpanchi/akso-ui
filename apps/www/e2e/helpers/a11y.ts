@@ -56,6 +56,8 @@ export async function expectNoAxeViolations(
 
 export interface FocusRing {
   label: string;
+  /** Focus is still on a Base UI focus guard (should never happen once the helper has waited). */
+  isFocusGuard: boolean;
   focusVisible: boolean;
   outlineStyle: string;
   outlineWidth: number;
@@ -66,7 +68,12 @@ export interface FocusRing {
 
 /** Reads the focus ring of the focused element, after any transition has finished. */
 export async function readFocusRing(page: Page): Promise<FocusRing> {
-  return page.evaluate(async () => {
+  return page.evaluate(async (guard) => {
+    // Tab can land on a Base UI focus guard first; Base UI then moves focus into the popup.
+    // On a busy machine that can take a few frames: wait for it, so the guard is never measured.
+    for (let i = 0; i < 20 && document.activeElement?.matches(guard); i++) {
+      await new Promise<void>((r) => requestAnimationFrame(() => r()));
+    }
     const el = document.activeElement as HTMLElement;
     const finite = el.getAnimations().filter((a) => a.effect?.getComputedTiming().endTime !== Infinity);
     await Promise.all(finite.map((a) => a.finished.catch(() => undefined)));
@@ -81,13 +88,14 @@ export async function readFocusRing(page: Page): Promise<FocusRing> {
     }
     return {
       label: el.getAttribute("aria-label") ?? el.textContent?.trim() ?? el.tagName,
+      isFocusGuard: el.matches(guard),
       focusVisible: el.matches(":focus-visible"),
       outlineStyle: style.outlineStyle,
       outlineWidth: Number.parseFloat(style.outlineWidth),
       outlineColor: style.outlineColor,
       background,
     };
-  });
+  }, BASE_UI_FOCUS_GUARD);
 }
 
 /**
@@ -97,6 +105,7 @@ export async function readFocusRing(page: Page): Promise<FocusRing> {
  */
 export async function expectVisibleFocusRing(page: Page): Promise<FocusRing> {
   const ring = await readFocusRing(page);
+  expect(ring.isFocusGuard, `focus stayed on a Base UI focus guard`).toBe(false);
   expect(ring.focusVisible, `${ring.label}: :focus-visible`).toBe(true);
   expect(ring.outlineStyle, `${ring.label}: outline-style`).not.toBe("none");
   expect(ring.outlineWidth, `${ring.label}: outline-width`).toBeGreaterThanOrEqual(2);

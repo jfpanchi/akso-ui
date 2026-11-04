@@ -140,3 +140,18 @@ export const listItemClassName = cn(
  */
 export const forcedFillClassName = "forced-colors:forced-color-adjust-none forced-colors:bg-[CanvasText]";
 export const forcedBarClassName = "forced-colors:forced-color-adjust-none forced-colors:bg-[Highlight]";
+
+// Typed here so the components build without Node.js types (Vite, React Router).
+declare const process: { env: { NODE_ENV?: string } };
+
+/**
+ * True during development. Bundlers replace `process.env.NODE_ENV` at build time; where
+ * `process` does not exist at all, development warnings are simply skipped.
+ */
+export function isDevelopment(): boolean {
+  try {
+    return process.env.NODE_ENV !== "production";
+  } catch {
+    return false;
+  }
+}

@@ -105,7 +105,7 @@ pnpm registry:build
 pnpm verify:registry
 ```
 
-`verify:registry` crea un proyecto nuevo de Next.js + shadcn, instala el Dialog (y con él el Button y los tokens) desde tus archivos locales del registry, compila el proyecto y le pasa pruebas de axe y teclado. Antes ejecuta `pnpm registry:build`.
+`verify:registry` crea un proyecto nuevo de Next.js + shadcn (o Vite / React Router con `scripts/verify-registry.sh --framework vite|react-router`; el CI prueba los tres), instala el Dialog (y con él el Button y los tokens) desde tus archivos locales del registry, compila el proyecto y le pasa pruebas de axe y teclado. Antes ejecuta `pnpm registry:build`.
 
 Para empezar un componente nuevo:
 

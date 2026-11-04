@@ -1,6 +1,5 @@
 "use client";
 
-import * as React from "react";
 import { NavigationMenu as BaseNavigationMenu } from "@base-ui/react/navigation-menu";
 
 import { cn } from "@/lib/utils";
