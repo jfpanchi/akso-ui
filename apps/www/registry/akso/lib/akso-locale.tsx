@@ -31,9 +31,11 @@ export interface AksoMessages {
   errorSummaryTitle: string;
   /** Hidden word read before alert and toast titles. */
   status: Record<AksoStatus, string>;
-  /** Combobox texts. */
+  /** Combobox and Autocomplete texts. */
   noResults: string;
+  noSuggestions: string;
   results: (count: number) => string;
+  suggestions: (count: number) => string;
   showOptions: string;
   clear: string;
   /** Textarea counter. */
@@ -52,7 +54,9 @@ export const en: AksoMessages = {
   errorSummaryTitle: "There is a problem",
   status: { info: "Information", success: "Success", warning: "Warning", error: "Error" },
   noResults: "No results.",
+  noSuggestions: "No suggestions.",
   results: (n) => (n === 1 ? "1 result" : `${n} results`),
+  suggestions: (n) => (n === 1 ? "1 suggestion" : `${n} suggestions`),
   showOptions: "Show options",
   clear: "Clear",
   charactersLeft: (n) => (n === 1 ? "1 character left" : `${n} characters left`),
@@ -69,7 +73,9 @@ export const es: AksoMessages = {
   errorSummaryTitle: "Hay un problema",
   status: { info: "Información", success: "Hecho", warning: "Atención", error: "Error" },
   noResults: "Sin resultados.",
+  noSuggestions: "Sin sugerencias.",
   results: (n) => (n === 1 ? "1 resultado" : `${n} resultados`),
+  suggestions: (n) => (n === 1 ? "1 sugerencia" : `${n} sugerencias`),
   showOptions: "Mostrar opciones",
   clear: "Borrar",
   charactersLeft: (n) => (n === 1 ? "Queda 1 carácter" : `Quedan ${n} caracteres`),

@@ -827,3 +827,25 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Deaf and hard of hearing | No audio-only content in components | Not applicable to Dialog |
 | Cognitive disabilities | Short, plain default texts; predictable behavior; visible labels, "(required)" as text, errors that say what to do; `autoComplete` on fields | Code review ✅ · User testing ⏳ |
 | Vestibular disorders | No motion with `prefers-reduced-motion`; small, short animations otherwise | Automated ✅ |
+
+## Autocomplete
+
+> Work in progress. Not ready to use.
+
+### Automated checks
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| TODO | | |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |

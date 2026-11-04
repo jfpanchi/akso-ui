@@ -672,6 +672,28 @@
         }
       ],
       "docs": "Akso UI Navigation menu: label the menu with aria-label when the page has more than one nav; set active on the current page link. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "autocomplete",
+      "type": "registry:ui",
+      "title": "Autocomplete",
+      "description": "Text field with optional suggestions: free text allowed, visible label, announced suggestion count and a high-contrast highlight ring.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/autocomplete.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Autocomplete: always set label; use Combobox when only listed options are valid. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
