@@ -15,13 +15,24 @@ await page.goto(url);
 let axe = await new AxeBuilder({ page }).withTags(tags).analyze();
 check(axe.violations.length === 0, `axe closed: ${axe.violations.map((v) => v.id).join(", ") || "no violations"}`);
 
+const saving = page.getByRole("button", { name: "Saving" });
+check((await saving.getAttribute("aria-disabled")) === "true", "loading Button is named by its loading text and aria-disabled");
+
 const trigger = page.getByRole("button", { name: "Open dialog" });
 await trigger.focus();
 await page.keyboard.press("Enter");
 const dialog = page.getByRole("dialog", { name: "Installed from the registry" });
 await dialog.waitFor();
 // Wait for the opening transition: mid-fade text has lower contrast than the final state.
-await page.evaluate(() => Promise.all(document.getAnimations().map((a) => a.finished)));
+// Infinite animations (the loading spinner) are skipped.
+await page.evaluate(() =>
+  Promise.all(
+    document
+      .getAnimations()
+      .filter((a) => a.effect?.getComputedTiming().endTime !== Infinity)
+      .map((a) => a.finished.catch(() => undefined)),
+  ),
+);
 check(true, "dialog opens with Enter and has an accessible name");
 
 axe = await new AxeBuilder({ page }).withTags(tags).analyze();

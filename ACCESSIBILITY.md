@@ -6,7 +6,7 @@ No component library can make a product accessible on its own, and we do not cla
 
 If something does not work for you, please [report a barrier](https://github.com/jfpanchi/akso-ui/issues/new?template=accessibility-barrier.yml). You do not need to be a developer.
 
-_Last updated: 2026-11-03_
+_Last updated: 2026-11-04_
 
 ## How we test
 
@@ -17,6 +17,40 @@ _Last updated: 2026-11-03_
 | End-to-end tests | Playwright + `@axe-core/playwright` (Chromium, light and dark) | Contrast as rendered, focus ring color and size, target sizes, reflow at 320px, `prefers-reduced-motion` | How screen readers announce things, voice control, real devices |
 | Registry install | `scripts/verify-registry.sh` | The component still passes axe and keyboard checks after `npx shadcn add` into a fresh project | — |
 | Manual testing | People using assistive technology | What it is like to actually use the component | — |
+
+## Button
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations in every variant, size and state (including loading) | Several | Vitest + Playwright (light and dark) |
+| Native `<button>`, `type="button"` by default (does not submit forms by accident) | 4.1.2 | Vitest |
+| Enter and Space press it; disabled buttons are skipped by Tab | 2.1.1 Keyboard | Vitest + Playwright |
+| Loading keeps focus on the same button, renames it ("Saving") and ignores presses | 2.4.3, 4.1.2 | Vitest + Playwright |
+| Icon-only buttons without a name log an error in development | 4.1.2 | Vitest |
+| Visible `:focus-visible` ring, ≥ 2px, ≥ 3:1 contrast in every variant, appearing at once | 2.4.7, 1.4.11 | Playwright (computed colors) |
+| Spinner does not move with `prefers-reduced-motion: reduce` | 2.3.3 (AAA) | Playwright |
+| At least 24×24px in every size (`default` and `icon`: 44px, `sm`: 36px) | 2.5.8 Target Size (Minimum) | Playwright |
+| Danger variant uses text (and an underline on hover), not only color | 1.4.1 Use of Color | Code review |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- The loading state follows the Base UI pattern (`focusableWhenDisabled` + `aria-labelledby`). Whether every screen reader announces the name change while focus stays on the button is not confirmed yet. Announce the final result with a status message (`LiveRegion`).
+- The default loading text ("Loading") is in English. Translate it with `loadingText`.
+- Ghost buttons have no visible border at rest. Use them only where the context makes clear that they can be pressed.
 
 ## Dialog
 
@@ -35,7 +69,7 @@ _Last updated: 2026-11-03_
 | The focus ring appears immediately (it is never animated) | 2.4.7 | Playwright |
 | No transitions or animations with `prefers-reduced-motion: reduce` | 2.3.3 (AAA) | Playwright |
 | No horizontal scroll at 320px wide; tall dialogs scroll instead of being cut off | 1.4.10 Reflow | Playwright |
-| Buttons at least 24×24px (actual: 44×44px) | 2.5.8 Target Size (Minimum) | Playwright |
+| Buttons at least 24×24px (actual: 44×44px; they use the Akso Button styles) | 2.5.8 Target Size (Minimum) | Playwright |
 | Information is not conveyed by color alone (danger buttons: text label; hover: underline) | 1.4.1 Use of Color | Code review |
 
 ### Manual testing with assistive technology

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { SkipLink } from "akso-ui";
+import { components } from "@/lib/components";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -24,9 +25,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="inline-flex min-h-11 items-center font-semibold text-akso-foreground no-underline">
               Akso UI
             </Link>
-            <Link href="/docs/dialog" className="inline-flex min-h-11 items-center">
-              Dialog
-            </Link>
+            {components.map((c) => (
+              <Link key={c.slug} href={`/docs/${c.slug}`} className="inline-flex min-h-11 items-center">
+                {c.name}
+              </Link>
+            ))}
             <a href="https://github.com/jfpanchi/akso-ui" className="inline-flex min-h-11 items-center">
               GitHub
             </a>

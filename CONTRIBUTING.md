@@ -42,10 +42,23 @@ These rules are also in [CLAUDE.md](./CLAUDE.md):
 8. Use colors from the Akso tokens. If you add a token pair, add it to `contrastPairs` so it is tested.
 9. Use `@base-ui/react`. Never the old name `@base-ui-components/react`.
 
+## Starting a new component
+
+Open an issue first. Then generate the files:
+
+```bash
+pnpm new:component <kebab-name> --base <base-ui-part>
+```
+
+Read the Base UI docs for the part (`apps/www/node_modules/@base-ui/react/docs/react/components/<part>.md`) before you write code. The generated tests marked `it.todo` and `test.fixme` are the minimum: replace every one with a real test.
+
+Use the shared e2e checks in `apps/www/e2e/helpers/a11y.ts` (`expectNoAxeViolations`, `expectVisibleFocusRing`, `expectMinTargetSize`, `expectNoMotion`, `expectNoHorizontalScroll`…), so every component meets the same bar.
+
 ## Every component PR must include
 
 A component PR is not ready to merge until all of this is done:
 
+- [ ] **No `it.todo` or `test.fixme` left** for the component.
 - [ ] **axe tests**: no violations, in every state (closed, open, with error, disabled…), in Vitest **and** Playwright (light and dark mode).
 - [ ] **Keyboard tests**: every key in the component's keyboard table, focus order, focus trap or focus return where it applies.
 - [ ] **Visual tests in Playwright**: focus ring contrast, 320px reflow, target size, `prefers-reduced-motion`.

@@ -11,8 +11,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-  dialogButtonClassName,
-} from "@/registry/akso/dialog/dialog";
+} from "@/registry/akso/ui/dialog";
+import { focusRingClassName } from "@/registry/akso/lib/akso-styles";
+import { Button } from "@/registry/akso/ui/button";
 
 /** Demo used by the docs page and by the e2e tests. */
 export function DialogDemo() {
@@ -48,14 +49,14 @@ export function DialogDemo() {
                 name="name"
                 defaultValue={name}
                 autoComplete="name"
-                className="min-h-11 w-full rounded-md border border-akso-border bg-akso-surface px-3 text-base text-akso-foreground outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-solid focus-visible:outline-akso-focus-ring"
+                className={"min-h-11 w-full rounded-md border border-akso-border bg-akso-surface px-3 text-base text-akso-foreground " + focusRingClassName}
               />
             </div>
             <DialogFooter>
               <DialogClose>Cancel</DialogClose>
-              <button type="submit" className={dialogButtonClassName("primary")}>
+              <Button type="submit" variant="primary">
                 Save
-              </button>
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>

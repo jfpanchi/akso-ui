@@ -7,6 +7,8 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { colorTokenNames, colors } from "../../../packages/core/src/tokens/colors.ts";
 
+export { REGISTRY_BASE_URL } from "../lib/registry.ts";
+
 export function buildCssVars() {
   const pick = (scheme: "light" | "dark") =>
     Object.fromEntries(colorTokenNames.map((name) => [`akso-${name}`, colors[scheme][name]]));

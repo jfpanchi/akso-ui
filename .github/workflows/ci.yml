@@ -76,3 +76,20 @@ jobs:
           name: playwright-report
           path: apps/www/playwright-report
           retention-days: 7
+
+  registry:
+    name: Registry install (fresh Next.js + shadcn project)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter www exec playwright install --with-deps chromium
+      - run: pnpm build:core && pnpm registry:build
+      - name: Registry output is committed and up to date
+        run: git diff --exit-code -- apps/www/public/r apps/www/registry.json
+      - run: pnpm verify:registry

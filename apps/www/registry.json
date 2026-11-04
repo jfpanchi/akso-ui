@@ -57,6 +57,41 @@
       }
     },
     {
+      "name": "akso-styles",
+      "type": "registry:lib",
+      "title": "Akso UI shared styles",
+      "description": "Button and focus ring styles shared by Akso UI components. Installed automatically.",
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/lib/akso-styles.ts",
+          "type": "registry:lib"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "Accessible button built on Base UI. Visible focus ring, 44px targets, and a loading state that keeps focus and is announced by screen readers.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/button.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Button: icon-only buttons need an aria-label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
@@ -65,61 +100,14 @@
         "@base-ui/react@^1.9.0"
       ],
       "registryDependencies": [
-        "utils"
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
       ],
       "files": [
         {
-          "path": "registry/akso/dialog/dialog.tsx",
+          "path": "registry/akso/ui/dialog.tsx",
           "type": "registry:ui"
         }
       ],
-      "cssVars": {
-        "theme": {
-          "color-akso-background": "var(--akso-background)",
-          "color-akso-foreground": "var(--akso-foreground)",
-          "color-akso-muted-foreground": "var(--akso-muted-foreground)",
-          "color-akso-surface": "var(--akso-surface)",
-          "color-akso-surface-hover": "var(--akso-surface-hover)",
-          "color-akso-border": "var(--akso-border)",
-          "color-akso-primary": "var(--akso-primary)",
-          "color-akso-primary-hover": "var(--akso-primary-hover)",
-          "color-akso-primary-foreground": "var(--akso-primary-foreground)",
-          "color-akso-danger": "var(--akso-danger)",
-          "color-akso-danger-foreground": "var(--akso-danger-foreground)",
-          "color-akso-focus-ring": "var(--akso-focus-ring)",
-          "color-akso-overlay": "var(--akso-overlay)"
-        },
-        "light": {
-          "akso-background": "#ffffff",
-          "akso-foreground": "#18181b",
-          "akso-muted-foreground": "#52525b",
-          "akso-surface": "#ffffff",
-          "akso-surface-hover": "#f4f4f5",
-          "akso-border": "#71717a",
-          "akso-primary": "#1d4ed8",
-          "akso-primary-hover": "#1e40af",
-          "akso-primary-foreground": "#ffffff",
-          "akso-danger": "#b91c1c",
-          "akso-danger-foreground": "#ffffff",
-          "akso-focus-ring": "#1d4ed8",
-          "akso-overlay": "rgb(9 9 11 / 0.6)"
-        },
-        "dark": {
-          "akso-background": "#09090b",
-          "akso-foreground": "#fafafa",
-          "akso-muted-foreground": "#a1a1aa",
-          "akso-surface": "#18181b",
-          "akso-surface-hover": "#27272a",
-          "akso-border": "#a1a1aa",
-          "akso-primary": "#93c5fd",
-          "akso-primary-hover": "#bfdbfe",
-          "akso-primary-foreground": "#09090b",
-          "akso-danger": "#fca5a5",
-          "akso-danger-foreground": "#09090b",
-          "akso-focus-ring": "#93c5fd",
-          "akso-overlay": "rgb(0 0 0 / 0.75)"
-        }
-      },
       "docs": "Akso UI Dialog: always include a <DialogTitle>. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]

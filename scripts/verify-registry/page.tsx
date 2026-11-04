@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
@@ -13,6 +14,9 @@ export default function Page() {
   return (
     <main className="p-8">
       <h1 className="mb-4 text-2xl font-bold">Registry install check</h1>
+      <Button variant="primary" loading loadingText="Saving" className="mb-4">
+        Save
+      </Button>
       <Dialog>
         <DialogTrigger>Open dialog</DialogTrigger>
         <DialogContent>

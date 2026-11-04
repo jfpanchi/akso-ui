@@ -6,7 +6,7 @@ Componentes React accesibles construidos sobre [Base UI](https://base-ui.com) (`
 
 Cada componente está **probado con herramientas automáticas** (axe, teclado y pruebas visuales) y **documenta qué se ha comprobado y qué no** con tecnologías de asistencia. Probamos pensando en personas ciegas, con baja visión, con daltonismo y con discapacidad motora, auditiva, cognitiva y vestibular. Los detalles están en la [declaración de accesibilidad](./ACCESSIBILITY.md) (en inglés). Nunca afirmamos que algo sea "100% accesible".
 
-> Estado: trabajo inicial. Por ahora solo está disponible el componente **Dialog**.
+> Estado: trabajo inicial. Componentes disponibles: **Button** y **Dialog**.
 
 ## Qué hay en este repositorio
 
@@ -14,7 +14,7 @@ Cada componente está **probado con herramientas automáticas** (axe, teclado y 
 | --- | --- |
 | `packages/core` (`akso-ui`) | Tokens de color con contraste WCAG AA verificado, `VisuallyHidden`, `LiveRegion`, `SkipLink` y helpers de test (`expectNoA11yViolations`, utilidades de teclado). Todavía no está publicado en npm. |
 | `apps/www` | App Next.js que sirve el [registry de shadcn](https://ui.shadcn.com/docs/registry) y la documentación. |
-| `apps/www/registry/akso` | Código fuente de los componentes. |
+| `apps/www/registry/akso/ui` | Código fuente de los componentes. |
 | `apps/www/public/r` | Archivos del registry ya generados (`*.json`). Se guardan en el repo para poder instalar desde GitHub. |
 
 ## Instalar un componente
@@ -25,7 +25,7 @@ En un proyecto que ya usa [shadcn](https://ui.shadcn.com) y Tailwind CSS v4:
 npx shadcn@latest add https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/dialog.json
 ```
 
-Esto añade `components/ui/dialog.tsx`, instala `@base-ui/react` y agrega los tokens de color de Akso (`--akso-*`) a tu CSS. Los tokens tienen su propio prefijo, así que no cambian tu tema actual. El modo oscuro sigue la clase `.dark`.
+Esto añade `components/ui/dialog.tsx` y el `components/ui/button.tsx` de Akso del que depende, instala `@base-ui/react` y agrega los tokens de color de Akso (`--akso-*`) a tu CSS. Los tokens tienen su propio prefijo, así que no cambian tu tema actual. El modo oscuro sigue la clase `.dark`.
 
 ```tsx
 import {
@@ -91,7 +91,15 @@ pnpm registry:build
 pnpm verify:registry
 ```
 
-`verify:registry` crea un proyecto nuevo de Next.js + shadcn, instala el Dialog desde el registry local, compila el proyecto y le pasa pruebas de axe y teclado. Antes hay que compilar la app (`pnpm --filter www build`).
+`verify:registry` crea un proyecto nuevo de Next.js + shadcn, instala el Dialog (y con él el Button y los tokens) desde tus archivos locales del registry, compila el proyecto y le pasa pruebas de axe y teclado. Antes ejecuta `pnpm registry:build`.
+
+Para empezar un componente nuevo:
+
+```bash
+pnpm new:component radio-group --base radio-group
+```
+
+Esto crea el componente, sus tests unitarios y e2e (con las comprobaciones obligatorias marcadas como pendientes), sus páginas de documentación y de prueba, su entrada en el registry y su sección en `ACCESSIBILITY.md`.
 
 ## Contribuir
 
