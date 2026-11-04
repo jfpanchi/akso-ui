@@ -9,7 +9,7 @@ import { Field as BaseField } from "@base-ui/react/field";
 
 import { cn } from "@/lib/utils";
 import { useAksoField } from "@/registry/akso/lib/akso-form";
-import { choiceControlClassName, choiceLabelClassName, legendClassName } from "@/registry/akso/lib/akso-styles";
+import { choiceControlClassName, choiceLabelClassName, forcedFillClassName, legendClassName } from "@/registry/akso/lib/akso-styles";
 
 /*
  * Akso UI · Radio group
@@ -62,7 +62,7 @@ function Radio({ children, className, ...props }: RadioProps) {
   return (
     <ChoiceLabel data-slot="radio-label" className={choiceLabelClassName(className)}>
       <BaseRadio.Root data-slot="radio" className={cn(choiceControlClassName, "rounded-full data-checked:bg-akso-surface")} {...props}>
-        <BaseRadio.Indicator data-slot="radio-indicator" className="size-3 rounded-full bg-akso-primary" />
+        <BaseRadio.Indicator data-slot="radio-indicator" className={cn("size-3 rounded-full bg-akso-primary", forcedFillClassName)} />
       </BaseRadio.Root>
       <span>{children}</span>
     </ChoiceLabel>

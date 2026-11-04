@@ -4,7 +4,7 @@ import * as React from "react";
 import { Slider as BaseSlider } from "@base-ui/react/slider";
 
 import { cn } from "@/lib/utils";
-import { buttonClassName } from "@/registry/akso/lib/akso-styles";
+import { buttonClassName, forcedBarClassName } from "@/registry/akso/lib/akso-styles";
 
 /*
  * Akso UI · Slider
@@ -94,7 +94,7 @@ function Slider({
       )}
       <BaseSlider.Control data-slot="slider-control" className="flex min-h-11 w-full cursor-pointer touch-none items-center select-none data-disabled:cursor-not-allowed">
         <BaseSlider.Track data-slot="slider-track" className="relative h-2 w-full rounded-full border border-akso-border bg-akso-surface-hover">
-          <BaseSlider.Indicator data-slot="slider-indicator" className="rounded-full bg-akso-primary" />
+          <BaseSlider.Indicator data-slot="slider-indicator" className={cn("rounded-full bg-akso-primary", forcedBarClassName)} />
           <BaseSlider.Thumb
             data-slot="slider-thumb"
             getAriaValueText={getValueText ? (_formatted, v) => getValueText(v) : undefined}

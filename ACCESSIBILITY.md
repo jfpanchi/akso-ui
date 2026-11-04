@@ -16,6 +16,7 @@ _Last updated: 2026-11-04_
 | Unit tests | Vitest + Testing Library + vitest-axe (jsdom) | Missing names, wrong roles, broken ARIA references, keyboard behavior, focus order | Layout, real colors, real screen reader output |
 | End-to-end tests | Playwright + `@axe-core/playwright` (Chromium, light and dark) | Contrast as rendered, focus ring color and size, target sizes, reflow at 320px, `prefers-reduced-motion` | How screen readers announce things, voice control, real devices |
 | Exceptions | Base UI "focus guards" (invisible `aria-hidden` elements around open popups that move focus on the same frame they receive it) are excluded from the e2e axe runs by selector. In Vitest only, the best-practice rule `region` is skipped where a popup is rendered in a portal. Every exception is written next to the test that uses it. | — |
+| Windows high contrast | `apps/www/e2e/forced-colors.spec.ts` (Chromium emulating `forced-colors: active`) | Button outlines, focus ring, checkbox/radio/switch states, progress/meter/slider bars, selected tab, field borders and dialog edges stay visible with system colors | Every possible user theme; real Windows High Contrast with a screen reader |
 | Registry install | `scripts/verify-registry.sh` | The component still passes axe and keyboard checks after `npx shadcn add` into a fresh project | — |
 | Manual testing | People using assistive technology | What it is like to actually use the component | — |
 
@@ -85,7 +86,7 @@ _Last updated: 2026-11-04_
 | TalkBack | Chrome (Android) | ⏳ Pending | |
 | Voice Control | macOS / iOS | ⏳ Pending | |
 
-Other checks still pending: Windows High Contrast Mode / `forced-colors`, browser zoom to 400% in Firefox and Safari, screen magnifiers (ZoomText, macOS Zoom), switch access.
+Other checks still pending: real Windows High Contrast Mode with a screen reader (forced colors is emulated in e2e tests), browser zoom to 400% in Firefox and Safari, screen magnifiers (ZoomText, macOS Zoom), switch access.
 
 ### Known limitations
 

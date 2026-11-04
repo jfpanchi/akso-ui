@@ -4,6 +4,7 @@ import * as React from "react";
 import { Progress as BaseProgress } from "@base-ui/react/progress";
 
 import { cn } from "@/lib/utils";
+import { forcedBarClassName } from "@/registry/akso/lib/akso-styles";
 
 /*
  * Akso UI · Progress
@@ -36,6 +37,7 @@ function Progress({ label, showValue = true, className, ...props }: ProgressProp
           data-slot="progress-indicator"
           className={cn(
             "block h-full bg-akso-primary",
+            forcedBarClassName,
             "motion-safe:transition-[width] motion-safe:duration-300",
             // Unknown amount: a half bar that pulses, and stays still when motion is reduced.
             "data-indeterminate:w-1/2 motion-safe:data-indeterminate:animate-pulse",
