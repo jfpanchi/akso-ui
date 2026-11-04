@@ -5,7 +5,7 @@
 
 export type RGB = readonly [r: number, g: number, b: number];
 
-/** Parses `#rgb`, `#rrggbb`, `rgb(r, g, b)` and `rgb(r g b)` into 0–255 channels. */
+/** Parses `#rgb`, `#rrggbb`, `rgb(r, g, b)`, `rgb(r g b)` and `color(srgb r g b)` into 0–255 channels. */
 export function parseColor(color: string): RGB {
   const value = color.trim().toLowerCase();
 
@@ -25,7 +25,13 @@ export function parseColor(color: string): RGB {
     return [Number(rgb[1]), Number(rgb[2]), Number(rgb[3])];
   }
 
-  throw new Error(`Unsupported color format: "${color}". Use hex or rgb().`);
+  // WebKit can report computed colors as color(srgb r g b), with channels from 0 to 1.
+  const srgb = /^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/.exec(value);
+  if (srgb?.[1] && srgb[2] && srgb[3]) {
+    return [Number(srgb[1]) * 255, Number(srgb[2]) * 255, Number(srgb[3]) * 255];
+  }
+
+  throw new Error(`Unsupported color format: "${color}". Use hex, rgb() or color(srgb ...).`);
 }
 
 function channelToLinear(channel: number): number {

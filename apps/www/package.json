@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "registry:sync": "node scripts/sync-registry-tokens.ts"
+    "registry:sync": "node scripts/sync-registry-tokens.ts",
+    "test:e2e:chromium": "playwright test --project=chromium-light --project=chromium-dark"
   },
   "dependencies": {
     "@base-ui/react": "1.9.0",

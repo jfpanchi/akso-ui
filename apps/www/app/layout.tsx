@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import { SkipLink } from "akso-ui";
+import { HydrationMarker } from "@/components/hydration-marker";
 import { components } from "@/lib/components";
 import "./globals.css";
 
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body>
+        <HydrationMarker />
         <SkipLink />
         <header className="border-b border-akso-border">
           <nav aria-label="Main" className="mx-auto flex max-w-3xl flex-wrap items-center gap-x-6 gap-y-2 px-4 py-3">

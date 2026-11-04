@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./fixtures";
 import { expectNoAxeViolations, expectNoHorizontalScroll, expectVisibleFocusRing, REFLOW_VIEWPORT } from "./helpers/a11y";
 
 test("home page has no axe violations", async ({ page }) => {

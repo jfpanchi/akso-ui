@@ -39,4 +39,11 @@ export default tseslint.config(
       "@typescript-eslint/no-non-null-assertion": "off",
     },
   },
+  {
+    // Playwright fixtures receive a `use` function that is not a React hook.
+    files: ["**/e2e/**"],
+    rules: {
+      "react-hooks/rules-of-hooks": "off",
+    },
+  },
 );
