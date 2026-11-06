@@ -14,7 +14,7 @@ _Last updated: 2026-11-04_
 | --- | --- | --- | --- |
 | Color tokens | Contrast tests in `packages/core/tests/tokens.test.ts` | Text and non-text contrast for every token pair we use, in light and dark mode | Contrast of colors you add yourself |
 | Unit tests | Vitest + Testing Library + vitest-axe (jsdom) | Missing names, wrong roles, broken ARIA references, keyboard behavior, focus order | Layout, real colors, real screen reader output |
-| End-to-end tests | Playwright + `@axe-core/playwright` (Chromium, light and dark) | Contrast as rendered, focus ring color and size, target sizes, reflow at 320px, `prefers-reduced-motion` | How screen readers announce things, voice control, real devices |
+| End-to-end tests | Playwright + `@axe-core/playwright` in Chromium (light and dark), Firefox and WebKit (Safari's engine) | Contrast as rendered, focus ring color and size, target sizes, reflow at 320px, `prefers-reduced-motion` | How screen readers announce things, voice control, real devices |
 | Exceptions | Base UI "focus guards" (invisible `aria-hidden` elements around open popups that move focus on the same frame they receive it) are excluded from the e2e axe runs by selector. In Vitest only, the best-practice rule `region` is skipped where a popup is rendered in a portal. Every exception is written next to the test that uses it. | — |
 | Windows high contrast | `apps/www/e2e/forced-colors.spec.ts` (Chromium emulating `forced-colors: active`) | Button outlines, focus ring, checkbox/radio/switch states, progress/meter/slider bars, selected tab, field borders and dialog edges stay visible with system colors | Every possible user theme; real Windows High Contrast with a screen reader |
 | Registry install | `scripts/verify-registry.sh` (Next.js, Vite and React Router) | Every component installs and builds in a fresh project of each framework, and still passes axe and keyboard checks there | — |
@@ -92,7 +92,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 
 - Base UI does not set `aria-modal="true"`. It hides content outside the dialog from assistive technology instead. We have not yet confirmed how every screen reader handles this. See the manual testing table.
 - The default texts ("Close") are in English. Use `AksoLocaleProvider locale="es"` for Spanish, or `closeLabel`.
-- Automated tests only run in Chromium. Firefox and WebKit are not tested yet.
+- Automated tests run in Chromium, Firefox and WebKit. WebKit on Linux is close to Safari but not the same: Safari on macOS and iOS is checked only in the manual tests above.
 
 ## Field
 
