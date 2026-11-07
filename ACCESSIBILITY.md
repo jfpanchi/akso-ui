@@ -980,6 +980,37 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Home and End do not move to the first and last control (Base UI's Toolbar does not handle them; they are optional in the WAI-ARIA toolbar pattern). Inside a toggle group they move within the group.
 - Some screen reader users do not expect arrow keys inside a toolbar. Not confirmed manually yet.
 
+## Breadcrumb
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations | Several | Vitest + Playwright (light and dark) |
+| `nav` landmark named "Breadcrumb" (translated with `AksoLocaleProvider`); ordered list | 1.3.1, 2.4.1, 2.4.8 | Vitest + Playwright |
+| The current page is text with `aria-current="page"`, not a link | 1.3.1, 4.1.2 | Vitest + Playwright |
+| Separators hidden from screen readers; none before the first item | 1.3.1 | Vitest + Playwright |
+| Tab reaches every link with a visible focus ring with at least 3:1 contrast; the current page is skipped | 2.1.1, 2.4.7 | Vitest + Playwright |
+| Links underlined (not color alone) with at least 4.5:1 contrast; 44px tall | 1.4.1, 1.4.3, 2.5.8 | Playwright |
+| No horizontal scroll at 320px; long names wrap | 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Long trails are not shortened (no "…" menu); they wrap instead. On small screens a long trail can take several lines.
+- Built with plain HTML (Base UI has no breadcrumb), so the semantics are ours, not Base UI's.
+
 ## By disability
 
 | Group | What we do | Status |

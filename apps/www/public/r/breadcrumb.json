@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "breadcrumb",
+  "title": "Breadcrumb",
+  "description": "A breadcrumb trail: a named nav landmark with an ordered list, aria-current on the current page, hidden separators and 44px underlined links.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/breadcrumb.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { mergeProps } from \"@base-ui/react/merge-props\";\nimport { useRender } from \"@base-ui/react/use-render\";\n\nimport { cn } from \"@/lib/utils\";\nimport { useAksoMessages } from \"@/registry/akso/lib/akso-locale\";\nimport { focusRingClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Breadcrumb\n *\n * The WAI-ARIA breadcrumb pattern, with plain HTML (Base UI has no breadcrumb):\n * - a <nav> landmark named \"Breadcrumb\" (or the AksoLocaleProvider text), so screen reader\n *   users can find it and skip it;\n * - an ordered list, so screen readers say how many levels there are;\n * - the current page marked with aria-current=\"page\", as text (not a link to itself);\n * - separators hidden from screen readers, so they are not read between every link.\n * Links are underlined (not color alone), 44px tall, and wrap on narrow screens.\n * BreadcrumbLink takes a `render` prop (Base UI useRender) for router links, like Next.js <Link>.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface BreadcrumbProps extends React.ComponentProps<\"nav\"> {\n  /** Name of the navigation landmark. Default: \"Breadcrumb\" (or the AksoLocaleProvider text). */\n  label?: string;\n}\n\n/** Shows where the current page is in the site, with links to the pages above it. */\nfunction Breadcrumb({ label, className, children, ...props }: BreadcrumbProps) {\n  const messages = useAksoMessages();\n  return (\n    <nav aria-label={label ?? messages.breadcrumb} data-slot=\"breadcrumb\" className={cn(\"min-w-0\", className)} {...props}>\n      <ol data-slot=\"breadcrumb-list\" className=\"flex flex-wrap items-center gap-x-1 text-base text-akso-foreground\">\n        {children}\n      </ol>\n    </nav>\n  );\n}\n\n/** One level of the breadcrumb. A separator is drawn before every item except the first. */\nfunction BreadcrumbItem({ className, children, ...props }: React.ComponentProps<\"li\">) {\n  return (\n    <li data-slot=\"breadcrumb-item\" className={cn(\"group/breadcrumb-item inline-flex min-w-0 items-center gap-1\", className)} {...props}>\n      <svg\n        aria-hidden=\"true\"\n        focusable=\"false\"\n        viewBox=\"0 0 24 24\"\n        className=\"size-4 shrink-0 text-akso-muted-foreground group-first/breadcrumb-item:hidden\"\n        fill=\"none\"\n        stroke=\"currentColor\"\n        strokeWidth=\"2.5\"\n        strokeLinecap=\"round\"\n        strokeLinejoin=\"round\"\n      >\n        <path d=\"m9 6 6 6-6 6\" />\n      </svg>\n      {children}\n    </li>\n  );\n}\n\nexport type BreadcrumbLinkProps = useRender.ComponentProps<\"a\">;\n\n/** A link to a page above the current one. Use `render` for router links: `render={<Link href=\"/shop\" />}`. */\nfunction BreadcrumbLink({ render, className, ...props }: BreadcrumbLinkProps) {\n  return useRender({\n    defaultTagName: \"a\",\n    render,\n    props: mergeProps<\"a\">(\n      {\n        className: cn(\n          \"inline-flex min-h-11 items-center rounded-sm px-1 text-akso-primary underline underline-offset-2 [overflow-wrap:anywhere] hover:decoration-2\",\n          focusRingClassName,\n          className,\n        ),\n      },\n      { \"data-slot\": \"breadcrumb-link\", ...props } as React.ComponentProps<\"a\">,\n    ),\n  });\n}\n\n/** The current page: plain text with aria-current=\"page\". */\nfunction BreadcrumbPage({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      aria-current=\"page\"\n      data-slot=\"breadcrumb-page\"\n      className={cn(\"inline-flex min-h-11 items-center px-1 font-semibold [overflow-wrap:anywhere]\", className)}\n      {...props}\n    />\n  );\n}\n\nexport { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Breadcrumb. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

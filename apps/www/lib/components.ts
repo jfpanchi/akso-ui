@@ -4,6 +4,7 @@ export const components = [
   { slug: "alert", name: "Alert" },
   { slug: "alert-dialog", name: "Alert dialog" },
   { slug: "autocomplete", name: "Autocomplete" },
+  { slug: "breadcrumb", name: "Breadcrumb" },
   { slug: "button", name: "Button" },
   { slug: "checkbox", name: "Checkbox" },
   { slug: "checkbox-group", name: "Checkbox group" },

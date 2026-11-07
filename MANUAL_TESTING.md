@@ -78,6 +78,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 4. Type a city that is not in the list. Your text stays: you do not have to pick a suggestion.
 5. Use the clear button. The field is empty.
 
+### Breadcrumb — `/test/breadcrumb`
+1. In the list of landmarks or regions, you find a navigation called "Breadcrumb".
+2. Inside it, you hear a list with 4 items. Home, Store and Phones are links.
+3. The last item is read as the current page, and it is not a link.
+4. The "›" separators are not read.
+
 ### Button — `/test/button`
 1. Go through every button. Each one has a clear name. The icon-only button is read as "Settings".
 2. The disabled button is read as unavailable (dimmed or disabled).
