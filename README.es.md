@@ -4,7 +4,7 @@ _[Read in English](./README.md)_
 
 Componentes React accesibles construidos sobre [Base UI](https://base-ui.com) (`@base-ui/react`).
 
-Cada componente está **probado con herramientas automáticas** (axe, teclado y pruebas visuales) y **documenta qué se ha comprobado y qué no** con tecnologías de asistencia. Probamos pensando en personas ciegas, con baja visión, con daltonismo y con discapacidad motora, auditiva, cognitiva y vestibular. Los detalles están en la [declaración de accesibilidad](./ACCESSIBILITY.md) (en inglés). Nunca afirmamos que algo sea "100% accesible".
+Cada componente está **probado con herramientas automáticas**: axe, pruebas de teclado y comprobaciones en navegadores reales del contraste, el anillo de foco, el tamaño de los objetivos táctiles, el ajuste a 320 px y el movimiento reducido. Cada uno también **documenta qué se ha comprobado y qué no** con tecnologías de asistencia. Probamos pensando en personas ciegas, con baja visión, con daltonismo y con discapacidad motora, auditiva, cognitiva y vestibular. No comparamos capturas de pantalla, así que un cambio visual que no rompa ninguna de estas comprobaciones puede pasar desapercibido. Los detalles están en la [declaración de accesibilidad](./ACCESSIBILITY.md) (en inglés). Nunca afirmamos que algo sea "100% accesible".
 
 > Estado: trabajo inicial. Componentes disponibles: **Button**, **Dialog**, **Field**, **Input**, **Textarea**, **Fieldset**, **Form**, **Checkbox**, **Checkbox group**, **Radio group**, **Switch**, **Select**, **Alert dialog**, **Toast**, **Alert**, **Progress**, **Meter**, **Tabs**, **Accordion**, **Collapsible**, **Popover**, **Tooltip**, **Menu**, **Combobox**, **Autocomplete**, **Slider**, **Drawer** y **Navigation menu**.
 
@@ -116,6 +116,8 @@ Esto crea el componente, sus tests unitarios y e2e (con las comprobaciones oblig
 ## Contribuir
 
 Lee [CONTRIBUTING.md](./CONTRIBUTING.md). Todo PR de componente necesita tests de axe y de teclado y la checklist manual de lector de pantalla.
+
+Si usas un lector de pantalla u otra tecnología de asistencia, puedes ayudar siguiendo el [guion de pruebas manuales](./MANUAL_TESTING.es.md). No hace falta programar.
 
 Si encuentras una barrera de accesibilidad, [cuéntanos](https://github.com/jfpanchi/akso-ui/issues/new?template=accessibility-barrier.yml). No hace falta saber de programación.
 

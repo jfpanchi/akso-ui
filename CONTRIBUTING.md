@@ -7,7 +7,7 @@ By taking part you agree to follow the [Code of Conduct](./CODE_OF_CONDUCT.md).
 ## Ways to help
 
 - **Report a barrier.** If something does not work with your assistive technology, [open a barrier report](https://github.com/jfpanchi/akso-ui/issues/new?template=accessibility-barrier.yml). You do not need to write code.
-- **Do a manual test.** Pick a row marked "Pending" in [ACCESSIBILITY.md](./ACCESSIBILITY.md), follow the checklist below and open a PR or an issue with your results.
+- **Do a manual test.** Pick a row marked "Pending" in [ACCESSIBILITY.md](./ACCESSIBILITY.md), follow the [manual testing script](./MANUAL_TESTING.md) and [send a test report](https://github.com/jfpanchi/akso-ui/issues/new?template=manual-test-report.yml). You do not need to write code.
 - **Write code.** Fix a bug or add a component (please open an issue first to discuss new components).
 
 ## Setup
@@ -61,7 +61,7 @@ A component PR is not ready to merge until all of this is done:
 - [ ] **No `it.todo` or `test.fixme` left** for the component.
 - [ ] **axe tests**: no violations, in every state (closed, open, with error, disabled…), in Vitest **and** Playwright (light and dark mode).
 - [ ] **Keyboard tests**: every key in the component's keyboard table, focus order, focus trap or focus return where it applies.
-- [ ] **Visual tests in Playwright**: focus ring contrast, 320px reflow, target size, `prefers-reduced-motion`.
+- [ ] **Rendered checks in Playwright**: focus ring contrast, 320px reflow, target size, `prefers-reduced-motion`.
 - [ ] **Documentation page** in `apps/www/app/docs/<component>` with a keyboard table and the test status.
 - [ ] **ACCESSIBILITY.md** updated with a new section for the component, manual tests marked "Pending".
 - [ ] **Registry** rebuilt (`pnpm registry:build`) and `pnpm verify:registry` passing.

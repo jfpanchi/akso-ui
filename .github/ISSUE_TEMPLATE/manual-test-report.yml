@@ -1,0 +1,66 @@
+name: "Manual test report / Reporte de prueba manual"
+description: "Results from following the manual testing script. / Resultados de seguir el guion de pruebas manuales."
+title: "[Test report / Reporte]: "
+labels: ["accessibility", "manual-test"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Thank you for testing.** Follow the [manual testing script](https://github.com/jfpanchi/akso-ui/blob/main/MANUAL_TESTING.md) and write what you found. English or Spanish are both fine. Answer what you can.
+
+        **Gracias por probar.** Sigue el [guion de pruebas manuales](https://github.com/jfpanchi/akso-ui/blob/main/MANUAL_TESTING.es.md) y escribe lo que encontraste. Puedes escribir en inglés o en español. Responde lo que puedas.
+
+        This form is public. Do not include passwords or personal data. / Este formulario es público. No incluyas contraseñas ni datos personales.
+
+  - type: input
+    id: components
+    attributes:
+      label: "Which components did you test? / ¿Qué componentes probaste?"
+      placeholder: "Dialog, Form, Select"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: assistive-technology
+    attributes:
+      label: "What did you test with? / ¿Con qué probaste?"
+      multiple: true
+      options:
+        - "NVDA"
+        - "JAWS"
+        - "VoiceOver (macOS)"
+        - "VoiceOver (iOS / iPadOS)"
+        - "TalkBack"
+        - "Narrator"
+        - "Voice control / Control por voz"
+        - "Keyboard only / Solo teclado"
+        - "Zoom 200–400%"
+        - "Windows contrast themes / Temas de contraste de Windows"
+        - "Other / Otro"
+    validations:
+      required: true
+
+  - type: input
+    id: setup
+    attributes:
+      label: "Versions, browser and device / Versiones, navegador y dispositivo"
+      description: "Only if you know. / Solo si lo sabes."
+      placeholder: "NVDA 2026.3, Firefox 145, Windows 11"
+
+  - type: textarea
+    id: results
+    attributes:
+      label: "Results / Resultados"
+      description: "For each step: ✅ works, ⚠️ works but confusing, ❌ does not work. Add what you heard or saw. / En cada paso: ✅ funciona, ⚠️ funciona pero confunde, ❌ no funciona. Agrega lo que oíste o viste."
+      placeholder: |
+        Dialog
+        1. ✅ Heard "Edit profile, dialog"
+        2. ❌ Tab left the dialog and went to the page behind it
+    validations:
+      required: true
+
+  - type: textarea
+    id: other
+    attributes:
+      label: "Anything else? / ¿Algo más?"
+      description: "Anything that felt slow, unclear or tiring. / Cualquier cosa que se sintió lenta, poco clara o cansada."

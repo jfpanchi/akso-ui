@@ -4,7 +4,7 @@ _[Leer en español](./README.es.md)_
 
 Accessible React components built on [Base UI](https://base-ui.com) (`@base-ui/react`).
 
-Each component is **tested with automated tools** (axe, keyboard and visual tests) and **documents what has and has not been checked** with assistive technology. We test with blind and low-vision users in mind, as well as people with color blindness and with motor, hearing, cognitive and vestibular disabilities. See the [accessibility statement](./ACCESSIBILITY.md) for the details. We never claim "100% accessible".
+Each component is **tested with automated tools**: axe, keyboard tests, and checks in real browsers of contrast, focus rings, target size, 320px reflow and reduced motion. Each one also **documents what has and has not been checked** with assistive technology. We test with blind and low-vision users in mind, as well as people with color blindness and with motor, hearing, cognitive and vestibular disabilities. We do not compare screenshots, so a visual change that breaks none of these checks can go unnoticed. See the [accessibility statement](./ACCESSIBILITY.md) for the details. We never claim "100% accessible".
 
 > Status: early work. Available components: **Button**, **Dialog**, **Field**, **Input**, **Textarea**, **Fieldset**, **Form**, **Checkbox**, **Checkbox group**, **Radio group**, **Switch**, **Select**, **Alert dialog**, **Toast**, **Alert**, **Progress**, **Meter**, **Tabs**, **Accordion**, **Collapsible**, **Popover**, **Tooltip**, **Menu**, **Combobox**, **Autocomplete**, **Slider**, **Drawer** and **Navigation menu**.
 
@@ -116,6 +116,8 @@ This creates the component, its unit and e2e tests (with the required checks mar
 ## Contributing
 
 Read [CONTRIBUTING.md](./CONTRIBUTING.md). Every component PR needs axe and keyboard tests and the manual screen reader checklist.
+
+If you use a screen reader or other assistive technology, you can help by following the [manual testing script](./MANUAL_TESTING.md). No coding needed.
 
 If you find an accessibility barrier, [tell us about it](https://github.com/jfpanchi/akso-ui/issues/new?template=accessibility-barrier.yml). No technical knowledge needed.
 
