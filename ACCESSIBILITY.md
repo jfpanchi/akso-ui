@@ -916,6 +916,38 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Single-choice groups use pressed buttons, not radio buttons, so screen readers do not say "1 of 3". In a form, a Radio group is clearer.
 - Some screen reader users do not expect arrow keys inside a group of buttons. Not confirmed manually yet.
 
+## Number field
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: normal, disabled and with an error shown | Several | Vitest + Playwright (light and dark) |
+| Named by the FieldLabel; the error is linked with `aria-describedby` and `aria-invalid` (Base UI Field) | 1.3.1, 3.3.1, 4.1.2 | Vitest + Playwright |
+| Arrow keys step, Shift + arrows take big steps, Home/End go to min/max (Base UI) | 2.1.1 | Vitest + Playwright |
+| Tab reaches the field only; the − and + buttons are named and reachable by touch screen readers | 2.4.3, 4.1.2 | Vitest + Playwright |
+| Button names and role description translated with `AksoLocaleProvider` | 3.1.2 | Vitest |
+| Field and buttons 44×44px; focus ring on the whole field with at least 3:1 contrast | 2.5.8, 2.4.7, 1.4.11 | Playwright |
+| Invalid style: thicker border; the error text has an icon | 1.4.1 | Code review + Field tests |
+| No motion with `prefers-reduced-motion: reduce`; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- The − and + buttons are named "Decrease" and "Increase", without the field's name. With several number fields, a touch screen reader user may need to read the field first. Not confirmed manually yet.
+- Screen readers read the role description differently, and some ignore it. Not confirmed manually yet.
+
 ## By disability
 
 | Group | What we do | Status |

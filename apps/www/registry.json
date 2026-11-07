@@ -734,6 +734,28 @@
         }
       ],
       "docs": "Akso UI Toggle group. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "number-field",
+      "type": "registry:ui",
+      "title": "Number field",
+      "description": "A number input with − and + buttons, arrow-key steps, min/max, formatting, translated labels and 44px targets. Use it inside Field.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/number-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Number field. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
