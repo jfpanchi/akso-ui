@@ -159,6 +159,13 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Puedes leer el contenido y usar "Close".
 3. <kbd>Escape</kbd> lo cierra y el foco vuelve al botón.
 
+### Number field — `/test/number-field`
+1. "Guests" dice su nombre, que es obligatorio, su valor y "From 1 to 8 people."
+2. <kbd>↑</kbd> / <kbd>↓</kbd> cambian el valor de 1 en 1. <kbd>Inicio</kbd> y <kbd>Fin</kbd> van a 1 y a 8.
+3. <kbd>Tab</kbd> va al siguiente campo, no a los botones − y +. Con un lector de pantalla táctil igual puedes llegar a "Decrease" e "Increase".
+4. Borra el valor y sal del campo. Oyes "Enter the number of guests."
+5. "Price per night" se lee con su moneda, como "$80".
+
 ### Progress — `/test/progress`
 1. "Uploading photo" dice cuánto lleva.
 2. "Step 2 of 4" se entiende.
@@ -198,6 +205,18 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Muestra "Message archived". Pulsa <kbd>F6</kbd> para llegar a la notificación y usa "Undo". Oyes "Message restored" y el foco vuelve a donde estaba.
 3. La notificación de error ("Upload failed") también se lee, con su texto.
 4. Las notificaciones no desaparecen mientras las estás leyendo o tienen el foco.
+
+### Toggle — `/test/toggle`
+1. "Mute notifications" se lee como un botón no presionado. "Bold" se lee como presionado.
+2. Presiona "Mute notifications" con <kbd>Espacio</kbd> (o doble toque). Oyes "presionado" y el nombre no cambia.
+3. En pantalla, un botón presionado está relleno y tiene una barra abajo, así que se distingue sin ver el color.
+4. "Autoplay (not available)" se lee como no disponible.
+
+### Toggle group — `/test/toggle-group`
+1. Al entrar al primer grupo oyes "Text alignment". En el segundo, "Text style".
+2. En "Text alignment", <kbd>←</kbd> / <kbd>→</kbd> pasan entre Left, Center y Right. <kbd>Espacio</kbd> presiona uno y suelta los demás.
+3. En "Text style", Bold, Italic y Underline pueden estar presionados a la vez.
+4. <kbd>Tab</kbd> sale del grupo en vez de pasar por cada botón.
 
 ### Tooltip — `/test/tooltip`
 1. Los botones con ícono se leen como "Bold" e "Italic".

@@ -157,6 +157,13 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. You can read the content and use "Close".
 3. <kbd>Escape</kbd> closes it and focus goes back to the button.
 
+### Number field — `/test/number-field`
+1. "Guests" says its name, that it is required, its value, and "From 1 to 8 people."
+2. <kbd>↑</kbd> / <kbd>↓</kbd> change the value by 1. <kbd>Home</kbd> and <kbd>End</kbd> go to 1 and 8.
+3. <kbd>Tab</kbd> goes to the next field, not to the − and + buttons. With a touch screen reader you can still reach "Decrease" and "Increase".
+4. Delete the value and leave the field. You hear "Enter the number of guests."
+5. "Price per night" is read with its currency, like "$80".
+
 ### Progress — `/test/progress`
 1. "Uploading photo" says how far along it is.
 2. "Step 2 of 4" is clear.
@@ -196,6 +203,18 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. Show "Message archived". Press <kbd>F6</kbd> to reach the notification and use "Undo". You hear "Message restored", and focus goes back where it was.
 3. The error notification ("Upload failed") is read too, with its text.
 4. Notifications do not disappear while you are reading them or have focus on them.
+
+### Toggle — `/test/toggle`
+1. "Mute notifications" is read as a button that is not pressed. "Bold" is read as pressed.
+2. Press "Mute notifications" with <kbd>Space</kbd> (or double tap). You hear "pressed", and the name stays the same.
+3. On screen, a pressed toggle is filled and has a bar at the bottom, so you can tell without color.
+4. "Autoplay (not available)" is read as unavailable.
+
+### Toggle group — `/test/toggle-group`
+1. When you enter the first group, you hear "Text alignment". In the second, "Text style".
+2. In "Text alignment", <kbd>←</kbd> / <kbd>→</kbd> move between Left, Center and Right. <kbd>Space</kbd> presses one and releases the others.
+3. In "Text style", Bold, Italic and Underline can be pressed at the same time.
+4. <kbd>Tab</kbd> leaves the group instead of going through every button.
 
 ### Tooltip — `/test/tooltip`
 1. The icon buttons are read as "Bold" and "Italic".

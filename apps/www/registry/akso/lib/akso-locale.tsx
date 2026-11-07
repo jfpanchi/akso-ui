@@ -46,6 +46,8 @@ export interface AksoMessages {
   /** Slider step buttons. */
   decrease: string;
   increase: string;
+  /** Read after the name of a number field, instead of "edit text". */
+  numberField: string;
 }
 
 export const en: AksoMessages = {
@@ -67,6 +69,7 @@ export const en: AksoMessages = {
   showLess: "Show less",
   decrease: "Decrease",
   increase: "Increase",
+  numberField: "Number field",
 };
 
 export const es: AksoMessages = {
@@ -88,6 +91,7 @@ export const es: AksoMessages = {
   showLess: "Mostrar menos",
   decrease: "Disminuir",
   increase: "Aumentar",
+  numberField: "Campo numérico",
 };
 
 export const locales = { en, es } as const;
