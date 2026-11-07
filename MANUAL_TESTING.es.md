@@ -80,6 +80,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 4. Escribe una ciudad que no está en la lista. Tu texto se queda: no es obligatorio elegir una sugerencia.
 5. Usa el botón para borrar. El campo queda vacío.
 
+### Breadcrumb — `/test/breadcrumb`
+1. En la lista de regiones o puntos de referencia hay una navegación llamada "Breadcrumb".
+2. Dentro oyes una lista de 4 elementos. Home, Store y Phones son enlaces.
+3. El último elemento se lee como la página actual y no es un enlace.
+4. Los separadores "›" no se leen.
+
 ### Button — `/test/button`
 1. Recorre todos los botones. Cada uno tiene un nombre claro. El botón que solo tiene ícono se lee como "Settings".
 2. El botón desactivado se lee como no disponible (atenuado o desactivado).

@@ -48,6 +48,8 @@ export interface AksoMessages {
   increase: string;
   /** Read after the name of a number field, instead of "edit text". */
   numberField: string;
+  /** Name of the breadcrumb navigation landmark. */
+  breadcrumb: string;
 }
 
 export const en: AksoMessages = {
@@ -70,6 +72,7 @@ export const en: AksoMessages = {
   decrease: "Decrease",
   increase: "Increase",
   numberField: "Number field",
+  breadcrumb: "Breadcrumb",
 };
 
 export const es: AksoMessages = {
@@ -92,6 +95,7 @@ export const es: AksoMessages = {
   decrease: "Disminuir",
   increase: "Aumentar",
   numberField: "Campo numérico",
+  breadcrumb: "Ruta de navegación",
 };
 
 export const locales = { en, es } as const;
