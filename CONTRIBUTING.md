@@ -85,6 +85,28 @@ Write down the screen reader, browser, operating system and their versions. For 
 - If you change `packages/core`, run `pnpm changeset` and describe the change for users.
 - Nothing is published to npm without the maintainer's decision.
 
+### Publishing `akso-ui` (maintainer only)
+
+The components are not on npm: they are installed from the shadcn registry in this repository. Only `packages/core` is published, as `akso-ui`.
+
+1. Run `pnpm changeset version`. It turns the pending changesets into a new version and a `CHANGELOG.md` entry. Open a PR with the result and merge it when CI is green.
+2. On `main`, run `pnpm install` and `pnpm test`.
+3. Log in to npm with an account that has two-factor authentication:
+
+   ```bash
+   npm login
+   ```
+
+4. Publish. `prepublishOnly` builds the package first:
+
+   ```bash
+   pnpm --filter akso-ui publish
+   ```
+
+5. Create a git tag for the version (for example `akso-ui@0.1.0`) and push it.
+
+The package is published with public access (`publishConfig` in `packages/core/package.json`).
+
 ## Code review
 
 Reviewers check the rules above. A PR that weakens an accessibility test, for example by disabling an axe rule or skipping a test, needs a written reason, and the maintainer must accept it.
