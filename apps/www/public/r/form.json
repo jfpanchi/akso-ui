@@ -8,10 +8,10 @@
   ],
   "registryDependencies": [
     "utils",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-status.json",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.1.0/apps/www/public/r/akso-form.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.1.0/apps/www/public/r/akso-locale.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.1.0/apps/www/public/r/akso-status.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.1.0/apps/www/public/r/akso-styles.json"
   ],
   "files": [
     {
