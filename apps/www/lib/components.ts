@@ -20,6 +20,7 @@ export const components = [
   { slug: "meter", name: "Meter" },
   { slug: "navigation-menu", name: "Navigation menu" },
   { slug: "number-field", name: "Number field" },
+  { slug: "pagination", name: "Pagination" },
   { slug: "popover", name: "Popover" },
   { slug: "progress", name: "Progress" },
   { slug: "radio-group", name: "Radio group" },
