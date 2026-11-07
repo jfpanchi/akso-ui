@@ -85,6 +85,18 @@ Write down the screen reader, browser, operating system and their versions. For 
 - If you change `packages/core`, run `pnpm changeset` and describe the change for users.
 - Nothing is published to npm without the maintainer's decision.
 
+### Releasing a registry version (maintainer only)
+
+A registry version is a git tag, like `v0.1.0`, whose registry files link to that same tag. People who install from it get the same code every time, dependencies included.
+
+1. Make sure CI is green on `main`.
+2. In GitHub, open Actions → "Release registry" → "Run workflow", and type the version (for example `v0.1.0`).
+3. The workflow rewrites the links to the version, checks that it installs in a fresh project, then pushes the tag and creates a GitHub release.
+
+The tag points to a commit that is not on `main`, so `main` keeps linking to `main`. To try it locally without pushing, run `scripts/release-registry.sh v0.1.0` and inspect it with `git show v0.1.0 --stat`.
+
+Use a new minor version (`v0.2.0`) for new components or new props, and a new major version for changes that break existing code.
+
 ### Publishing `akso-ui` (maintainer only)
 
 The components are not on npm: they are installed from the shadcn registry in this repository. Only `packages/core` is published, as `akso-ui`.

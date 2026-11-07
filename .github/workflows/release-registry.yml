@@ -1,0 +1,68 @@
+name: Release registry
+
+# Run by hand from the Actions tab: creates a tag (for example v0.1.0) whose registry
+# files point to that tag, checks that it installs in a fresh project, then publishes
+# the tag and a GitHub release. Nothing is published to npm.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Version, for example v0.1.0"
+        required: true
+        type: string
+
+concurrency:
+  group: release-registry
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Release ${{ inputs.version }}
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    permissions:
+      contents: write
+    env:
+      VERSION: ${{ inputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      - name: Build the versioned registry and tag it (local only)
+        run: scripts/release-registry.sh "$VERSION"
+      - name: Install Chromium
+        run: pnpm --filter www exec playwright install --with-deps chromium
+      - name: Check the tagged registry installs in a fresh project
+        run: |
+          git checkout -q "$VERSION"
+          scripts/verify-registry.sh --framework next
+      - name: Push the tag
+        run: git push origin "refs/tags/$VERSION"
+      - name: Create the GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          BASE="https://raw.githubusercontent.com/${{ github.repository }}/$VERSION/apps/www/public/r"
+          cat > notes.md <<EOF
+          Install components from this version, for example:
+
+          \`\`\`bash
+          npx shadcn@latest add $BASE/dialog.json
+          \`\`\`
+
+          Every component installed from this version also gets its dependencies (Button, tokens, shared lib files) from $VERSION.
+          EOF
+          gh release create "$VERSION" --verify-tag --title "Registry $VERSION" --notes-file notes.md

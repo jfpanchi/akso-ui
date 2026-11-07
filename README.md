@@ -51,6 +51,16 @@ import {
 </Dialog>
 ```
 
+### Install a fixed version
+
+The URL above installs the latest code from `main`. To get a version that does not change, put the version in the URL instead of `main`:
+
+```bash
+npx shadcn@latest add https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.1.0/apps/www/public/r/dialog.json
+```
+
+The components it depends on (Button, tokens, shared `lib/` files) come from the same version. The available versions are on the [releases page](https://github.com/jfpanchi/akso-ui/releases).
+
 ## Language
 
 Default texts (like "Close" or "Loading") are in English. To get them in Spanish, wrap your app in the provider that is installed with the components:
