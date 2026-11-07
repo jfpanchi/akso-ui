@@ -216,6 +216,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 3. In "Text style", Bold, Italic and Underline can be pressed at the same time.
 4. <kbd>Tab</kbd> leaves the group instead of going through every button.
 
+### Toolbar — `/test/toolbar`
+1. You hear a toolbar called "Text formatting". <kbd>Tab</kbd> enters it once, on "Bold".
+2. <kbd>→</kbd> moves through Bold, Italic, Left, Center, Undo, Redo and Help, then back to Bold. You hear the groups ("Text style", "Alignment") when you enter them.
+3. Bold and Italic say whether they are pressed. "Undo" is read as unavailable but you can still reach it.
+4. <kbd>Tab</kbd> leaves the toolbar in one step.
+
 ### Tooltip — `/test/tooltip`
 1. The icon buttons are read as "Bold" and "Italic".
 2. With the keyboard, the tooltip appears when the button has focus. <kbd>Escape</kbd> hides it.
