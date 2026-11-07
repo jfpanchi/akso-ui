@@ -155,3 +155,39 @@ export function isDevelopment(): boolean {
     return false;
   }
 }
+
+export type ToggleSize = ButtonSize;
+
+/**
+ * Toggle button styles (Toggle, ToggleGroupItem). Off: like a secondary button.
+ * Pressed (`data-pressed`, set by Base UI with aria-pressed): filled with the primary color AND
+ * a bar along the bottom, so the state does not depend on color alone. In forced colors
+ * (Windows high contrast) the pressed fill uses the system Highlight colors.
+ */
+export function toggleClassName({ size = "default", className }: { size?: ToggleSize; className?: string } = {}) {
+  return cn(
+    base,
+    variants.secondary,
+    sizes[size],
+    "data-pressed:border-akso-primary data-pressed:bg-akso-primary data-pressed:text-akso-primary-foreground",
+    "data-pressed:hover:not-data-disabled:bg-akso-primary-hover",
+    "data-pressed:after:pointer-events-none data-pressed:after:absolute data-pressed:after:inset-x-2 data-pressed:after:bottom-1 data-pressed:after:h-0.5 data-pressed:after:rounded-full data-pressed:after:bg-current",
+    "forced-colors:data-pressed:forced-color-adjust-none forced-colors:data-pressed:border-[Highlight] forced-colors:data-pressed:bg-[Highlight] forced-colors:data-pressed:text-[HighlightText]",
+    "forced-colors:data-pressed:focus-visible:outline-[CanvasText]",
+    className,
+  );
+}
+
+/**
+ * Logs an error in development when an element has no accessible name
+ * (for example, an icon-only toggle without aria-label). Call it from an effect.
+ */
+export function warnIfUnnamed(el: HTMLElement | null, component: string, hint: string) {
+  if (!el || !isDevelopment()) return;
+  const labelledBy = el.getAttribute("aria-labelledby");
+  const name =
+    el.getAttribute("aria-label")?.trim() ||
+    (labelledBy ? el.ownerDocument.getElementById(labelledBy)?.textContent?.trim() : "") ||
+    (el.getAttribute("role") === "group" ? "" : el.textContent?.trim());
+  if (!name) console.error(`[Akso UI] ${component} has no accessible name. ${hint}`);
+}

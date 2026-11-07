@@ -7,7 +7,7 @@
  * Generated tests that need real work are marked `it.todo` / `test.fixme`, so the
  * component is visibly unfinished until someone writes them (see CONTRIBUTING.md).
  */
-import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 
 const args = process.argv.slice(2);
@@ -188,7 +188,7 @@ export default function ${pascal}DocsPage() {
 
 create(
   `e2e/${slug}.spec.ts`,
-  `import { test } from "@playwright/test";
+  `import { test } from "./fixtures";
 import {
   expectMinTargetSize,
   expectNoAnimatedOutline,
@@ -278,11 +278,8 @@ writeFileSync(
 );
 created.push("apps/www/lib/components.ts (entry added)");
 
-// Accessibility statement section.
-appendFileSync(
-  resolve(root, "ACCESSIBILITY.md"),
-  `
-## ${title}
+// Accessibility statement section, placed with the other components (before "By disability").
+const a11ySection = `## ${title}
 
 > Work in progress. Not ready to use.
 
@@ -303,7 +300,14 @@ appendFileSync(
 | VoiceOver | Safari (iOS) | ⏳ Pending | |
 | TalkBack | Chrome (Android) | ⏳ Pending | |
 | Voice Control | macOS / iOS | ⏳ Pending | |
-`,
+
+`;
+const a11yPath = resolve(root, "ACCESSIBILITY.md");
+const a11y = readFileSync(a11yPath, "utf8");
+const byDisability = a11y.indexOf("\n## By disability");
+writeFileSync(
+  a11yPath,
+  byDisability === -1 ? `${a11y.trimEnd()}\n\n${a11ySection}` : `${a11y.slice(0, byDisability + 1)}${a11ySection}${a11y.slice(byDisability + 1)}`,
 );
 created.push("ACCESSIBILITY.md (section added)");
 

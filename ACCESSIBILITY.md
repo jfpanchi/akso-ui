@@ -820,27 +820,20 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 
 - Base UI adds invisible "focus guard" elements (`aria-hidden`, `tabindex=0`) around the open panel; they move focus on the same frame they receive it. axe flags them, so they are excluded from the e2e axe checks by selector (see "How we test").
 
-## By disability
-
-| Group | What we do | Status |
-| --- | --- | --- |
-| Blind people (screen readers) | Semantic roles from Base UI, accessible names, focus management | Automated ✅ · Manual ⏳ |
-| Low vision | AA contrast tokens, 320px reflow, no fixed sizes that block zoom | Automated ✅ · Manual ⏳ |
-| Color blindness | Information never depends on color alone | Code review ✅ |
-| Motor disabilities | Full keyboard support, 44px targets, visible focus | Automated ✅ · Switch access ⏳ |
-| Deaf and hard of hearing | No audio-only content in components | Not applicable to Dialog |
-| Cognitive disabilities | Short, plain default texts; predictable behavior; visible labels, "(required)" as text, errors that say what to do; `autoComplete` on fields | Code review ✅ · User testing ⏳ |
-| Vestibular disorders | No motion with `prefers-reduced-motion`; small, short animations otherwise | Automated ✅ |
-
 ## Autocomplete
 
-> Work in progress. Not ready to use.
-
-### Automated checks
+### Automated checks (passing)
 
 | Requirement | WCAG | How it is checked |
 | --- | --- | --- |
-| TODO | | |
+| No axe violations, closed and with suggestions open | Several | Vitest + Playwright (light and dark) |
+| The input is a `combobox` named by its visible label (Base UI) | 1.3.1, 4.1.2 | Vitest + Playwright |
+| Typing shows matching suggestions and announces how many there are (polite) | 4.1.3 | Vitest + Playwright |
+| "No suggestions." is shown when nothing matches | 3.3.1 | Vitest + Playwright |
+| Free text is kept: a value that is not a suggestion stays | 3.3.2 | Vitest + Playwright |
+| Arrow keys highlight a suggestion and Enter puts it in the field; focus stays in the field; Escape closes | 2.1.1 | Vitest + Playwright |
+| Suggestions 44px tall; the highlighted one has a ring, not only a color | 2.5.8, 1.4.1 | Vitest + Playwright |
+| No motion with `prefers-reduced-motion: reduce`; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
 
 ### Manual testing with assistive technology
 
@@ -853,3 +846,84 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | VoiceOver | Safari (iOS) | ⏳ Pending | |
 | TalkBack | Chrome (Android) | ⏳ Pending | |
 | Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- The contrast of the highlight ring is not measured by a test yet; it uses the same focus ring token as other components.
+- How each screen reader reads the number of suggestions is not confirmed manually yet.
+
+## Toggle
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: off, pressed, icon-only and disabled | Several | Vitest + Playwright (light and dark) |
+| Native `<button>` with `aria-pressed` (Base UI); the name does not change with the state | 4.1.2 | Vitest + Playwright |
+| Space and Enter press it; disabled toggles are skipped by Tab | 2.1.1 | Vitest + Playwright |
+| Pressed is shown with a fill and a bar along the bottom, not color alone; the fill has at least 3:1 contrast with the page | 1.4.1, 1.4.11 | Vitest + Playwright |
+| Off and pressed stay visible in Windows high contrast (Highlight fill, visible bar and outline) | 1.4.11 | Playwright (forced colors, Chromium) |
+| Targets 44×44px; visible focus ring with at least 3:1 contrast | 2.5.8, 2.4.7 | Playwright |
+| Error in development when it has no accessible name | 4.1.2 | Vitest |
+| No motion with `prefers-reduced-motion: reduce`; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Screen readers say the state differently ("pressed", "selected", "on"). Not confirmed manually yet.
+- A toggle is easy to confuse with a normal button. For settings in a form, a Switch or a Checkbox is usually clearer.
+
+## Toggle group
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: single and multiple groups | Several | Vitest + Playwright (light and dark) |
+| `role=group` named by its label; each item is a button with `aria-pressed` (Base UI) | 1.3.1, 4.1.2 | Vitest + Playwright |
+| Tab enters the group on one button, arrow keys move between buttons, Space presses, Tab leaves | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Without `multiple`, one at a time; with `multiple`, several | 4.1.2 | Vitest + Playwright |
+| Same pressed style as Toggle (fill and bar, not color alone) | 1.4.1 | Vitest |
+| Targets 44×44px; visible focus ring with at least 3:1 contrast; wraps on narrow screens | 2.5.8, 2.4.7, 1.4.10 | Playwright |
+| Error in development when the group has no name | 4.1.2 | Vitest |
+| No motion with `prefers-reduced-motion: reduce` | 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Single-choice groups use pressed buttons, not radio buttons, so screen readers do not say "1 of 3". In a form, a Radio group is clearer.
+- Some screen reader users do not expect arrow keys inside a group of buttons. Not confirmed manually yet.
+
+## By disability
+
+| Group | What we do | Status |
+| --- | --- | --- |
+| Blind people (screen readers) | Semantic roles from Base UI, accessible names, focus management | Automated ✅ · Manual ⏳ |
+| Low vision | AA contrast tokens, 320px reflow, no fixed sizes that block zoom | Automated ✅ · Manual ⏳ |
+| Color blindness | Information never depends on color alone | Code review ✅ |
+| Motor disabilities | Full keyboard support, 44px targets, visible focus | Automated ✅ · Switch access ⏳ |
+| Deaf and hard of hearing | No audio-only content in components | Not applicable to Dialog |
+| Cognitive disabilities | Short, plain default texts; predictable behavior; visible labels, "(required)" as text, errors that say what to do; `autoComplete` on fields | Code review ✅ · User testing ⏳ |
+| Vestibular disorders | No motion with `prefers-reduced-motion`; small, short animations otherwise | Automated ✅ |

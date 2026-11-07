@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "title": "Toggle",
+  "description": "A button that stays on or off, with aria-pressed, a pressed style that does not rely on color, and 44px targets.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/toggle.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Toggle as BaseToggle } from \"@base-ui/react/toggle\";\n\nimport { toggleClassName, warnIfUnnamed, type ToggleSize } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Toggle\n *\n * Built on @base-ui/react/toggle: a native <button> with aria-pressed, which Base UI\n * keeps in sync. Screen readers say \"pressed\" or \"not pressed\".\n * This file adds:\n * - a pressed style that does not depend on color alone (fill + a bar along the bottom),\n *   and system colors in Windows high contrast;\n * - 44×44px targets by default;\n * - an error in development when the toggle has no accessible name (icon-only toggles).\n *\n * Keep the name the same when the state changes (\"Bold\", not \"Bold on\" / \"Bold off\"):\n * aria-pressed already says the state.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface ToggleProps extends Omit<BaseToggle.Props, \"className\"> {\n  className?: string;\n  /** `icon` is a 44×44px square: give it an `aria-label`. */\n  size?: ToggleSize;\n}\n\n/** A button that stays on or off, like \"Bold\" in a text editor or \"Mute\". */\nfunction Toggle({ size = \"default\", className, ref, ...props }: ToggleProps) {\n  const innerRef = React.useRef<HTMLButtonElement | null>(null);\n  const setRefs = React.useCallback(\n    (node: HTMLButtonElement | null) => {\n      innerRef.current = node;\n      if (typeof ref === \"function\") ref(node);\n      else if (ref) ref.current = node;\n    },\n    [ref],\n  );\n  React.useEffect(() => {\n    warnIfUnnamed(innerRef.current, \"Toggle\", 'Add text, or an aria-label for icon-only toggles (size=\"icon\").');\n  }, []);\n\n  return <BaseToggle ref={setRefs} data-slot=\"toggle\" className={toggleClassName({ size, className })} {...props} />;\n}\n\nexport { Toggle };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Toggle. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}
