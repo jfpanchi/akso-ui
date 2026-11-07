@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "title": "Toggle group",
+  "description": "A named group of toggle buttons with arrow-key navigation, single or multiple selection, and 44px targets.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/toggle-group.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\nimport { Toggle as BaseToggle } from \"@base-ui/react/toggle\";\nimport { ToggleGroup as BaseToggleGroup } from \"@base-ui/react/toggle-group\";\n\nimport { cn } from \"@/lib/utils\";\nimport { toggleClassName, warnIfUnnamed, type ToggleSize } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Toggle group\n *\n * Built on @base-ui/react/toggle-group: a role=\"group\" with toggle buttons (aria-pressed).\n * Tab enters the group on one button; the arrow keys move between buttons; Space or Enter\n * presses one. Without `multiple`, pressing one releases the others (like text alignment).\n * This file adds the same pressed style as Toggle (not color alone), 44px targets,\n * wrapping on narrow screens, and an error in development when the group has no name.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface ToggleGroupProps extends Omit<BaseToggleGroup.Props, \"className\"> {\n  className?: string;\n}\n\n/** A set of toggle buttons. Name it with `aria-label` (or `aria-labelledby`), for example \"Text alignment\". */\nfunction ToggleGroup({ className, ref, ...props }: ToggleGroupProps) {\n  const innerRef = React.useRef<HTMLDivElement | null>(null);\n  const setRefs = React.useCallback(\n    (node: HTMLDivElement | null) => {\n      innerRef.current = node;\n      if (typeof ref === \"function\") ref(node);\n      else if (ref) ref.current = node;\n    },\n    [ref],\n  );\n  React.useEffect(() => {\n    warnIfUnnamed(innerRef.current, \"ToggleGroup\", 'Add an aria-label, for example aria-label=\"Text alignment\".');\n  }, []);\n\n  return (\n    <BaseToggleGroup\n      ref={setRefs}\n      data-slot=\"toggle-group\"\n      className={cn(\"inline-flex max-w-full flex-wrap gap-1 data-[orientation=vertical]:flex-col\", className)}\n      {...props}\n    />\n  );\n}\n\nexport interface ToggleGroupItemProps extends Omit<BaseToggle.Props, \"className\"> {\n  className?: string;\n  /** Identifies the button in the group's `value`. */\n  value: string;\n  /** `icon` is a 44×44px square: give it an `aria-label`. */\n  size?: ToggleSize;\n}\n\n/** One button in a ToggleGroup. */\nfunction ToggleGroupItem({ size = \"default\", className, ref, ...props }: ToggleGroupItemProps) {\n  const innerRef = React.useRef<HTMLButtonElement | null>(null);\n  const setRefs = React.useCallback(\n    (node: HTMLButtonElement | null) => {\n      innerRef.current = node;\n      if (typeof ref === \"function\") ref(node);\n      else if (ref) ref.current = node;\n    },\n    [ref],\n  );\n  React.useEffect(() => {\n    warnIfUnnamed(innerRef.current, \"ToggleGroupItem\", 'Add text, or an aria-label for icon-only items (size=\"icon\").');\n  }, []);\n\n  return <BaseToggle ref={setRefs} data-slot=\"toggle-group-item\" className={toggleClassName({ size, className })} {...props} />;\n}\n\nexport { ToggleGroup, ToggleGroupItem };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Toggle group. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

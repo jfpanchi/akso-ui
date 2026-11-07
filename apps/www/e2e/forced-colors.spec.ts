@@ -96,6 +96,18 @@ for (const [path, slot] of [
   });
 }
 
+test("toggle: pressed keeps a Highlight fill and the bar, off keeps its outline", async ({ page }) => {
+  await goto(page, "/test/toggle");
+  const mute = page.getByRole("button", { name: "Mute notifications" });
+  await expectVisibleBorder(mute, "toggle off");
+  // "Bold" starts pressed.
+  const pressed = page.getByRole("button", { name: "Bold" });
+  expect(await fillContrast(pressed), "pressed fill").toBeGreaterThanOrEqual(WCAG_AA.nonText);
+  const bar = await pressed.evaluate((el) => ({ h: Number.parseFloat(getComputedStyle(el, "::after").height), c: getComputedStyle(el, "::after").backgroundColor, fill: getComputedStyle(el).backgroundColor }));
+  expect(bar.h, "bar height").toBeGreaterThanOrEqual(2);
+  expect(contrastRatio(bar.c, bar.fill), "bar on the fill").toBeGreaterThanOrEqual(WCAG_AA.nonText);
+});
+
 test("tabs: the selected tab keeps its underline", async ({ page }) => {
   await goto(page, "/test/tabs");
   const s = await page.getByRole("tab", { name: "Profile" }).evaluate((el) => {

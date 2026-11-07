@@ -46,9 +46,9 @@ export default function AutocompleteDocsPage() {
           rows={[
             ["No axe violations, closed and open", "Vitest + vitest-axe, Playwright"],
             ["Input with role=combobox named by its label", "Vitest, Playwright"],
-            ["Number of suggestions and “No suggestions.” announced", "Vitest, Playwright"],
+            ["Number of suggestions announced; “No suggestions.” shown", "Vitest, Playwright"],
             ["Free text is kept", "Vitest, Playwright"],
-            ["Highlight ring with at least 3:1 contrast; suggestions 44px", "Playwright"],
+            ["Suggestions 44px tall; the highlighted one has a ring", "Vitest, Playwright"],
             ["No horizontal scroll at 320px wide", "Playwright"],
           ]}
         />

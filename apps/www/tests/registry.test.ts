@@ -24,6 +24,20 @@ describe("registry", () => {
     expect(withVars[0]?.cssVars).toEqual(buildCssVars());
   });
 
+  it("every component has a finished section in ACCESSIBILITY.md, before \"By disability\"", () => {
+    const statement = read("../../ACCESSIBILITY.md");
+    const byDisability = statement.indexOf("\n## By disability");
+    for (const item of registry.items.filter((i) => i.type === "registry:ui")) {
+      const title = (item as RegistryItem & { title: string }).title;
+      const start = statement.indexOf(`\n## ${title}\n`);
+      expect(start, `ACCESSIBILITY.md has no "## ${title}" section`).toBeGreaterThan(-1);
+      expect(start, `"## ${title}" must come before "By disability"`).toBeLessThan(byDisability);
+      const end = statement.indexOf("\n## ", start + 1);
+      const section = statement.slice(start, end === -1 ? undefined : end);
+      expect(section, `${title}: still a placeholder`).not.toMatch(/Work in progress|\| TODO \|/);
+    }
+  });
+
   it("public/r is up to date (run `pnpm --filter www registry:build`)", () => {
     for (const item of registry.items) {
       const built = JSON.parse(read(`public/r/${item.name}.json`));

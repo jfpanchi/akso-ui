@@ -27,5 +27,7 @@ export const components = [
   { slug: "tabs", name: "Tabs" },
   { slug: "textarea", name: "Textarea" },
   { slug: "toast", name: "Toast" },
+  { slug: "toggle", name: "Toggle" },
+  { slug: "toggle-group", name: "Toggle group" },
   { slug: "tooltip", name: "Tooltip" },
 ] as const;

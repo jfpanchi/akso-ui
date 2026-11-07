@@ -170,6 +170,8 @@ export async function expectNoHorizontalScroll(page: Page, scroller?: Locator) {
   }
 }
 
+const SUBPIXEL = 0.01;
+
 /** Each target is at least `min`×`min` CSS px (WCAG 2.5.8 Target Size (Minimum) = 24). */
 export async function expectMinTargetSize(targets: Locator[], min = 24) {
   expect(targets.length, "number of targets").toBeGreaterThan(0);
@@ -179,8 +181,10 @@ export async function expectMinTargetSize(targets: Locator[], min = 24) {
     const box = await target.boundingBox();
     const name = (await target.getAttribute("aria-label")) ?? (await target.textContent())?.trim() ?? "target";
     expect(box, `${name}: visible`).not.toBeNull();
-    expect(box!.width, `${name}: width`).toBeGreaterThanOrEqual(min);
-    expect(box!.height, `${name}: height`).toBeGreaterThanOrEqual(min);
+    // Browsers lay out in fractions of a pixel (Firefox: 1/60 px), so a 44px element at a fractional
+    // position can measure 43.99997. Allow 0.01px for that rounding; a real shortfall is far larger.
+    expect(box!.width, `${name}: width`).toBeGreaterThanOrEqual(min - SUBPIXEL);
+    expect(box!.height, `${name}: height`).toBeGreaterThanOrEqual(min - SUBPIXEL);
   }
 }
 
