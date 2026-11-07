@@ -188,6 +188,7 @@ export function warnIfUnnamed(el: HTMLElement | null, component: string, hint: s
   const name =
     el.getAttribute("aria-label")?.trim() ||
     (labelledBy ? el.ownerDocument.getElementById(labelledBy)?.textContent?.trim() : "") ||
-    (el.getAttribute("role") === "group" ? "" : el.textContent?.trim());
+    // Containers (group, toolbar…) are not named by their content.
+    (["group", "toolbar", "radiogroup"].includes(el.getAttribute("role") ?? "") ? "" : el.textContent?.trim());
   if (!name) console.error(`[Akso UI] ${component} has no accessible name. ${hint}`);
 }

@@ -756,6 +756,26 @@
         }
       ],
       "docs": "Akso UI Number field. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "toolbar",
+      "type": "registry:ui",
+      "title": "Toolbar",
+      "description": "A named toolbar that is one Tab stop, with arrow-key navigation, buttons, toggles, toggle groups, separators and links, all 44px.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/toolbar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Toolbar. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
