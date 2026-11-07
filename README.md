@@ -117,6 +117,8 @@ This creates the component, its unit and e2e tests (with the required checks mar
 
 Read [CONTRIBUTING.md](./CONTRIBUTING.md). Every component PR needs axe and keyboard tests and the manual screen reader checklist.
 
+If you use a screen reader or other assistive technology, you can help by following the [manual testing script](./MANUAL_TESTING.md). No coding needed.
+
 If you find an accessibility barrier, [tell us about it](https://github.com/jfpanchi/akso-ui/issues/new?template=accessibility-barrier.yml). No technical knowledge needed.
 
 ## License

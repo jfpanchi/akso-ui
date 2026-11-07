@@ -1,0 +1,217 @@
+# Manual testing script
+
+_[Leer en español](./MANUAL_TESTING.es.md)_
+
+Automated tests catch only part of the problems. This script is for people who use, or want to try, a screen reader, voice control or other assistive technology. You do not need to know how to code.
+
+Each component takes about 10 minutes. Test one component or all of them: every result helps.
+
+## Before you start
+
+1. **Open the test pages.** The site link is in the repository's "About" section on GitHub. Each component has a page at `/test/<name>`, for example `/test/dialog`. Each page shows only the example, with no other content.
+2. **Choose what you will test with.** Any of these combinations helps:
+
+   | Assistive technology | Browser | System |
+   | --- | --- | --- |
+   | NVDA (free) | Chrome or Firefox | Windows |
+   | JAWS | Chrome | Windows |
+   | VoiceOver (built in) | Safari | macOS |
+   | VoiceOver (built in) | Safari | iPhone or iPad |
+   | TalkBack (built in) | Chrome | Android |
+   | Voice Control (built in) | Safari | macOS or iOS |
+
+   You can also test without a screen reader: only the keyboard, zoom at 400%, or Windows contrast themes. Each one finds different problems.
+
+3. **Write down** your system, browser and assistive technology, with versions if you can.
+
+## Basic commands
+
+Screen readers have many commands. These are enough for this script.
+
+| Action | NVDA / JAWS (Windows) | VoiceOver (Mac) | VoiceOver (iPhone) | TalkBack (Android) |
+| --- | --- | --- | --- | --- |
+| Turn on | NVDA: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>N</kbd>. JAWS: open the app | <kbd>Cmd</kbd>+<kbd>F5</kbd> | Settings → Accessibility → VoiceOver | Settings → Accessibility → TalkBack |
+| Next / previous item | <kbd>↓</kbd> / <kbd>↑</kbd> | <kbd>Ctrl</kbd>+<kbd>Option</kbd>+<kbd>→</kbd> / <kbd>←</kbd> | Swipe right / left | Swipe right / left |
+| Next control | <kbd>Tab</kbd> | <kbd>Tab</kbd> (see the note below) | — | — |
+| Activate | <kbd>Enter</kbd> or <kbd>Space</kbd> | <kbd>Ctrl</kbd>+<kbd>Option</kbd>+<kbd>Space</kbd> | Double tap | Double tap |
+| Stop speaking | <kbd>Ctrl</kbd> | <kbd>Ctrl</kbd> | Two-finger tap | Two-finger tap |
+
+In Safari on Mac, <kbd>Tab</kbd> skips buttons and links by default. Turn on Safari → Settings → Advanced → "Press Tab to highlight each item on a webpage".
+
+## Checks for every component
+
+Do these on every page, then the steps for the component.
+
+- [ ] **Name.** Every control says what it is for, like "Edit profile, button". Nothing is read only as "button" or "clickable".
+- [ ] **State.** If something can be on/off, open/closed or selected, the screen reader says so, and says it again when it changes.
+- [ ] **Keyboard.** You can reach and use everything with the keyboard alone, in an order that makes sense.
+- [ ] **Visible focus.** When you press <kbd>Tab</kbd>, you can always see where you are.
+- [ ] **Zoom.** At 200% and at 400% browser zoom, nothing is cut off and you do not need to scroll sideways to read.
+- [ ] **Not only color.** Errors, states and messages are clear without seeing color: there is an icon or text too.
+- [ ] **Language.** Texts are short and clear.
+
+## Steps for each component
+
+For each step, write: ✅ works as described, ⚠️ works but something is confusing, or ❌ does not work. Add what you heard or saw.
+
+### Accordion — `/test/accordion`
+1. Go through the page by headings. Each question ("How long does shipping take?"…) is a heading and a button.
+2. Open one with <kbd>Enter</kbd> or <kbd>Space</kbd>. You hear "expanded", and you can read the answer right after the button.
+3. Close it. You hear "collapsed".
+4. With all sections closed, search the page for a word from an answer (<kbd>Ctrl</kbd>/<kbd>Cmd</kbd>+<kbd>F</kbd>). In Chrome, the section opens by itself.
+
+### Alert — `/test/alert`
+1. Read the page. Each message has its type in words (Information, Done, Warning, Error) and a title like "Payment received".
+2. The type is clear without seeing the color.
+3. These messages are already on the page when it loads, so the screen reader does not read them out by itself. That is expected.
+
+### Alert dialog — `/test/alert-dialog`
+1. Activate "Delete account". You hear the question "Delete your account?" and focus is on "Keep my account", the safe choice.
+2. Try to leave the dialog with <kbd>Tab</kbd> or by swiping. You stay inside it.
+3. Press <kbd>Escape</kbd>. The dialog closes and focus goes back to "Delete account".
+4. Open it again and choose "Delete account". You hear "Account deleted."
+
+### Autocomplete — `/test/autocomplete`
+1. Go to the "City" field. You hear its name.
+2. Type "Gu". Suggestions appear, and you hear how many there are.
+3. Move through them with <kbd>↓</kbd> / <kbd>↑</kbd> and choose one with <kbd>Enter</kbd>. The field has that city.
+4. Type a city that is not in the list. Your text stays: you do not have to pick a suggestion.
+5. Use the clear button. The field is empty.
+
+### Button — `/test/button`
+1. Go through every button. Each one has a clear name. The icon-only button is read as "Settings".
+2. The disabled button is read as unavailable (dimmed or disabled).
+3. Activate the loading button. You hear "Saving", and you can tell it is busy.
+
+### Checkbox — `/test/checkbox`
+1. "Remember me on this device": you hear its name and whether it is checked.
+2. Change it with <kbd>Space</kbd> (or double tap). You hear the new state.
+3. The disabled checkbox is read as unavailable.
+
+### Checkbox group — `/test/checkbox-group`
+1. When you enter the group, you hear its question: "How should we contact you?".
+2. Each option (Email, Text message, Phone call) says whether it is checked.
+
+### Collapsible — `/test/collapsible`
+1. "Show order details" says "collapsed".
+2. Open it. You hear "expanded" and can read the details right after the button.
+
+### Combobox — `/test/combobox`
+1. Go to the "Country" field. You hear its name and the help text "Start typing to filter the list."
+2. Type "co". The list shows only matching countries, and you hear how many.
+3. Type something that matches nothing. You hear "No results".
+4. Choose a country with the arrows and <kbd>Enter</kbd>. The field has that country.
+5. Press <kbd>Escape</kbd> while the list is open. The list closes and you stay in the field.
+
+### Dialog — `/test/dialog`
+1. Activate "Edit profile". You hear the title "Edit profile" and "Change your name and press Save."
+2. You cannot leave the dialog with <kbd>Tab</kbd> or by swiping.
+3. Press <kbd>Escape</kbd>. It closes and focus goes back to "Edit profile".
+4. Open it again, change the name and press Save. You hear "Profile saved."
+
+### Drawer — `/test/drawer`
+1. Activate "Show filters". A panel opens and you hear "Filters".
+2. Press <kbd>Escape</kbd> or "Close". It closes and focus goes back to the button.
+3. Activate "Order summary". Use "Show more" to make the panel taller. The button says whether it is expanded.
+4. You can do everything without swiping or dragging.
+
+### Field — `/test/field`
+1. The "Email" field says it is required. On screen you see "(required)".
+2. You hear the help text "We only use it to reply to you."
+3. Type "abc" and leave the field. You hear the error, and on screen it has an icon, not only red text.
+
+### Fieldset — `/test/fieldset`
+1. When you enter "Street and number", you also hear the name of the group: "Delivery address".
+2. Each field (Street and number, City, Postal code) has its own name.
+
+### Form — `/test/form`
+1. Press the submit button without filling in anything. Focus goes to the first field with an error and you hear the error. You also hear how many fields need attention.
+2. Fill in every field and submit. You hear "Message sent. We will reply within 2 days."
+
+### Form error summary — `/test/form-summary`
+1. Submit without filling in anything. Focus goes to a box titled "There is a problem", and the screen reader reads it.
+2. The box has one link per error. Activating a link moves focus to that field.
+
+### Input — `/test/input`
+1. Each field (Phone number, Discount code, Account number) has a name and its help text.
+2. On a phone, the keyboard that opens fits the field: numbers for the phone number.
+
+### Menu — `/test/menu`
+1. Activate "File actions". The menu opens and focus is on the first item.
+2. Move with <kbd>↓</kbd> / <kbd>↑</kbd>. "Move (not available)" is read as unavailable.
+3. On "Share", press <kbd>→</kbd>. A submenu opens on "Copy link". <kbd>←</kbd> closes it.
+4. "Show hidden files" says whether it is checked.
+5. Choose "Copy link". The menu closes, focus goes back to "File actions", and you hear "Link copied."
+
+### Meter — `/test/meter`
+1. "Storage used" and "Battery" say their value, for example a percentage.
+2. The value is clear without seeing the color.
+
+### Navigation menu — `/test/navigation-menu`
+1. In the list of landmarks or regions, you find a navigation called "Store".
+2. "Products" says "collapsed". Open it and you can reach Phones, Laptops and Accessories.
+3. <kbd>Escape</kbd> closes it and focus goes back to "Products".
+
+### Popover — `/test/popover`
+1. The button "About delivery times" opens a panel titled "Delivery times".
+2. You can read the content and use "Close".
+3. <kbd>Escape</kbd> closes it and focus goes back to the button.
+
+### Progress — `/test/progress`
+1. "Uploading photo" says how far along it is.
+2. "Step 2 of 4" is clear.
+3. "Preparing your download" says it is busy, without a number.
+
+### Radio group — `/test/radio-group`
+1. When you enter the group, you hear "Delivery speed".
+2. The arrow keys move between "Standard" and "Express" and choose the option. The price and days are read with each option.
+3. Submit without choosing. You hear "Choose a delivery speed."
+
+### Select — `/test/select`
+1. "Time zone" says its name and the chosen value, or "Choose a time zone".
+2. Open the list. Groups like "Americas" are read.
+3. Choose with the arrows and <kbd>Enter</kbd>. The list closes and you hear the new value.
+
+### Slider — `/test/slider`
+1. "Volume" says its value. The arrows change it by 5.
+2. "Room temperature" says the value with its unit, like "21 degrees".
+3. <kbd>Home</kbd> and <kbd>End</kbd> go to the minimum and maximum. On a phone, swiping up or down (or the volume keys with TalkBack) changes the value.
+
+### Switch — `/test/switch`
+1. "Email notifications" says whether it is on or off.
+2. Change it. You hear the new state, and "Email notifications on." or "off."
+3. "Beta features (not available)" is read as unavailable.
+
+### Tabs — `/test/tabs`
+1. You hear the group "Account settings" and the selected tab.
+2. <kbd>←</kbd> / <kbd>→</kbd> move between Profile, Password and Notifications, and show their content.
+3. <kbd>Tab</kbd> goes from the tab to its content.
+
+### Textarea — `/test/textarea`
+1. "Your feedback" says its name and "Up to 500 characters."
+2. While you type, the remaining characters are shown on screen. You hear them only near the end (20, 10 and 0 left), not on every key.
+
+### Toast — `/test/toast`
+1. Press "Save". You hear "Changes saved" without losing your place on the page.
+2. Show "Message archived". Press <kbd>F6</kbd> to reach the notification and use "Undo". You hear "Message restored", and focus goes back where it was.
+3. The error notification ("Upload failed") is read too, with its text.
+4. Notifications do not disappear while you are reading them or have focus on them.
+
+### Tooltip — `/test/tooltip`
+1. The icon buttons are read as "Bold" and "Italic".
+2. With the keyboard, the tooltip appears when the button has focus. <kbd>Escape</kbd> hides it.
+3. Nothing important is only in a tooltip.
+
+## Extra checks without a screen reader
+
+- **Windows contrast themes** (Settings → Accessibility → Contrast themes): buttons, fields, check marks, switches, bars and the focus ring are still visible.
+- **Voice Control** (Mac or iPhone): say "Click" and the visible name, like "Click Edit profile". It works on every control.
+- **Reduce motion** (system setting): panels and dialogs open without animation.
+
+## Send your results
+
+[Open a test report](https://github.com/jfpanchi/akso-ui/issues/new?template=manual-test-report.yml) on GitHub and paste your notes. If you do not use GitHub, any format is fine: a list of ✅ / ⚠️ / ❌ per step, with your system, browser and assistive technology.
+
+Maintainers: record each result in the "Manual testing" table of that component in [ACCESSIBILITY.md](./ACCESSIBILITY.md).
+
+Thank you. Each report makes the components better for someone.

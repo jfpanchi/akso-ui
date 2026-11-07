@@ -117,6 +117,8 @@ Esto crea el componente, sus tests unitarios y e2e (con las comprobaciones oblig
 
 Lee [CONTRIBUTING.md](./CONTRIBUTING.md). Todo PR de componente necesita tests de axe y de teclado y la checklist manual de lector de pantalla.
 
+Si usas un lector de pantalla u otra tecnología de asistencia, puedes ayudar siguiendo el [guion de pruebas manuales](./MANUAL_TESTING.es.md). No hace falta programar.
+
 Si encuentras una barrera de accesibilidad, [cuéntanos](https://github.com/jfpanchi/akso-ui/issues/new?template=accessibility-barrier.yml). No hace falta saber de programación.
 
 ## Licencia

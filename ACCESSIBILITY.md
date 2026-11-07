@@ -6,7 +6,9 @@ No component library can make a product accessible on its own, and we do not cla
 
 If something does not work for you, please [report a barrier](https://github.com/jfpanchi/akso-ui/issues/new?template=accessibility-barrier.yml). You do not need to be a developer.
 
-_Last updated: 2026-11-04_
+Want to help test? Follow the [manual testing script](./MANUAL_TESTING.md) ([en español](./MANUAL_TESTING.es.md)): step-by-step checks for each component, for people who use a screen reader or other assistive technology. Every "⏳ Pending" row below is waiting for one.
+
+_Last updated: 2026-11-07_
 
 ## How we test
 
