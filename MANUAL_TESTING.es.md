@@ -218,6 +218,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 3. En "Text style", Bold, Italic y Underline pueden estar presionados a la vez.
 4. <kbd>Tab</kbd> sale del grupo en vez de pasar por cada botón.
 
+### Toolbar — `/test/toolbar`
+1. Oyes una barra de herramientas llamada "Text formatting". <kbd>Tab</kbd> entra una sola vez, en "Bold".
+2. <kbd>→</kbd> recorre Bold, Italic, Left, Center, Undo, Redo y Help, y vuelve a Bold. Oyes los grupos ("Text style", "Alignment") al entrar en ellos.
+3. Bold e Italic dicen si están presionados. "Undo" se lee como no disponible, pero igual puedes llegar a él.
+4. <kbd>Tab</kbd> sale de la barra en un solo paso.
+
 ### Tooltip — `/test/tooltip`
 1. Los botones con ícono se leen como "Bold" e "Italic".
 2. Con el teclado, el tooltip aparece cuando el botón tiene el foco. <kbd>Escape</kbd> lo oculta.

@@ -948,6 +948,38 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - The − and + buttons are named "Decrease" and "Increase", without the field's name. With several number fields, a touch screen reader user may need to read the field first. Not confirmed manually yet.
 - Screen readers read the role description differently, and some ignore it. Not confirmed manually yet.
 
+## Toolbar
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, before and after pressing toggles | Several | Vitest + Playwright (light and dark) |
+| `role=toolbar` with `aria-orientation`, named with `aria-label`; groups and separators exposed (Base UI) | 1.3.1, 4.1.2 | Vitest |
+| One Tab stop; arrow keys reach every control across groups and wrap; visible focus ring with at least 3:1 contrast on each | 2.1.1, 2.4.3, 2.4.7 | Vitest + Playwright |
+| Disabled buttons stay focusable with `aria-disabled` (Base UI default) | 4.1.2 | Vitest + Playwright |
+| Toggles keep `aria-pressed` and the Akso pressed style (fill and bar, not color alone) | 1.4.1, 4.1.2 | Vitest + Playwright |
+| Every control at least 44×44px; the toolbar wraps at 320px wide | 2.5.8, 1.4.10 | Playwright |
+| Error in development when the toolbar or a toggle group has no name | 4.1.2 | Vitest |
+| No motion with `prefers-reduced-motion: reduce` | 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Home and End do not move to the first and last control (Base UI's Toolbar does not handle them; they are optional in the WAI-ARIA toolbar pattern). Inside a toggle group they move within the group.
+- Some screen reader users do not expect arrow keys inside a toolbar. Not confirmed manually yet.
+
 ## By disability
 
 | Group | What we do | Status |

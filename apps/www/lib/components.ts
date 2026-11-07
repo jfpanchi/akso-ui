@@ -30,5 +30,6 @@ export const components = [
   { slug: "toast", name: "Toast" },
   { slug: "toggle", name: "Toggle" },
   { slug: "toggle-group", name: "Toggle group" },
+  { slug: "toolbar", name: "Toolbar" },
   { slug: "tooltip", name: "Tooltip" },
 ] as const;
