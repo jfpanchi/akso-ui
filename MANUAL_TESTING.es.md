@@ -223,6 +223,13 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Las flechas se mueven entre "Standard" y "Express" y eligen la opción. El precio y los días se leen con cada opción.
 3. Envía sin elegir. Oyes "Choose a delivery speed."
 
+### Scroll area — `/test/scroll-area`
+1. Pulsa <kbd>Tab</kbd> desde el inicio del contenido. Llegas a "Release notes" y oyes su nombre.
+2. Desplázalo con las flechas, <kbd>AvPág</kbd> y <kbd>Fin</kbd>. Lee todas las versiones.
+3. Pulsa <kbd>Tab</kbd>. Llegas a "Monthly visits". Desplázalo de lado con las flechas.
+4. "Short note" no tiene nada que desplazar, y <kbd>Tab</kbd> lo salta.
+5. Con ratón o en pantalla táctil, ves las barras de desplazamiento sin pasar el puntero por encima.
+
 ### Select — `/test/select`
 1. "Time zone" dice su nombre y el valor elegido, o "Choose a time zone".
 2. Abre la lista. Se leen los grupos, como "Americas".

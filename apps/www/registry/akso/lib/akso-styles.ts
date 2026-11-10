@@ -190,6 +190,6 @@ export function warnIfUnnamed(el: HTMLElement | null, component: string, hint: s
     (el instanceof HTMLInputElement && el.labels?.length ? (el.labels[0]?.textContent?.trim() ?? "") : "") ||
     (labelledBy ? el.ownerDocument.getElementById(labelledBy)?.textContent?.trim() : "") ||
     // Containers (group, toolbar…) are not named by their content.
-    (["group", "toolbar", "radiogroup", "menubar"].includes(el.getAttribute("role") ?? "") ? "" : el.textContent?.trim());
+    (["group", "toolbar", "radiogroup", "menubar", "region"].includes(el.getAttribute("role") ?? "") ? "" : el.textContent?.trim());
   if (!name) console.error(`[Akso UI] ${component} has no accessible name. ${hint}`);
 }

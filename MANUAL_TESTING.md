@@ -221,6 +221,13 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. The arrow keys move between "Standard" and "Express" and choose the option. The price and days are read with each option.
 3. Submit without choosing. You hear "Choose a delivery speed."
 
+### Scroll area — `/test/scroll-area`
+1. Press <kbd>Tab</kbd> from the start of the content. You reach "Release notes" and hear its name.
+2. Scroll it with the arrow keys, <kbd>Page Down</kbd> and <kbd>End</kbd>. Read all the versions.
+3. Press <kbd>Tab</kbd>. You reach "Monthly visits". Scroll it sideways with the arrow keys.
+4. "Short note" has nothing to scroll, and <kbd>Tab</kbd> skips it.
+5. With a mouse or touch, you can see the scrollbars without hovering.
+
 ### Select — `/test/select`
 1. "Time zone" says its name and the chosen value, or "Choose a time zone".
 2. Open the list. Groups like "Americas" are read.

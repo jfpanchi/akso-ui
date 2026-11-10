@@ -29,6 +29,7 @@ export const components = [
   { slug: "popover", name: "Popover" },
   { slug: "progress", name: "Progress" },
   { slug: "radio-group", name: "Radio group" },
+  { slug: "scroll-area", name: "Scroll area" },
   { slug: "select", name: "Select" },
   { slug: "separator", name: "Separator" },
   { slug: "slider", name: "Slider" },

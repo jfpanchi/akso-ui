@@ -1269,6 +1269,37 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Whether a line is announced or decorative is your choice; the component cannot tell. Too many announced separators add noise.
 - `decorative` renders a plain `div` with `aria-hidden` instead of the Base UI part, so it has no role to replace.
 
+## Scroll area
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, including `scrollable-region-focusable` | Several | Vitest + Playwright (light and dark) |
+| The viewport is a region named by `aria-label` or `aria-labelledby`; error in development without a name | 1.3.1, 4.1.2 | Vitest + Playwright |
+| In the Tab order only when it can scroll (Base UI); arrow keys and End scroll it | 2.1.1 | Playwright |
+| Focus ring drawn inside the box, with at least 3:1 contrast | 2.4.7, 1.4.11 | Playwright |
+| Scrollbars stay visible (no fade out); thumb with at least 3:1 contrast against its track; Windows high contrast colors | 1.4.11 | Playwright, code review |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Akso adds `role="region"` and the name on the viewport. Base UI sets no role there, so nothing is replaced.
+- The scrollbars are hidden from screen readers (Base UI). Screen reader users scroll by reading, and touch screen reader users scroll with the usual gestures. Not confirmed manually yet.
+- Content that scrolls inside the page is harder to use when zoomed. The docs say to prefer page scrolling and to size the box in rem.
+
 ## By disability
 
 | Group | What we do | Status |

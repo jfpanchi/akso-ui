@@ -959,6 +959,26 @@
         }
       ],
       "docs": "Akso UI Separator. Add decorative when the line is only visual. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll area",
+      "description": "A box with its own scrollbars: a named region that keyboard users can Tab to and scroll, a focus ring inside the box, and scrollbars that stay visible.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Scroll area. Always name it with aria-label or aria-labelledby. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
