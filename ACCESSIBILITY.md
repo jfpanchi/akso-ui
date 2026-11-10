@@ -1042,6 +1042,38 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - When pages are buttons (no URL), the component does not move focus or announce the new page; the page that uses it has to (the docs show how). Not confirmed manually yet.
 - The forced-colors style of the current page is set in code but not checked by an automated test yet.
 
+## Context menu
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
+| `role=menu` with `menuitem` and `menuitemcheckbox` (`aria-checked`) and separators (Base UI) | 1.3.1, 4.1.2 | Vitest |
+| A real Shift + F10 on the focused content opens the menu | 2.1.1 | Playwright (Chromium only: Playwright cannot send the OS context menu key to Firefox or WebKit) |
+| The `contextmenu` event on focused content (what Shift + F10 and the Menu key fire) opens it; arrow keys, Enter and Escape work | 2.1.1 | Vitest + Playwright (Chromium, Firefox, WebKit) |
+| The demo offers the same actions with a visible button (the documented pattern) | 2.1.1 | Playwright |
+| Items at least 44px tall; highlight ring on the active item | 2.5.8, 2.4.7 | Vitest + Playwright |
+| No motion with `prefers-reduced-motion: reduce`; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- A context menu is hard to discover. The component cannot check that the same actions also have visible controls; the docs and the demo require it.
+- The real Shift + F10 key is verified automatically only in Chromium. In Firefox it is expected to work (Firefox fires `contextmenu` for it) but is not confirmed yet. Safari on macOS has no keyboard shortcut for context menus; VoiceOver users open them with VO + Shift + M, which is not confirmed yet.
+- On touch screens it opens with a long press, which is not tested automatically.
+
 ## By disability
 
 | Group | What we do | Status |

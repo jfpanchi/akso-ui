@@ -816,6 +816,26 @@
         }
       ],
       "docs": "Akso UI Pagination. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context menu",
+      "description": "A right-click / long-press / Shift+F10 menu with the same accessible parts as Menu. Always pair it with visible controls.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Context menu. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
