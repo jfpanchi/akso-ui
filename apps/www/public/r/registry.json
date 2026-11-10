@@ -1081,6 +1081,25 @@
         }
       ],
       "docs": "Akso UI File upload. Say the allowed types and size in description; check files on the server too. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "WAI-ARIA carousel: named slides shown one at a time, Previous / Next and slide buttons, a polite live region, and autoplay off by default with Pause and reduced-motion support.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Carousel. Always pass label; leave autoplay off if you can. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

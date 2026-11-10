@@ -1462,6 +1462,39 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - The drop zone has no screen reader name of its own; it is a visual extra.
 - File checks in the browser are a help, not security. Check files on the server too.
 
+## Carousel
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, with and without autoplay | Several | Vitest + Playwright (light and dark) |
+| A `<section>` with `aria-roledescription="carousel"` and a name; slides are groups with `aria-roledescription="slide"` named "2 of 3"; texts translated | 1.3.1, 4.1.2 | Vitest + Playwright |
+| Only the current slide is shown; links in other slides are not in the Tab order | 2.4.3 | Vitest + Playwright |
+| Previous, Next and a button per slide (`aria-current` on the current one) | 2.1.1, 4.1.2 | Vitest + Playwright |
+| The slide area is a polite live region while not rotating, and silent while rotating | 4.1.3 | Vitest + Playwright |
+| Autoplay is off by default; when on: a Pause / Play button, a pause while the pointer is over it, a stop when focus moves inside, and no start with `prefers-reduced-motion` | 2.2.2 | Vitest + Playwright |
+| Buttons 44×44px with focus rings of at least 3:1; slide dots at least 3:1, the current one filled and bigger (not color alone) | 2.5.8, 2.4.7, 1.4.11, 1.4.1 | Playwright |
+| Slides change with no animation; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; the component follows the WAI-ARIA APG carousel pattern (basic version, no tabs).
+- `aria-roledescription` is read differently by screen readers; not confirmed manually yet.
+- No swipe gestures; touch users use the buttons.
+
 ## By disability
 
 | Group | What we do | Status |

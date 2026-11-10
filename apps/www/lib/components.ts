@@ -7,6 +7,7 @@ export const components = [
   { slug: "avatar", name: "Avatar" },
   { slug: "breadcrumb", name: "Breadcrumb" },
   { slug: "button", name: "Button" },
+  { slug: "carousel", name: "Carousel" },
   { slug: "checkbox", name: "Checkbox" },
   { slug: "checkbox-group", name: "Checkbox group" },
   { slug: "collapsible", name: "Collapsible" },

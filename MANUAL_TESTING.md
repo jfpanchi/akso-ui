@@ -95,6 +95,13 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. The disabled button is read as unavailable (dimmed or disabled).
 3. Activate the loading button. You hear "Saving", and you can tell it is busy.
 
+### Carousel — `/test/carousel`
+1. Find "Accessibility tips". You hear a carousel with its name, and the first slide, "1 of 3".
+2. Press "Next slide". You hear the new slide's content.
+3. Press <kbd>Tab</kbd> from "Next slide". You reach only the link of the slide that is shown.
+4. "News" changes by itself. Press "Pause": it stops. Move focus inside it: it does not start again until you press "Play".
+5. With reduced motion on, "News" does not change by itself.
+
 ### Checkbox — `/test/checkbox`
 1. "Remember me on this device": you hear its name and whether it is checked.
 2. Change it with <kbd>Space</kbd> (or double tap). You hear the new state.

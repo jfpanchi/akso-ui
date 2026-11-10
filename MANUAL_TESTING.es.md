@@ -97,6 +97,13 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. El botón desactivado se lee como no disponible (atenuado o desactivado).
 3. Activa el botón de carga. Oyes "Saving" y se entiende que está ocupado.
 
+### Carousel — `/test/carousel`
+1. Busca "Accessibility tips". Oyes un carrusel con su nombre, y la primera diapositiva, "1 of 3".
+2. Pulsa "Next slide". Oyes el contenido de la nueva diapositiva.
+3. Pulsa <kbd>Tab</kbd> desde "Next slide". Solo llegas al enlace de la diapositiva que se ve.
+4. "News" cambia sola. Pulsa "Pause": se detiene. Mueve el foco dentro: no vuelve a empezar hasta que pulses "Play".
+5. Con el movimiento reducido activado, "News" no cambia sola.
+
 ### Checkbox — `/test/checkbox`
 1. "Remember me on this device": oyes su nombre y si está marcada.
 2. Cámbiala con <kbd>Espacio</kbd> (o doble toque). Oyes el nuevo estado.

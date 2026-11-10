@@ -110,6 +110,15 @@ export interface AksoMessages {
   /** Errors for files that are not accepted. */
   fileTooBig: (name: string, max: string) => string;
   fileTypeNotAllowed: (name: string) => string;
+  /** Carousel texts. */
+  carousel: string;
+  slide: string;
+  slideOf: (n: number, total: number) => string;
+  previousSlide: string;
+  nextSlide: string;
+  goToSlide: (n: number) => string;
+  startAutoplay: string;
+  stopAutoplay: string;
 }
 
 export const en: AksoMessages = {
@@ -168,6 +177,14 @@ export const en: AksoMessages = {
   fileRemoved: (name) => `${name} removed`,
   fileTooBig: (name, max) => `${name} is too big. Choose a file smaller than ${max}.`,
   fileTypeNotAllowed: (name) => `${name} is not an allowed type of file.`,
+  carousel: "carousel",
+  slide: "slide",
+  slideOf: (n, total) => `${n} of ${total}`,
+  previousSlide: "Previous slide",
+  nextSlide: "Next slide",
+  goToSlide: (n) => `Slide ${n}`,
+  startAutoplay: "Play",
+  stopAutoplay: "Pause",
 };
 
 export const es: AksoMessages = {
@@ -226,6 +243,14 @@ export const es: AksoMessages = {
   fileRemoved: (name) => `${name} quitado`,
   fileTooBig: (name, max) => `${name} es demasiado grande. Elige un archivo de menos de ${max}.`,
   fileTypeNotAllowed: (name) => `${name} no es un tipo de archivo permitido.`,
+  carousel: "carrusel",
+  slide: "diapositiva",
+  slideOf: (n, total) => `${n} de ${total}`,
+  previousSlide: "Diapositiva anterior",
+  nextSlide: "Diapositiva siguiente",
+  goToSlide: (n) => `Diapositiva ${n}`,
+  startAutoplay: "Reproducir",
+  stopAutoplay: "Pausar",
 };
 
 export const locales = { en, es } as const;
