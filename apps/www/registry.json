@@ -1039,6 +1039,28 @@
         }
       ],
       "docs": "Akso UI Stepper. When the step changes, move focus to the new step's heading. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "password-field",
+      "type": "registry:ui",
+      "title": "Password field",
+      "description": "A password input with a Show / Hide button: named with the visible word first, change announced, paste never blocked, autocomplete set, hidden again on submit.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/password-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Password field. Put it inside a Field with a FieldLabel; use autoComplete=\"new-password\" for sign-up. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

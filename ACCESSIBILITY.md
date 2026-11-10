@@ -1396,6 +1396,38 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - The stepper does not announce step changes. The page must move focus to the new step's heading, as the demo does; this is documented.
 - Chrome puts a space before the hidden ", Step 1 of 4" text, so the name reads "Cart , Step 1 of 4". Screen readers read it as a short pause.
 
+## Password field
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: hidden, shown and with an error | Several | Vitest + Playwright (light and dark) |
+| Named by the FieldLabel and described by the FieldDescription; errors linked with `aria-describedby` and `aria-invalid` (Base UI Field) | 1.3.1, 3.3.1, 3.3.2 | Vitest + Playwright |
+| A Show / Hide button: visible word first in its name ("Show password"), `aria-controls` the input, texts translated | 2.5.3, 4.1.2 | Vitest + Playwright |
+| Showing or hiding is announced ("Your password is shown"); focus stays on the button | 4.1.3, 2.4.3 | Vitest + Playwright |
+| Paste is never blocked; `autocomplete` is set (`current-password` or `new-password`); no spellcheck or autocapitalize | 3.3.8, 1.3.5 | Vitest |
+| The password is hidden again when the form is submitted | — | Vitest + Playwright |
+| Input and button 44px tall with focus rings of at least 3:1 | 2.5.8, 2.4.7 | Playwright |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Showing the password puts it on screen. People in public places choose when to press Show; it is never on by default.
+- Some password managers fill the field only while it is `type="password"`. Not tested with real password managers.
+
 ## By disability
 
 | Group | What we do | Status |

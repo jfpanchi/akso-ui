@@ -26,6 +26,7 @@ export const components = [
   { slug: "number-field", name: "Number field" },
   { slug: "otp-field", name: "OTP field" },
   { slug: "pagination", name: "Pagination" },
+  { slug: "password-field", name: "Password field" },
   { slug: "popover", name: "Popover" },
   { slug: "preview-card", name: "Preview card" },
   { slug: "progress", name: "Progress" },

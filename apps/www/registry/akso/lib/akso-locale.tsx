@@ -88,6 +88,14 @@ export interface AksoMessages {
   selectRow: (row: string) => string;
   /** Announced when the selection changes. */
   rowsSelected: (count: number) => string;
+  /** Visible text of the button that shows or hides a password. */
+  showPassword: string;
+  hidePassword: string;
+  /** Added after "Show" / "Hide" in the button name: "Show password". */
+  passwordWord: string;
+  /** Announced after the password is shown or hidden. */
+  passwordShown: string;
+  passwordHidden: string;
 }
 
 export const en: AksoMessages = {
@@ -133,6 +141,11 @@ export const en: AksoMessages = {
   selectAllRows: "Select all rows",
   selectRow: (row) => `Select ${row}`,
   rowsSelected: (count) => (count === 0 ? "No rows selected" : count === 1 ? "1 row selected" : `${count} rows selected`),
+  showPassword: "Show",
+  hidePassword: "Hide",
+  passwordWord: "password",
+  passwordShown: "Your password is shown",
+  passwordHidden: "Your password is hidden",
 };
 
 export const es: AksoMessages = {
@@ -178,6 +191,11 @@ export const es: AksoMessages = {
   selectAllRows: "Seleccionar todas las filas",
   selectRow: (row) => `Seleccionar ${row}`,
   rowsSelected: (count) => (count === 0 ? "Ninguna fila seleccionada" : count === 1 ? "1 fila seleccionada" : `${count} filas seleccionadas`),
+  showPassword: "Mostrar",
+  hidePassword: "Ocultar",
+  passwordWord: "contraseña",
+  passwordShown: "Tu contraseña se muestra",
+  passwordHidden: "Tu contraseña está oculta",
 };
 
 export const locales = { en, es } as const;

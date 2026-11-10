@@ -199,6 +199,13 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 3. Activate "Next". You hear "Page 6 of 12.", and page 6 becomes the current page.
 4. On page 12, there is no "Next".
 
+### Password field — `/test/password-field`
+1. Go to "Password". You hear its name, that it is required, "At least 8 characters." and that it is a password field.
+2. Type a password and press <kbd>Tab</kbd>. You reach "Show password". Press it: you hear "Your password is shown", and the button now says "Hide".
+3. Voice control: say "Click Show". The button works.
+4. Type 5 characters and leave the field. You hear the error "Use at least 8 characters."
+5. Press "Create account". The password is hidden again.
+
 ### Popover — `/test/popover`
 1. The button "About delivery times" opens a panel titled "Delivery times".
 2. You can read the content and use "Close".

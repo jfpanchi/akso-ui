@@ -201,6 +201,13 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 3. Activa "Next". Oyes "Page 6 of 12." y la página 6 pasa a ser la actual.
 4. En la página 12 no hay "Next".
 
+### Password field — `/test/password-field`
+1. Ve a "Password". Oyes su nombre, que es obligatorio, "At least 8 characters." y que es un campo de contraseña.
+2. Escribe una contraseña y pulsa <kbd>Tab</kbd>. Llegas a "Show password". Púlsalo: oyes "Your password is shown" y el botón ahora dice "Hide".
+3. Control por voz: di "Clic en Show". El botón funciona.
+4. Escribe 5 caracteres y sal del campo. Oyes el error "Use at least 8 characters."
+5. Pulsa "Create account". La contraseña vuelve a ocultarse.
+
 ### Popover — `/test/popover`
 1. El botón "About delivery times" abre un panel con el título "Delivery times".
 2. Puedes leer el contenido y usar "Close".
