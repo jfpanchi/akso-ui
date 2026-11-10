@@ -35,6 +35,7 @@ export const components = [
   { slug: "separator", name: "Separator" },
   { slug: "skeleton", name: "Skeleton" },
   { slug: "slider", name: "Slider" },
+  { slug: "stepper", name: "Stepper" },
   { slug: "switch", name: "Switch" },
   { slug: "table", name: "Table" },
   { slug: "tabs", name: "Tabs" },

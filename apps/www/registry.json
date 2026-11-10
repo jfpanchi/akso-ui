@@ -1018,6 +1018,25 @@
         }
       ],
       "docs": "Akso UI Skeleton. Wrap skeletons in SkeletonContainer and say what is loading in label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "stepper",
+      "type": "registry:ui",
+      "title": "Stepper",
+      "description": "Progress steps: a named nav with an ordered list, aria-current=step, each step's number and state in words, links back to completed steps, state not shown by color alone.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/stepper.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Stepper. When the step changes, move focus to the new step's heading. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

@@ -254,6 +254,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. "Room temperature" says the value with its unit, like "21 degrees".
 3. <kbd>Home</kbd> and <kbd>End</kbd> go to the minimum and maximum. On a phone, swiping up or down (or the volume keys with TalkBack) changes the value.
 
+### Stepper — `/test/stepper`
+1. Find the "Checkout steps" navigation. You hear a list of 4 items.
+2. "Cart" and "Shipping" are links, read as "Step 1 of 4, completed". "Payment" is read as the current step.
+3. Press "Continue". Focus goes to the "Review" heading, and the stepper now shows Review as the current step.
+4. At 400% zoom, the steps are in a column and the page does not scroll sideways.
+
 ### Switch — `/test/switch`
 1. "Email notifications" says whether it is on or off.
 2. Change it. You hear the new state, and "Email notifications on." or "off."

@@ -78,6 +78,10 @@ export interface AksoMessages {
   otpRejected: (allowed: "numeric" | "alpha" | "alphanumeric") => string;
   /** Announced when content that was loading is ready. */
   loaded: string;
+  /** Name of the list of steps in a Stepper. */
+  steps: string;
+  /** Hidden text after each step: "Step 2 of 4, completed". */
+  stepStatus: (n: number, total: number, status: "complete" | "current" | "upcoming") => string;
 }
 
 export const en: AksoMessages = {
@@ -118,6 +122,8 @@ export const en: AksoMessages = {
   otpRejected: (allowed) =>
     allowed === "numeric" ? "Only numbers are allowed." : allowed === "alpha" ? "Only letters are allowed." : "Only letters and numbers are allowed.",
   loaded: "Loaded",
+  steps: "Steps",
+  stepStatus: (n, total, status) => `Step ${n} of ${total}${status === "complete" ? ", completed" : status === "current" ? ", current step" : ""}`,
 };
 
 export const es: AksoMessages = {
@@ -158,6 +164,8 @@ export const es: AksoMessages = {
   otpRejected: (allowed) =>
     allowed === "numeric" ? "Solo se permiten números." : allowed === "alpha" ? "Solo se permiten letras." : "Solo se permiten letras y números.",
   loaded: "Cargado",
+  steps: "Pasos",
+  stepStatus: (n, total, status) => `Paso ${n} de ${total}${status === "complete" ? ", completado" : status === "current" ? ", paso actual" : ""}`,
 };
 
 export const locales = { en, es } as const;

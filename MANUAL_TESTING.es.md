@@ -256,6 +256,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. "Room temperature" dice el valor con su unidad, como "21 degrees".
 3. <kbd>Inicio</kbd> y <kbd>Fin</kbd> van al mínimo y al máximo. En el teléfono, deslizar hacia arriba o abajo (o las teclas de volumen con TalkBack) cambia el valor.
 
+### Stepper — `/test/stepper`
+1. Busca la navegación "Checkout steps". Oyes una lista de 4 elementos.
+2. "Cart" y "Shipping" son enlaces y se leen como "Step 1 of 4, completed". "Payment" se lee como el paso actual.
+3. Pulsa "Continue". El foco va al encabezado "Review", y el stepper muestra Review como paso actual.
+4. Con zoom al 400%, los pasos están en columna y la página no se desplaza de lado.
+
 ### Switch — `/test/switch`
 1. "Email notifications" dice si está encendido o apagado.
 2. Cámbialo. Oyes el nuevo estado y "Email notifications on." u "off."

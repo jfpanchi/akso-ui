@@ -1361,6 +1361,38 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - `aria-busy` is not supported the same way by every screen reader. The hidden text and the announcements do not depend on it.
 - The pulse is an infinite animation (allowed: it is not flashing, and it stops with reduced motion). It does not stop after 5 seconds by itself.
 
+## Stepper
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations at the start, in the middle and at the end | Several | Vitest + Playwright (light and dark) |
+| A named `<nav>` with an ordered list; the current step has `aria-current="step"` | 1.3.1, 2.4.8 (AAA) | Vitest + Playwright |
+| Each step says its number and state in words ("Step 2 of 4, completed"), translated | 1.3.1, 1.4.1 | Vitest + Playwright |
+| State also shown without color: check mark, thick ring and bold text, step numbers | 1.4.1 | Vitest |
+| Only completed steps are links; links 44px tall with a focus ring of at least 3:1 | 2.4.7, 2.5.8 | Vitest + Playwright |
+| Step markers at least 3:1 against the page; Highlight colors in forced colors | 1.4.11 | Playwright, code review |
+| A column on narrow screens: no horizontal scroll at 320px; no motion | 1.4.10, 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; the component is ours.
+- The stepper does not announce step changes. The page must move focus to the new step's heading, as the demo does; this is documented.
+- Chrome puts a space before the hidden ", Step 1 of 4" text, so the name reads "Cart , Step 1 of 4". Screen readers read it as a short pause.
+
 ## By disability
 
 | Group | What we do | Status |
