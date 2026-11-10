@@ -148,6 +148,9 @@ function DialogDescription({ className, ...props }: Omit<BaseDialog.Description.
 /** Logs an error in development when the dialog has no accessible name. */
 function useWarnIfUnlabelled(ref: React.RefObject<HTMLElement | null>) {
   const warned = React.useRef(false);
+  // Runs once when the popup mounts. Base UI links the title after its own effects, so the check
+  // waits one frame. It must not be re-scheduled on every render: while the popup animates it
+  // re-renders often, and cancelling the frame each time could stop the check from ever running.
   React.useEffect(() => {
     if (!isDevelopment() || warned.current) return;
     const frame = requestAnimationFrame(() => {
@@ -164,7 +167,7 @@ function useWarnIfUnlabelled(ref: React.RefObject<HTMLElement | null>) {
       }
     });
     return () => cancelAnimationFrame(frame);
-  });
+  }, [ref]);
 }
 
 export { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger };
