@@ -157,6 +157,13 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 4. "Show hidden files" dice si está marcada.
 5. Elige "Copy link". El menú se cierra, el foco vuelve a "File actions" y oyes "Link copied."
 
+### Menubar — `/test/menubar`
+1. Oyes una barra de menús llamada "Editor". <kbd>Tab</kbd> entra una sola vez, en "File".
+2. <kbd>→</kbd> pasa a "Edit" y "View". Cada uno se lee como un elemento de menú que tiene un menú.
+3. En "Edit", <kbd>↓</kbd> abre su menú. "Undo (nothing to undo)" se lee como no disponible. Elige "Copy": el menú se cierra y oyes "Copy chosen."
+4. Abre "File", ve a "Export" y pulsa <kbd>→</kbd>. Elige "PDF". Oyes "Export as PDF chosen."
+5. <kbd>Escape</kbd> cierra un menú y el foco vuelve a su nombre en la barra.
+
 ### Meter — `/test/meter`
 1. "Storage used" y "Battery" dicen su valor, por ejemplo un porcentaje.
 2. El valor se entiende sin ver el color.

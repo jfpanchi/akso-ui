@@ -1074,6 +1074,39 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - The real Shift + F10 key is verified automatically only in Chromium. In Firefox it is expected to work (Firefox fires `contextmenu` for it) but is not confirmed yet. Safari on macOS has no keyboard shortcut for context menus; VoiceOver users open them with VO + Shift + M, which is not confirmed yet.
 - On touch screens it opens with a long press, which is not tested automatically.
 
+## Menubar
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and with a menu open | Several | Vitest + Playwright (light and dark) |
+| `role=menubar` named, with `aria-orientation`; top items are `menuitem` with `aria-haspopup` and `aria-expanded` (Base UI) | 1.3.1, 4.1.2 | Vitest |
+| One Tab stop; ← / → move between menus with a visible focus ring with at least 3:1 contrast | 2.1.1, 2.4.3, 2.4.7 | Vitest + Playwright |
+| ↓ opens a menu; ← / → move between open menus; Enter runs an item; Escape closes and returns focus | 2.1.1 | Vitest + Playwright |
+| Submenus open with → and run with Enter | 2.1.1 | Playwright |
+| Triggers and items at least 44px tall; the bar wraps at 320px wide | 2.5.8, 1.4.10 | Playwright |
+| Check items and radio items show a check mark or dot, not only color | 1.4.1 | Same code as Menu (Vitest + Playwright there) |
+| Error in development when the menubar has no name | 4.1.2 | Vitest |
+| No motion with `prefers-reduced-motion: reduce` | 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Menubars use the desktop keyboard model (arrow keys, menus that open each other). People who browse the web may not expect it; the docs recommend it only for app-like interfaces. Not confirmed manually yet.
+- When the bar wraps to two lines on narrow screens, ← / → still follow the reading order, which may not match where a menu appears visually.
+
 ## By disability
 
 | Group | What we do | Status |

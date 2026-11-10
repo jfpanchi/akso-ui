@@ -18,6 +18,7 @@ export const components = [
   { slug: "form", name: "Form" },
   { slug: "input", name: "Input" },
   { slug: "menu", name: "Menu" },
+  { slug: "menubar", name: "Menubar" },
   { slug: "meter", name: "Meter" },
   { slug: "navigation-menu", name: "Navigation menu" },
   { slug: "number-field", name: "Number field" },
