@@ -22,9 +22,19 @@ test.describe("axe", () => {
 });
 
 test.describe("keyboard", () => {
-  test("Shift+F10 on the focused link opens the menu; arrows and Enter choose an item", async ({ page }) => {
+  test("a real Shift+F10 on the focused link opens the menu", async ({ page, browserName }) => {
+    // Shift+F10 becomes a "contextmenu" event at the operating system / browser level. Playwright
+    // sends keys through that level only in Chromium; in Firefox and WebKit it cannot, so this
+    // check runs in Chromium. The next test covers the same path in every browser, and the
+    // manual tests cover the real key in Firefox and Safari.
+    test.skip(browserName !== "chromium", "Playwright cannot produce the OS context menu key here");
     await fileLink(page).focus();
     await page.keyboard.press("Shift+F10");
+    await expect(menu(page)).toBeVisible();
+  });
+  test("the contextmenu event on the focused link (what Shift+F10 fires) opens it; arrows and Enter choose an item", async ({ page }) => {
+    await fileLink(page).focus();
+    await fileLink(page).dispatchEvent("contextmenu", { button: 2 });
     await expect(menu(page)).toBeVisible();
     await page.keyboard.press("ArrowDown");
     await page.keyboard.press("ArrowDown");

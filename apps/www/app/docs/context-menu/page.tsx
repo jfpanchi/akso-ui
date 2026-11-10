@@ -75,7 +75,8 @@ export default function ContextMenuDocsPage() {
           rows={[
             ["No axe violations, closed and open", "Vitest + vitest-axe, Playwright"],
             ["role=menu with menuitem / menuitemcheckbox (aria-checked) and separators", "Vitest"],
-            ["Shift + F10 on the focused link opens it (Chromium); arrows, Enter and Escape work", "Vitest, Playwright"],
+            ["A real Shift + F10 opens it (verified in Chromium only)", "Playwright"],
+            ["The contextmenu event on the focused link opens it; arrows, Enter and Escape work (Chromium, Firefox, WebKit)", "Vitest, Playwright"],
             ["The same actions work with a visible button in the demo", "Playwright"],
             ["Items at least 44px tall; no motion with prefers-reduced-motion; no horizontal scroll at 320px", "Playwright"],
           ]}

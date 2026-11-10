@@ -1050,7 +1050,8 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | --- | --- | --- |
 | No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
 | `role=menu` with `menuitem` and `menuitemcheckbox` (`aria-checked`) and separators (Base UI) | 1.3.1, 4.1.2 | Vitest |
-| Shift + F10 on the focused content opens the menu; arrow keys, Enter and Escape work | 2.1.1 | Vitest + Playwright (Chromium; Firefox and WebKit in CI) |
+| A real Shift + F10 on the focused content opens the menu | 2.1.1 | Playwright (Chromium only: Playwright cannot send the OS context menu key to Firefox or WebKit) |
+| The `contextmenu` event on focused content (what Shift + F10 and the Menu key fire) opens it; arrow keys, Enter and Escape work | 2.1.1 | Vitest + Playwright (Chromium, Firefox, WebKit) |
 | The demo offers the same actions with a visible button (the documented pattern) | 2.1.1 | Playwright |
 | Items at least 44px tall; highlight ring on the active item | 2.5.8, 2.4.7 | Vitest + Playwright |
 | No motion with `prefers-reduced-motion: reduce`; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
@@ -1070,7 +1071,7 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 ### Known limitations
 
 - A context menu is hard to discover. The component cannot check that the same actions also have visible controls; the docs and the demo require it.
-- Safari on macOS has no keyboard shortcut for context menus, and VoiceOver users open them with VO + Shift + M, which is not confirmed yet.
+- The real Shift + F10 key is verified automatically only in Chromium. In Firefox it is expected to work (Firefox fires `contextmenu` for it) but is not confirmed yet. Safari on macOS has no keyboard shortcut for context menus; VoiceOver users open them with VO + Shift + M, which is not confirmed yet.
 - On touch screens it opens with a long press, which is not tested automatically.
 
 ## By disability
