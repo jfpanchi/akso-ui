@@ -1107,6 +1107,38 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Menubars use the desktop keyboard model (arrow keys, menus that open each other). People who browse the web may not expect it; the docs recommend it only for app-like interfaces. Not confirmed manually yet.
 - When the bar wraps to two lines on narrow screens, ← / → still follow the reading order, which may not match where a menu appears visually.
 
+## Table
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, unsorted and sorted | Several | Vitest + Playwright (light and dark) |
+| Table named by its `<caption>`; `<th scope="col">` and `<th scope="row">` headers | 1.3.1 | Vitest |
+| Sortable columns: a button in the header; `aria-sort` only on the sorted column; an arrow shows the direction (not color) | 1.3.1, 1.4.1, 4.1.2 | Vitest + Playwright |
+| A new sort is announced politely ("Sorted by Customer, ascending"; translated), not on first render | 4.1.3 | Vitest + Playwright |
+| Sort buttons 44px tall with a visible focus ring with at least 3:1 contrast | 2.5.8, 2.4.7 | Playwright |
+| At 320px the page does not scroll sideways; the table scrolls in a region named by the caption, focusable and scrollable with the arrow keys | 1.4.10, 2.1.1 | Vitest + Playwright |
+| When the table fits, its frame is not an extra Tab stop | 2.4.3 | Vitest + Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Built with plain HTML (Base UI has no table): the semantics are ours, not Base UI's.
+- Screen readers differ in how they read row headers and `aria-sort`. Not confirmed manually yet.
+- Wide tables scroll sideways instead of reflowing; this is allowed for data tables (WCAG 1.4.10), but it is still harder to use. For simple lists on small screens, consider a list layout.
+
 ## By disability
 
 | Group | What we do | Status |

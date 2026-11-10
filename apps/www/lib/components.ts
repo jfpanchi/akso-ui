@@ -29,6 +29,7 @@ export const components = [
   { slug: "select", name: "Select" },
   { slug: "slider", name: "Slider" },
   { slug: "switch", name: "Switch" },
+  { slug: "table", name: "Table" },
   { slug: "tabs", name: "Tabs" },
   { slug: "textarea", name: "Textarea" },
   { slug: "toast", name: "Toast" },
