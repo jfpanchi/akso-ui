@@ -109,6 +109,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 4. Choose a country with the arrows and <kbd>Enter</kbd>. The field has that country.
 5. Press <kbd>Escape</kbd> while the list is open. The list closes and you stay in the field.
 
+### Context menu — `/test/context-menu`
+1. Go to the link "Annual report.pdf". Open its context menu: Shift+F10 or the Menu key on Windows, VO+Shift+M with VoiceOver on Mac, or a long press on a phone.
+2. You hear a menu. The arrows move through Open, Rename, Download and Delete.
+3. Choose "Rename". The menu closes and you hear "Rename chosen."
+4. The button "Actions for Annual report.pdf" opens the same options without a context menu.
+
 ### Dialog — `/test/dialog`
 1. Activate "Edit profile". You hear the title "Edit profile" and "Change your name and press Save."
 2. You cannot leave the dialog with <kbd>Tab</kbd> or by swiping.

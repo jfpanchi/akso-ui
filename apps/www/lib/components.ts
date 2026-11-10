@@ -10,6 +10,7 @@ export const components = [
   { slug: "checkbox-group", name: "Checkbox group" },
   { slug: "collapsible", name: "Collapsible" },
   { slug: "combobox", name: "Combobox" },
+  { slug: "context-menu", name: "Context menu" },
   { slug: "dialog", name: "Dialog" },
   { slug: "drawer", name: "Drawer" },
   { slug: "field", name: "Field" },
