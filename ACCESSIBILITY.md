@@ -1300,6 +1300,36 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - The scrollbars are hidden from screen readers (Base UI). Screen reader users scroll by reading, and touch screen reader users scroll with the usual gestures. Not confirmed manually yet.
 - Content that scrolls inside the page is harder to use when zoomed. The docs say to prefer page scrolling and to size the box in rem.
 
+## Preview card
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
+| The trigger is a plain link; the preview is never in the Tab order | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Keyboard focus opens the preview (Base UI); Escape closes it and focus stays on the link | 1.4.13, 2.1.1 | Vitest + Playwright |
+| The pointer can move onto the preview without it closing | 1.4.13 | Playwright |
+| Underlined link (not color alone) with a focus ring of at least 3:1 contrast | 1.4.1, 2.4.7 | Vitest + Playwright |
+| No motion with `prefers-reduced-motion: reduce`; the open preview fits at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- **By design (Base UI), the preview is only for sighted mouse and keyboard users.** Screen reader and touch users do not get it. The docs say to keep everything it shows on the linked page, and not to put links or buttons in it.
+- The preview opens after a 600ms delay. People who move slowly may need more time; `delay` can be changed on the trigger.
+
 ## By disability
 
 | Group | What we do | Status |

@@ -97,7 +97,8 @@ describe("Dialog", () => {
       render(<Example withTitle={false} />);
       await user.click(screen.getByRole("button", { name: "Edit profile" }));
       await screen.findByRole("dialog");
-      await waitFor(() => expect(error).toHaveBeenCalledWith(expect.stringContaining("Dialog has no accessible name")));
+      // The check runs on an animation frame after the popup renders; allow for a busy machine.
+      await waitFor(() => expect(error).toHaveBeenCalledWith(expect.stringContaining("Dialog has no accessible name")), { timeout: 3000 });
       error.mockRestore();
     });
 

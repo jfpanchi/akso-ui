@@ -27,6 +27,7 @@ export const components = [
   { slug: "otp-field", name: "OTP field" },
   { slug: "pagination", name: "Pagination" },
   { slug: "popover", name: "Popover" },
+  { slug: "preview-card", name: "Preview card" },
   { slug: "progress", name: "Progress" },
   { slug: "radio-group", name: "Radio group" },
   { slug: "scroll-area", name: "Scroll area" },

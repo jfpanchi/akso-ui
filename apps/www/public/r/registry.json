@@ -979,6 +979,26 @@
         }
       ],
       "docs": "Akso UI Scroll area. Always name it with aria-label or aria-labelledby. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "preview-card",
+      "type": "registry:ui",
+      "title": "Preview card",
+      "description": "A link with a visual preview on hover or keyboard focus: dismissible with Escape, hoverable, never in the Tab order, and documented as a visual extra only.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/preview-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Preview card. The preview is a visual extra: keep everything it shows on the linked page. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

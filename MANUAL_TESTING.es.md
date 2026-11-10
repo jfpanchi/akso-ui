@@ -206,6 +206,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Puedes leer el contenido y usar "Close".
 3. <kbd>Escape</kbd> lo cierra y el foco vuelve al botón.
 
+### Preview card — `/test/preview-card`
+1. Con un lector de pantalla, lee la frase. "Base UI" se lee como un enlace normal, y no te mete en ninguna vista previa.
+2. Con el teclado, pulsa Tab hasta "Base UI". Al momento aparece una vista previa. Pulsa <kbd>Escape</kbd>: se cierra y sigues en el enlace.
+3. Con el ratón, señala "Base UI" y luego mueve el puntero a la vista previa. Sigue abierta.
+4. Haz zoom al 400%. La vista previa sigue cabiendo en la pantalla.
+
 ### Number field — `/test/number-field`
 1. "Guests" dice su nombre, que es obligatorio, su valor y "From 1 to 8 people."
 2. <kbd>↑</kbd> / <kbd>↓</kbd> cambian el valor de 1 en 1. <kbd>Inicio</kbd> y <kbd>Fin</kbd> van a 1 y a 8.

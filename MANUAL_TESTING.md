@@ -204,6 +204,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. You can read the content and use "Close".
 3. <kbd>Escape</kbd> closes it and focus goes back to the button.
 
+### Preview card — `/test/preview-card`
+1. With a screen reader, read the sentence. "Base UI" is read as a normal link, and you are not sent into a preview.
+2. With the keyboard, Tab to "Base UI". A preview appears after a moment. Press <kbd>Escape</kbd>: it closes and you stay on the link.
+3. With a mouse, point at "Base UI", then move onto the preview. It stays open.
+4. Zoom to 400%. The preview still fits on the screen.
+
 ### Number field — `/test/number-field`
 1. "Guests" says its name, that it is required, its value, and "From 1 to 8 people."
 2. <kbd>↑</kbd> / <kbd>↓</kbd> change the value by 1. <kbd>Home</kbd> and <kbd>End</kbd> go to 1 and 8.

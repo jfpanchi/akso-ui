@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "preview-card",
+  "title": "Preview card",
+  "description": "A link with a visual preview on hover or keyboard focus: dismissible with Escape, hoverable, never in the Tab order, and documented as a visual extra only.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/preview-card.tsx",
+      "content": "\"use client\";\n\nimport { PreviewCard as BasePreviewCard } from \"@base-ui/react/preview-card\";\n\nimport { cn } from \"@/lib/utils\";\nimport { focusRingClassName, popupSurfaceClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Preview card\n *\n * A link that shows a preview of its destination when you hover it or focus it with the\n * keyboard. Built on @base-ui/react/preview-card. Base UI provides:\n * - Opening on hover and on keyboard focus, after a short delay (600ms), and closing with\n *   Escape, when the pointer leaves, or when focus moves away (WCAG 1.4.13: dismissible,\n *   hoverable, persistent).\n * - The link stays the only thing in the Tab order. The preview is not focusable and screen\n *   readers are not sent into it, so it does not interrupt reading.\n *\n * Because of that, the preview is only a visual extra for sighted mouse and keyboard users.\n * Never put information there that is not also on the linked page (see the docs).\n *\n * This file adds the link style (underlined, so it is not shown by color alone), a focus ring,\n * the card surface, and motion only with motion-safe.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nconst PreviewCard = BasePreviewCard.Root;\n\nexport interface PreviewCardTriggerProps extends Omit<BasePreviewCard.Trigger.Props, \"className\"> {\n  className?: string;\n  /** Where the link goes. The page there must have everything the preview shows. */\n  href: string;\n}\n\n/** The link. It works like any link; the preview is extra. */\nfunction PreviewCardTrigger({ className, ...props }: PreviewCardTriggerProps) {\n  return (\n    <BasePreviewCard.Trigger\n      data-slot=\"preview-card-trigger\"\n      className={cn(\"rounded-sm text-akso-primary underline underline-offset-2 hover:decoration-2 data-popup-open:decoration-2\", focusRingClassName, className)}\n      {...props}\n    />\n  );\n}\n\nexport interface PreviewCardContentProps extends Omit<BasePreviewCard.Popup.Props, \"className\"> {\n  className?: string;\n  side?: BasePreviewCard.Positioner.Props[\"side\"];\n  align?: BasePreviewCard.Positioner.Props[\"align\"];\n}\n\n/** The preview. Only a visual extra: keep its content on the linked page too. */\nfunction PreviewCardContent({ className, side = \"bottom\", align = \"center\", ...props }: PreviewCardContentProps) {\n  return (\n    <BasePreviewCard.Portal>\n      <BasePreviewCard.Positioner data-slot=\"preview-card-positioner\" className=\"z-50\" side={side} align={align} sideOffset={8} collisionPadding={16}>\n        <BasePreviewCard.Popup data-slot=\"preview-card-content\" className={cn(popupSurfaceClassName, \"flex w-72 flex-col gap-2 p-4\", className)} {...props} />\n      </BasePreviewCard.Positioner>\n    </BasePreviewCard.Portal>\n  );\n}\n\nexport { PreviewCard, PreviewCardTrigger, PreviewCardContent };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Preview card. The preview is a visual extra: keep everything it shows on the linked page. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}
