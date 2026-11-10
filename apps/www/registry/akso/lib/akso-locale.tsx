@@ -50,6 +50,12 @@ export interface AksoMessages {
   numberField: string;
   /** Name of the breadcrumb navigation landmark. */
   breadcrumb: string;
+  /** Name of the pagination navigation landmark. */
+  pagination: string;
+  previousPage: string;
+  nextPage: string;
+  /** Accessible name of a page link, like "Page 3". */
+  page: (n: number) => string;
 }
 
 export const en: AksoMessages = {
@@ -73,6 +79,10 @@ export const en: AksoMessages = {
   increase: "Increase",
   numberField: "Number field",
   breadcrumb: "Breadcrumb",
+  pagination: "Pagination",
+  previousPage: "Previous",
+  nextPage: "Next",
+  page: (n) => `Page ${n}`,
 };
 
 export const es: AksoMessages = {
@@ -96,6 +106,10 @@ export const es: AksoMessages = {
   increase: "Aumentar",
   numberField: "Campo numérico",
   breadcrumb: "Ruta de navegación",
+  pagination: "Paginación",
+  previousPage: "Anterior",
+  nextPage: "Siguiente",
+  page: (n) => `Página ${n}`,
 };
 
 export const locales = { en, es } as const;

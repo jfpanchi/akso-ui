@@ -158,6 +158,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. "Products" says "collapsed". Open it and you can reach Phones, Laptops and Accessories.
 3. <kbd>Escape</kbd> closes it and focus goes back to "Products".
 
+### Pagination — `/test/pagination`
+1. In the list of landmarks or regions, you find a navigation called "Pagination", with a list.
+2. The links are read as "Previous", "Page 1", "Page 4", "Page 6", "Page 12" and "Next". Page 5 is read as the current page and is not a link.
+3. Activate "Next". You hear "Page 6 of 12.", and page 6 becomes the current page.
+4. On page 12, there is no "Next".
+
 ### Popover — `/test/popover`
 1. The button "About delivery times" opens a panel titled "Delivery times".
 2. You can read the content and use "Close".

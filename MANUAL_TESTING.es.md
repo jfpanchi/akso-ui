@@ -160,6 +160,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. "Products" dice "contraído". Ábrelo y puedes llegar a Phones, Laptops y Accessories.
 3. <kbd>Escape</kbd> lo cierra y el foco vuelve a "Products".
 
+### Pagination — `/test/pagination`
+1. En la lista de regiones o puntos de referencia hay una navegación llamada "Pagination", con una lista.
+2. Los enlaces se leen como "Previous", "Page 1", "Page 4", "Page 6", "Page 12" y "Next". La página 5 se lee como la página actual y no es un enlace.
+3. Activa "Next". Oyes "Page 6 of 12." y la página 6 pasa a ser la actual.
+4. En la página 12 no hay "Next".
+
 ### Popover — `/test/popover`
 1. El botón "About delivery times" abre un panel con el título "Delivery times".
 2. Puedes leer el contenido y usar "Close".

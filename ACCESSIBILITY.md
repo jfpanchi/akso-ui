@@ -1011,6 +1011,37 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Long trails are not shortened (no "…" menu); they wrap instead. On small screens a long trail can take several lines.
 - Built with plain HTML (Base UI has no breadcrumb), so the semantics are ours, not Base UI's.
 
+## Pagination
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations on the first, a middle and the last page | Several | Vitest + Playwright (light and dark) |
+| `nav` landmark named "Pagination" (translated with `AksoLocaleProvider`) with a list | 1.3.1, 2.4.1 | Vitest + Playwright |
+| Page links named "Page n"; the visible number is part of the name; the current page has `aria-current="page"` | 2.4.4, 2.5.3, 4.1.2 | Vitest + Playwright |
+| "Previous" and "Next" have visible text and are left out at the ends; the "…" is hidden from screen readers | 1.3.1, 2.4.4 | Vitest |
+| Tab reaches every control with a visible focus ring with at least 3:1 contrast; the current page is skipped | 2.1.1, 2.4.7 | Vitest + Playwright |
+| Current page shown with a fill, bold text and a 2px border (not color alone); text with at least 4.5:1 contrast; Highlight colors in forced colors | 1.4.1, 1.4.3 | Vitest + Playwright |
+| 44×44px targets; the list wraps at 320px wide | 2.5.8, 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- When pages are buttons (no URL), the component does not move focus or announce the new page; the page that uses it has to (the docs show how). Not confirmed manually yet.
+- The forced-colors style of the current page is set in code but not checked by an automated test yet.
+
 ## By disability
 
 | Group | What we do | Status |

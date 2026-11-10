@@ -797,6 +797,25 @@
         }
       ],
       "docs": "Akso UI Breadcrumb. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Pagination as a named nav with a list: visible Previous/Next, pages named \"Page n\", aria-current on the current page, 44px targets.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Pagination. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
