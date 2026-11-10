@@ -36,6 +36,7 @@ export const components = [
   { slug: "progress", name: "Progress" },
   { slug: "radio-group", name: "Radio group" },
   { slug: "scroll-area", name: "Scroll area" },
+  { slug: "search-field", name: "Search field" },
   { slug: "select", name: "Select" },
   { slug: "separator", name: "Separator" },
   { slug: "skeleton", name: "Skeleton" },

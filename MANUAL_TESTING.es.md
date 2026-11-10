@@ -265,6 +265,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 4. "Short note" no tiene nada que desplazar, y <kbd>Tab</kbd> lo salta.
 5. Con ratón o en pantalla táctil, ves las barras de desplazamiento sin pasar el puntero por encima.
 
+### Search field — `/test/search-field`
+1. Salta al punto de referencia de búsqueda. Oyes "Search components" y un campo de búsqueda.
+2. Escribe "tab". Al momento oyes "2 results".
+3. Pulsa <kbd>Tab</kbd> hasta "Clear search" y púlsalo. El campo queda vacío y el foco vuelve a él.
+4. Escribe "zzz". Oyes "No results", y la página lo dice en texto.
+
 ### Select — `/test/select`
 1. "Time zone" dice su nombre y el valor elegido, o "Choose a time zone".
 2. Abre la lista. Se leen los grupos, como "Americas".

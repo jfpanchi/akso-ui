@@ -121,6 +121,10 @@ export interface AksoMessages {
   stopAutoplay: string;
   /** Hidden text after a link that opens in a new tab. */
   opensInNewTab: string;
+  /** Search field texts. */
+  search: string;
+  clearSearch: string;
+  searchResults: (count: number) => string;
 }
 
 export const en: AksoMessages = {
@@ -188,6 +192,9 @@ export const en: AksoMessages = {
   startAutoplay: "Play",
   stopAutoplay: "Pause",
   opensInNewTab: "(opens in a new tab)",
+  search: "Search",
+  clearSearch: "Clear search",
+  searchResults: (count) => (count === 0 ? "No results" : count === 1 ? "1 result" : `${count} results`),
 };
 
 export const es: AksoMessages = {
@@ -255,6 +262,9 @@ export const es: AksoMessages = {
   startAutoplay: "Reproducir",
   stopAutoplay: "Pausar",
   opensInNewTab: "(se abre en una pestaña nueva)",
+  search: "Buscar",
+  clearSearch: "Borrar búsqueda",
+  searchResults: (count) => (count === 0 ? "Ningún resultado" : count === 1 ? "1 resultado" : `${count} resultados`),
 };
 
 export const locales = { en, es } as const;

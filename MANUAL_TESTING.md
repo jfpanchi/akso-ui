@@ -263,6 +263,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 4. "Short note" has nothing to scroll, and <kbd>Tab</kbd> skips it.
 5. With a mouse or touch, you can see the scrollbars without hovering.
 
+### Search field — `/test/search-field`
+1. Jump to the search landmark. You hear "Search components" and a search field.
+2. Type "tab". After a moment you hear "2 results".
+3. Press <kbd>Tab</kbd> to "Clear search" and press it. The field is empty and focus is back in it.
+4. Type "zzz". You hear "No results", and the page says so in text.
+
 ### Select — `/test/select`
 1. "Time zone" says its name and the chosen value, or "Choose a time zone".
 2. Open the list. Groups like "Americas" are read.

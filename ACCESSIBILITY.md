@@ -1554,6 +1554,36 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Link text quality ("read more", "click here") cannot be checked by the component.
 - Inline links in a sentence are not 24px tall; WCAG 2.5.8 allows this for links in text.
 
+## Search field
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, empty and with text | Several | Vitest + Playwright (light and dark) |
+| A search landmark (`role="search"`) with an `<input type="search">` named by a visible label (translated, can be visually hidden) | 1.3.1, 2.4.1, 3.3.2 | Vitest + Playwright |
+| The result count is announced after it changes, once typing pauses ("2 results", "No results") | 4.1.3 | Vitest + Playwright |
+| "Clear search" empties the field and puts focus back in it | 2.4.3 | Vitest + Playwright |
+| Field and button 44px tall with focus rings of at least 3:1 | 2.5.8, 2.4.7 | Playwright |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- The browser's own clear (×) button is hidden in WebKit/Blink so there is only one; Escape still clears (browser default).
+- The count is announced only when you pass `resultCount`.
+
 ## By disability
 
 | Group | What we do | Status |

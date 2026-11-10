@@ -1137,6 +1137,28 @@
         }
       ],
       "docs": "Akso UI Link. Write link text that says where it goes; avoid new tabs. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "search-field",
+      "type": "registry:ui",
+      "title": "Search field",
+      "description": "A search box in a search landmark: visible label, a Clear button that puts focus back, and the result count announced after typing pauses.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/search-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Search field. Pass resultCount when results update as people type. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
