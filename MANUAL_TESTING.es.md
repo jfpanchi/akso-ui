@@ -117,6 +117,14 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 3. Elige "Rename". El menú se cierra y oyes "Rename chosen."
 4. El botón "Actions for Annual report.pdf" abre las mismas opciones sin menú contextual.
 
+### Date picker — `/test/date-picker`
+1. "Appointment date" se lee con su formato, "mm/dd/yyyy", y su valor.
+2. Escribe "13/45/2026" y sal del campo. Oyes un error que dice qué escribir.
+3. Activa "Choose date". El calendario se abre en el 5 de marzo, leído como "Thursday, March 5, 2026", seleccionado.
+4. Las flechas se mueven por días y semanas, y AvPág pasa al mes siguiente. Oyes el mes nuevo.
+5. Pulsa Enter en un día. El calendario se cierra, el foco vuelve a "Choose date" y el campo tiene la fecha nueva.
+6. "Date of birth" no tiene calendario. Tu navegador puede rellenarlo.
+
 ### Dialog — `/test/dialog`
 1. Activa "Edit profile". Oyes el título "Edit profile" y "Change your name and press Save."
 2. No puedes salir del diálogo con <kbd>Tab</kbd> ni deslizando.

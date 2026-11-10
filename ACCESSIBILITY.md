@@ -1139,6 +1139,41 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Screen readers differ in how they read row headers and `aria-sort`. Not confirmed manually yet.
 - Wide tables scroll sideways instead of reflowing; this is allowed for data tables (WCAG 1.4.10), but it is still harder to use. For simple lists on small screens, consider a list layout.
 
+## Date picker
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: closed, calendar open, and with an error shown | Several | Vitest + Playwright (light and dark) |
+| The text field is named by its FieldLabel and described by the visible format hint; errors are linked with `aria-describedby` and `aria-invalid` (Base UI Field) | 1.3.1, 3.3.1, 3.3.2 | Vitest + Playwright |
+| Typed dates are read in the locale's order and kept as `YYYY-MM-DD`; impossible or out-of-range dates show an error that says what to type | 3.3.1, 3.3.3 | Vitest + Playwright |
+| Calendar grid named by the month (announced when it changes); each day named with its full date; `aria-selected` and `aria-current="date"` | 1.3.1, 4.1.2 | Vitest |
+| Arrows, Home/End and Page Up/Down move; min and max are respected; Enter picks; Escape closes; focus returns to the button | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Today is underlined and the chosen day is filled and bold (not color alone); Highlight colors in forced colors | 1.4.1 | Vitest |
+| Format, week start and all texts come from `AksoLocaleProvider` | 3.1.2 | Vitest |
+| Field and button 44px; days at least 36px; visible focus ring with at least 3:1 contrast | 2.5.8, 2.4.7 | Playwright |
+| The open calendar fits at 320px wide; no motion with `prefers-reduced-motion: reduce` | 1.4.10, 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- The calendar grid and its keyboard are ours (Base UI has no calendar). Screen readers differ in how they read grids; not confirmed manually yet.
+- Calendar days are 36px on narrow screens (44px from 640px up), so seven of them fit in 320px; this meets the 24px minimum but not the 44px enhanced size.
+- When there is no room below the field, the calendar opens above it and can cover other links while it is open. The e2e axe check opens it with room below.
+- Only one format per language (mm/dd/yyyy in English, dd/mm/yyyy in Spanish). Typed dates in another order are read wrongly if they are also valid dates.
+
 ## By disability
 
 | Group | What we do | Status |
