@@ -5,6 +5,7 @@ export const components = [
   { slug: "alert-dialog", name: "Alert dialog" },
   { slug: "autocomplete", name: "Autocomplete" },
   { slug: "avatar", name: "Avatar" },
+  { slug: "badge", name: "Badge" },
   { slug: "breadcrumb", name: "Breadcrumb" },
   { slug: "button", name: "Button" },
   { slug: "carousel", name: "Carousel" },

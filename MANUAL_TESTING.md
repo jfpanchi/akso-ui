@@ -84,6 +84,10 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 3. In the "Team" list, you hear each name once (the avatars next to the names are hidden).
 4. Tab never stops on an avatar.
 
+### Badge — `/test/badge`
+1. Read the "Orders" list. Each order is read with its status as a word: "Order 1042 Shipped".
+2. In Windows high contrast, each badge keeps its border, and the status icons have different shapes.
+
 ### Breadcrumb — `/test/breadcrumb`
 1. In the list of landmarks or regions, you find a navigation called "Breadcrumb".
 2. Inside it, you hear a list with 4 items. Home, Store and Phones are links.

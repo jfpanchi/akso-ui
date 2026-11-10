@@ -1495,6 +1495,35 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - `aria-roledescription` is read differently by screen readers; not confirmed manually yet.
 - No swipe gestures; touch users use the buttons.
 
+## Badge
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, with and without a status | Several | Vitest + Playwright (light and dark) |
+| Read as its text; the status icon is hidden (`aria-hidden`) | 1.1.1, 1.3.1 | Vitest + Playwright |
+| Each status has its own icon shape and a thicker colored border, not only a color | 1.4.1 | Vitest |
+| Text in the main text color (at least 4.5:1); status borders at least 3:1; borders visible in forced colors | 1.4.3, 1.4.11 | Playwright |
+| Not focusable; no motion; no horizontal scroll at 320px | 2.1.1, 1.4.10 | Vitest + Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; it is a plain `<span>`.
+- The text must say the status ("Shipped"); the component cannot check that. A badge that changes while the page is open is not announced by itself.
+
 ## By disability
 
 | Group | What we do | Status |

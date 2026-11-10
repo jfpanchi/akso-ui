@@ -1100,6 +1100,24 @@
         }
       ],
       "docs": "Akso UI Carousel. Always pass label; leave autoplay off if you can. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A short label whose status never depends on color alone: the text says it, plus an icon shape and a thicker border; main text color for contrast.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-status.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Badge. Write the status in the text; status only adds an icon and a border. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

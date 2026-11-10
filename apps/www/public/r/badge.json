@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "A short label whose status never depends on color alone: the text says it, plus an icon shape and a thicker border; main text color for contrast.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-status.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/badge.tsx",
+      "content": "import * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { StatusIcon, type Status } from \"@/registry/akso/lib/akso-status\";\n\n/*\n * Akso UI · Badge\n *\n * A short label, like \"New\" or the status of an order (\"Shipped\"). There is no Base UI part\n * for this; it is a plain <span>, not focusable.\n * - The text is the meaning, and it always uses the main text color (at least 4.5:1).\n * - A `status` adds an icon with its own shape and a colored border (at least 3:1), so the\n *   status never depends on color alone (WCAG 1.4.1). The icon is hidden from screen readers:\n *   the text already says it.\n * - The border stays visible in Windows high contrast.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nconst statusBorder: Record<Status, string> = {\n  info: \"border-akso-primary\",\n  success: \"border-akso-success\",\n  warning: \"border-akso-warning\",\n  error: \"border-akso-danger\",\n};\n\nexport interface BadgeProps extends React.ComponentProps<\"span\"> {\n  /** Adds an icon and a colored border. The text must still say the status. */\n  status?: Status;\n}\n\n/** A short label. Write the meaning in the text; `status` only adds an icon and a border. */\nfunction Badge({ status, className, children, ...props }: BadgeProps) {\n  return (\n    <span\n      data-slot=\"badge\"\n      data-status={status}\n      className={cn(\n        \"inline-flex max-w-full items-center gap-1 rounded-full border bg-akso-surface px-2.5 py-0.5 align-middle text-sm font-medium text-akso-foreground [overflow-wrap:anywhere]\",\n        status ? cn(\"border-2\", statusBorder[status]) : \"border-akso-border\",\n        className,\n      )}\n      {...props}\n    >\n      {status ? <StatusIcon status={status} className=\"size-4\" /> : null}\n      {children}\n    </span>\n  );\n}\n\nexport { Badge };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Badge. Write the status in the text; status only adds an icon and a border. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

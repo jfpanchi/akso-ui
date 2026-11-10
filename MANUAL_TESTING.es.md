@@ -86,6 +86,10 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 3. En la lista "Team", oyes cada nombre una sola vez (los avatares junto a los nombres están ocultos).
 4. Tab nunca se detiene en un avatar.
 
+### Badge — `/test/badge`
+1. Lee la lista "Orders". Cada pedido se lee con su estado en palabras: "Order 1042 Shipped".
+2. En el alto contraste de Windows, cada etiqueta mantiene su borde y los iconos de estado tienen formas distintas.
+
 ### Breadcrumb — `/test/breadcrumb`
 1. En la lista de regiones o puntos de referencia hay una navegación llamada "Breadcrumb".
 2. Dentro oyes una lista de 4 elementos. Home, Store y Phones son enlaces.
