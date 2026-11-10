@@ -78,6 +78,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 4. Type a city that is not in the list. Your text stays: you do not have to pick a suggestion.
 5. Use the clear button. The field is empty.
 
+### Avatar — `/test/avatar`
+1. Move through the first row. You hear "Laura Torres, image", "Mateo Ruiz, image", "Ana Gómez, image" and "Sam Lee, image". You do not hear the initials.
+2. Ana Gómez's picture does not load. You see her initials "AG", and you hear the same name.
+3. In the "Team" list, you hear each name once (the avatars next to the names are hidden).
+4. Tab never stops on an avatar.
+
 ### Breadcrumb — `/test/breadcrumb`
 1. In the list of landmarks or regions, you find a navigation called "Breadcrumb".
 2. Inside it, you hear a list with 4 items. Home, Store and Phones are links.

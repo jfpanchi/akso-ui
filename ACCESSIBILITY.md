@@ -1208,6 +1208,38 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Filling the code from a text message (`one-time-code`) depends on the phone and browser. It was not tested on real devices.
 - On narrow screens the boxes are narrower than 44px (at least 24px wide). They stay 44px tall.
 
+## Avatar
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: with a picture, a picture that fails to load, initials and decorative | Several | Vitest + Playwright (light and dark) |
+| One name (`role="img"`, `aria-label` = the person's name) that stays the same while the picture loads or fails; the picture and the initials are hidden from screen readers | 1.1.1, 4.1.2 | Vitest + Playwright |
+| `decorative` hides the avatar when the name is written next to it, so it is not read twice | 1.1.1 | Vitest + Playwright |
+| Inside a link with no other text, the avatar names the link | 2.4.4, 4.1.2 | Vitest |
+| Not in the Tab order | 2.1.1 | Vitest + Playwright |
+| Initials with at least 4.5:1 contrast; a border in Windows high contrast | 1.4.3, 1.4.11 | Playwright (axe), code review |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Base UI gives the avatar no role or name. Akso adds `role="img"` and `aria-label` on the root, a span where Base UI sets no role. It does not replace anything Base UI sets.
+- With `decorative`, you must write the name next to the avatar yourself. The avatar cannot check this.
+- A picture can still show things the name does not describe, for example a team logo. If that matters, write it in the text next to the avatar.
+
 ## By disability
 
 | Group | What we do | Status |

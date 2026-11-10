@@ -80,6 +80,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 4. Escribe una ciudad que no está en la lista. Tu texto se queda: no es obligatorio elegir una sugerencia.
 5. Usa el botón para borrar. El campo queda vacío.
 
+### Avatar — `/test/avatar`
+1. Recorre la primera fila. Oyes "Laura Torres, imagen", "Mateo Ruiz, imagen", "Ana Gómez, imagen" y "Sam Lee, imagen". No oyes las iniciales.
+2. La foto de Ana Gómez no carga. Ves sus iniciales "AG" y oyes el mismo nombre.
+3. En la lista "Team", oyes cada nombre una sola vez (los avatares junto a los nombres están ocultos).
+4. Tab nunca se detiene en un avatar.
+
 ### Breadcrumb — `/test/breadcrumb`
 1. En la lista de regiones o puntos de referencia hay una navegación llamada "Breadcrumb".
 2. Dentro oyes una lista de 4 elementos. Home, Store y Phones son enlaces.

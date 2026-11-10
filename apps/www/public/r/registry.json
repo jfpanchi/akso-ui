@@ -920,6 +920,26 @@
         }
       ],
       "docs": "Akso UI OTP field. Put it inside a Field with a FieldLabel and say how long the code is in a FieldDescription. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "A picture or initials with one name that stays the same while the picture loads or fails, and a decorative mode for when the name is written next to it.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Avatar. Always pass name; add decorative when the name is written next to the avatar. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
