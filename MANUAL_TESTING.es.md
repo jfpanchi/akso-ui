@@ -181,6 +181,14 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. "Products" dice "contraído". Ábrelo y puedes llegar a Phones, Laptops y Accessories.
 3. <kbd>Escape</kbd> lo cierra y el foco vuelve a "Products".
 
+### OTP field — `/test/otp-field`
+1. Ve a "Verification code". Oyes el nombre, "Enter the 6-digit code we sent to your email." y que es obligatorio.
+2. Escribe 6 dígitos. Cada uno pasa a la casilla siguiente. Vuelve atrás con la flecha izquierda: oyes "Digit 2 of 6", etc.
+3. Escribe una letra. No se escribe nada y oyes "Only numbers are allowed."
+4. Pega un código de 6 dígitos en la primera casilla. Se llenan todas.
+5. Borra algunos dígitos y sal del campo. Oyes un error ("Enter all 6 digits.") y las casillas quedan como no válidas.
+6. En un teléfono, recibe un código por SMS. El teclado ofrece rellenarlo.
+
 ### Pagination — `/test/pagination`
 1. En la lista de regiones o puntos de referencia hay una navegación llamada "Pagination", con una lista.
 2. Los enlaces se leen como "Previous", "Page 1", "Page 4", "Page 6", "Page 12" y "Next". La página 5 se lee como la página actual y no es un enlace.

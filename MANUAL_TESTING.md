@@ -179,6 +179,14 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. "Products" says "collapsed". Open it and you can reach Phones, Laptops and Accessories.
 3. <kbd>Escape</kbd> closes it and focus goes back to "Products".
 
+### OTP field — `/test/otp-field`
+1. Go to "Verification code". You hear the name, "Enter the 6-digit code we sent to your email." and that it is required.
+2. Type 6 digits. Each one goes into the next box. Move back with the left arrow: you hear "Digit 2 of 6" and so on.
+3. Type a letter. Nothing is entered and you hear "Only numbers are allowed."
+4. Paste a 6-digit code into the first box. Every box is filled.
+5. Delete some digits and leave the field. You hear an error ("Enter all 6 digits.") and the boxes are invalid.
+6. On a phone, receive a code by text message. The keyboard offers to fill it in.
+
 ### Pagination — `/test/pagination`
 1. In the list of landmarks or regions, you find a navigation called "Pagination", with a list.
 2. The links are read as "Previous", "Page 1", "Page 4", "Page 6", "Page 12" and "Next". Page 5 is read as the current page and is not a link.

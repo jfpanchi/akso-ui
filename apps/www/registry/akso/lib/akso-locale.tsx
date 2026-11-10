@@ -72,6 +72,10 @@ export interface AksoMessages {
   nextMonth: string;
   /** Error when a typed date cannot be read. */
   invalidDate: string;
+  /** Name of each code box after the first one (the first one uses the field label). */
+  otpSlot: (n: number, total: number, kind: "digit" | "character") => string;
+  /** Announced when a typed or pasted character is not allowed in the code. */
+  otpRejected: (allowed: "numeric" | "alpha" | "alphanumeric") => string;
 }
 
 export const en: AksoMessages = {
@@ -108,6 +112,9 @@ export const en: AksoMessages = {
   previousMonth: "Previous month",
   nextMonth: "Next month",
   invalidDate: "Enter a real date, like 03/25/2026.",
+  otpSlot: (n, total, kind) => `${kind === "digit" ? "Digit" : "Character"} ${n} of ${total}`,
+  otpRejected: (allowed) =>
+    allowed === "numeric" ? "Only numbers are allowed." : allowed === "alpha" ? "Only letters are allowed." : "Only letters and numbers are allowed.",
 };
 
 export const es: AksoMessages = {
@@ -144,6 +151,9 @@ export const es: AksoMessages = {
   previousMonth: "Mes anterior",
   nextMonth: "Mes siguiente",
   invalidDate: "Escribe una fecha real, como 25/03/2026.",
+  otpSlot: (n, total, kind) => `${kind === "digit" ? "Dígito" : "Carácter"} ${n} de ${total}`,
+  otpRejected: (allowed) =>
+    allowed === "numeric" ? "Solo se permiten números." : allowed === "alpha" ? "Solo se permiten letras." : "Solo se permiten letras y números.",
 };
 
 export const locales = { en, es } as const;

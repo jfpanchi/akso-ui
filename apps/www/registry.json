@@ -898,6 +898,28 @@
         }
       ],
       "docs": "Akso UI Date picker. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "otp-field",
+      "type": "registry:ui",
+      "title": "OTP field",
+      "description": "A one-time code split into boxes: one Tab stop, paste and one-time-code autofill, every box named, rejected characters announced.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/otp-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI OTP field. Put it inside a Field with a FieldLabel and say how long the code is in a FieldDescription. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

@@ -1174,6 +1174,40 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - When there is no room below the field, the calendar opens above it and can cover other links while it is open. The e2e axe check opens it with room below.
 - Only one format per language (mm/dd/yyyy in English, dd/mm/yyyy in Spanish). Typed dates in another order are read wrongly if they are also valid dates.
 
+## OTP field
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: empty, grouped, filled, disabled and with an error shown | Several | Vitest + Playwright (light and dark) |
+| A group named by the FieldLabel and described by the FieldDescription and the error; the first box is named by the label, the others "Digit 2 of 6" (translated, can be changed) | 1.3.1, 2.5.3, 4.1.2 | Vitest + Playwright |
+| `autocomplete="one-time-code"` on the first box; pasting the code fills every box | 1.3.5, 3.3.8 | Vitest + Playwright |
+| One Tab stop; ← → move between boxes; Home and End; Backspace deletes and moves back | 2.1.1, 2.4.3 | Vitest + Playwright |
+| A rejected character (a letter in a number code) is announced: "Only numbers are allowed." | 3.3.1, 4.1.3 | Vitest + Playwright |
+| An incomplete or missing code shows the FieldError and sets `aria-invalid` on the boxes | 3.3.1 | Playwright |
+| Boxes 44px tall and at least 24px wide (they shrink at 320px); visible focus ring on every box with at least 3:1 contrast | 2.5.8, 2.4.7 | Playwright |
+| No horizontal scroll at 320px; no motion with `prefers-reduced-motion: reduce` | 1.4.10, 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Base UI sets `aria-invalid` on the boxes only for app-controlled errors. Akso adds it when Base UI leaves it unset (native errors such as an incomplete code). It never replaces a value Base UI sets.
+- The description and the error are linked to the group, not to each box. Most screen readers read them when focus enters the group, but not when you move between boxes. Not confirmed manually yet.
+- Filling the code from a text message (`one-time-code`) depends on the phone and browser. It was not tested on real devices.
+- On narrow screens the boxes are narrower than 44px (at least 24px wide). They stay 44px tall.
+
 ## By disability
 
 | Group | What we do | Status |

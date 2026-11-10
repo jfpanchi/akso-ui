@@ -187,6 +187,7 @@ export function warnIfUnnamed(el: HTMLElement | null, component: string, hint: s
   const labelledBy = el.getAttribute("aria-labelledby");
   const name =
     el.getAttribute("aria-label")?.trim() ||
+    (el instanceof HTMLInputElement && el.labels?.length ? (el.labels[0]?.textContent?.trim() ?? "") : "") ||
     (labelledBy ? el.ownerDocument.getElementById(labelledBy)?.textContent?.trim() : "") ||
     // Containers (group, toolbar…) are not named by their content.
     (["group", "toolbar", "radiogroup", "menubar"].includes(el.getAttribute("role") ?? "") ? "" : el.textContent?.trim());
