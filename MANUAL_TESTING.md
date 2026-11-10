@@ -155,6 +155,13 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 4. "Show hidden files" says whether it is checked.
 5. Choose "Copy link". The menu closes, focus goes back to "File actions", and you hear "Link copied."
 
+### Menubar — `/test/menubar`
+1. You hear a menu bar called "Editor". <kbd>Tab</kbd> enters it once, on "File".
+2. <kbd>→</kbd> moves to "Edit" and "View". Each is read as a menu item that has a menu.
+3. On "Edit", <kbd>↓</kbd> opens its menu. "Undo (nothing to undo)" is read as unavailable. Choose "Copy": the menu closes and you hear "Copy chosen."
+4. Open "File", go to "Export" and press <kbd>→</kbd>. Choose "PDF". You hear "Export as PDF chosen."
+5. <kbd>Escape</kbd> closes a menu and focus goes back to its name in the bar.
+
 ### Meter — `/test/meter`
 1. "Storage used" and "Battery" say their value, for example a percentage.
 2. The value is clear without seeing the color.

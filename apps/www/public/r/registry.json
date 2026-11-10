@@ -836,6 +836,26 @@
         }
       ],
       "docs": "Akso UI Context menu. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "menubar",
+      "type": "registry:ui",
+      "title": "Menubar",
+      "description": "A desktop-style menubar (File · Edit · View): one Tab stop, arrow keys between menus, the same accessible menu parts as Menu, 44px targets.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/menubar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Menubar. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }
