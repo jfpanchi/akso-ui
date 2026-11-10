@@ -17,12 +17,18 @@ const group = (page: Page) => page.getByRole("group", { name: "Verification code
 const boxes = (page: Page) => group(page).getByRole("textbox");
 const value = (page: Page) => page.getByTestId("otp-value");
 
-/** Pastes text into the focused box, the way the browser does (works in every engine, no clipboard permission). */
+/**
+ * Pastes text into the focused box, without clipboard permissions (not available in every engine).
+ * Firefox ignores `clipboardData` passed to the ClipboardEvent constructor, so a plain "paste"
+ * event gets the data as a property; React (and Base UI) read `event.clipboardData` either way.
+ */
 async function paste(page: Page, text: string) {
   await page.evaluate((t) => {
     const data = new DataTransfer();
     data.setData("text/plain", t);
-    document.activeElement?.dispatchEvent(new ClipboardEvent("paste", { clipboardData: data, bubbles: true, cancelable: true }));
+    const event = new Event("paste", { bubbles: true, cancelable: true });
+    Object.defineProperty(event, "clipboardData", { value: data });
+    document.activeElement?.dispatchEvent(event);
   }, text);
 }
 
