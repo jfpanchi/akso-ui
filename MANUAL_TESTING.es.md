@@ -216,6 +216,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Cámbialo. Oyes el nuevo estado y "Email notifications on." u "off."
 3. "Beta features (not available)" se lee como no disponible.
 
+### Table — `/test/table`
+1. Oyes una tabla llamada "Recent orders", con su número de filas y columnas.
+2. Recorre las celdas con los comandos de tabla del lector (NVDA/JAWS: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+flechas; VoiceOver: <kbd>VO</kbd>+flechas). Cada celda se lee con el encabezado de su columna y con el número de pedido como encabezado de fila.
+3. "Customer", "Date" y "Total" son botones. Pulsa "Customer". Oyes "Sorted by Customer, ascending" y el encabezado se lee como ordenado.
+4. Con el zoom al 400 % (o en el teléfono), la página no se desplaza de lado. La tabla se desplaza dentro de su marco, al que llegas con <kbd>Tab</kbd> y que se mueve con <kbd>←</kbd> / <kbd>→</kbd>.
+
 ### Tabs — `/test/tabs`
 1. Oyes el grupo "Account settings" y la pestaña seleccionada.
 2. <kbd>←</kbd> / <kbd>→</kbd> pasan entre Profile, Password y Notifications, y muestran su contenido.

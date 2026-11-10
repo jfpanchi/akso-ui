@@ -56,6 +56,8 @@ export interface AksoMessages {
   nextPage: string;
   /** Accessible name of a page link, like "Page 3". */
   page: (n: number) => string;
+  /** Announced after sorting a table, like "Sorted by Name, ascending". */
+  sortedBy: (column: string, direction: "ascending" | "descending") => string;
 }
 
 export const en: AksoMessages = {
@@ -83,6 +85,7 @@ export const en: AksoMessages = {
   previousPage: "Previous",
   nextPage: "Next",
   page: (n) => `Page ${n}`,
+  sortedBy: (column, direction) => `Sorted by ${column}, ${direction}`,
 };
 
 export const es: AksoMessages = {
@@ -110,6 +113,7 @@ export const es: AksoMessages = {
   previousPage: "Anterior",
   nextPage: "Siguiente",
   page: (n) => `Página ${n}`,
+  sortedBy: (column, direction) => `Ordenado por ${column}, ${direction === "ascending" ? "ascendente" : "descendente"}`,
 };
 
 export const locales = { en, es } as const;
