@@ -1061,6 +1061,26 @@
         }
       ],
       "docs": "Akso UI Password field. Put it inside a Field with a FieldLabel; use autoComplete=\"new-password\" for sign-up. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:ui",
+      "title": "File upload",
+      "description": "File picker on the native input with an optional drop zone: chosen files listed with named Remove buttons, refused files explained and announced, focus kept after removal.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/file-upload.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI File upload. Say the allowed types and size in description; check files on the server too. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

@@ -150,6 +150,13 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 1. When you enter "Street and number", you also hear the name of the group: "Delivery address".
 2. Each field (Street and number, City, Postal code) has its own name.
 
+### File upload — `/test/file-upload`
+1. Go to "Documents". You hear a file button with its name and "PDF or PNG, up to 1 MB each."
+2. Open the picker with <kbd>Enter</kbd> or <kbd>Space</kbd>, and choose two PDF files. You hear "2 files added", and they are listed.
+3. Choose a file bigger than 1 MB. You hear why it was not added, and the reason is shown under the box.
+4. Press "Remove" on the first file. You hear it was removed, and focus goes to the next file.
+5. Voice control: say "Click Remove". It works.
+
 ### Form — `/test/form`
 1. Press the submit button without filling in anything. Focus goes to the first field with an error and you hear the error. You also hear how many fields need attention.
 2. Fill in every field and submit. You hear "Message sent. We will reply within 2 days."

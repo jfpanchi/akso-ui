@@ -152,6 +152,13 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 1. Al entrar a "Street and number" también oyes el nombre del grupo: "Delivery address".
 2. Cada campo (Street and number, City, Postal code) tiene su propio nombre.
 
+### File upload — `/test/file-upload`
+1. Ve a "Documents". Oyes un botón de archivo con su nombre y "PDF or PNG, up to 1 MB each."
+2. Abre el selector con <kbd>Enter</kbd> o <kbd>Espacio</kbd> y elige dos PDF. Oyes "2 files added" y aparecen en la lista.
+3. Elige un archivo de más de 1 MB. Oyes por qué no se añadió, y el motivo aparece bajo la caja.
+4. Pulsa "Remove" en el primer archivo. Oyes que se quitó y el foco pasa al siguiente archivo.
+5. Control por voz: di "Clic en Remove". Funciona.
+
 ### Form — `/test/form`
 1. Pulsa el botón de enviar sin llenar nada. El foco va al primer campo con error y oyes el error. También oyes cuántos campos hay que revisar.
 2. Llena todos los campos y envía. Oyes "Message sent. We will reply within 2 days."

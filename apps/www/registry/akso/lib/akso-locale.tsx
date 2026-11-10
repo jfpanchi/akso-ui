@@ -96,6 +96,20 @@ export interface AksoMessages {
   /** Announced after the password is shown or hidden. */
   passwordShown: string;
   passwordHidden: string;
+  /** Hint next to the file picker. */
+  dropFilesHere: string;
+  /** Name of the list of chosen files. */
+  selectedFiles: string;
+  /** Name of the button that removes one file: "Remove report.pdf". */
+  removeFile: (name: string) => string;
+  /** Visible text of that button. */
+  remove: string;
+  /** Announced after files are added or removed. */
+  filesAdded: (count: number) => string;
+  fileRemoved: (name: string) => string;
+  /** Errors for files that are not accepted. */
+  fileTooBig: (name: string, max: string) => string;
+  fileTypeNotAllowed: (name: string) => string;
 }
 
 export const en: AksoMessages = {
@@ -146,6 +160,14 @@ export const en: AksoMessages = {
   passwordWord: "password",
   passwordShown: "Your password is shown",
   passwordHidden: "Your password is hidden",
+  dropFilesHere: "or drop files here",
+  selectedFiles: "Selected files",
+  removeFile: (name) => `Remove ${name}`,
+  remove: "Remove",
+  filesAdded: (count) => (count === 1 ? "1 file added" : `${count} files added`),
+  fileRemoved: (name) => `${name} removed`,
+  fileTooBig: (name, max) => `${name} is too big. Choose a file smaller than ${max}.`,
+  fileTypeNotAllowed: (name) => `${name} is not an allowed type of file.`,
 };
 
 export const es: AksoMessages = {
@@ -196,6 +218,14 @@ export const es: AksoMessages = {
   passwordWord: "contraseña",
   passwordShown: "Tu contraseña se muestra",
   passwordHidden: "Tu contraseña está oculta",
+  dropFilesHere: "o suelta los archivos aquí",
+  selectedFiles: "Archivos elegidos",
+  removeFile: (name) => `Quitar ${name}`,
+  remove: "Quitar",
+  filesAdded: (count) => (count === 1 ? "1 archivo añadido" : `${count} archivos añadidos`),
+  fileRemoved: (name) => `${name} quitado`,
+  fileTooBig: (name, max) => `${name} es demasiado grande. Elige un archivo de menos de ${max}.`,
+  fileTypeNotAllowed: (name) => `${name} no es un tipo de archivo permitido.`,
 };
 
 export const locales = { en, es } as const;

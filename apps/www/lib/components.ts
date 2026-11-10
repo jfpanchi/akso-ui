@@ -17,6 +17,7 @@ export const components = [
   { slug: "drawer", name: "Drawer" },
   { slug: "field", name: "Field" },
   { slug: "fieldset", name: "Fieldset" },
+  { slug: "file-upload", name: "File upload" },
   { slug: "form", name: "Form" },
   { slug: "input", name: "Input" },
   { slug: "menu", name: "Menu" },

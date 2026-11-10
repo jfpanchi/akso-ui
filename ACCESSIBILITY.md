@@ -1428,6 +1428,40 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Showing the password puts it on screen. People in public places choose when to press Show; it is never on by default.
 - Some password managers fill the field only while it is `type="password"`. Not tested with real password managers.
 
+## File upload
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: empty, with files and with an error | Several | Vitest + Playwright (light and dark) |
+| The browser's own file input, named by a visible label and described by the help text | 1.3.1, 3.3.2, 4.1.2 | Vitest + Playwright |
+| Dropping files is only an extra; the file button always works | 2.5.7, 2.1.1 | Vitest + Playwright |
+| Chosen files listed with a Remove button named after each file ("Remove report.pdf"); added and removed files announced; texts translated | 1.3.1, 4.1.3 | Vitest + Playwright |
+| Too big or wrong type: refused; the reason shown with an icon, linked with `aria-describedby` and `aria-invalid`, and announced | 3.3.1, 3.3.3 | Vitest + Playwright |
+| After Remove, focus moves to the next file, or back to the input | 2.4.3 | Vitest + Playwright |
+| File button and Remove buttons 44px tall with focus rings of at least 3:1 | 2.5.8, 2.4.7 | Playwright |
+| No motion; no horizontal scroll at 320px, even with long file names | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; the component is ours.
+- The file button text ("Choose files", "No file chosen") comes from the browser in the browser's language, not from `AksoLocaleProvider`.
+- The drop zone has no screen reader name of its own; it is a visual extra.
+- File checks in the browser are a help, not security. Check files on the server too.
+
 ## By disability
 
 | Group | What we do | Status |
