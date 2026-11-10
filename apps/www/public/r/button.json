@@ -7,8 +7,8 @@
     "@base-ui/react@^1.9.0"
   ],
   "registryDependencies": [
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.2.0/apps/www/public/r/akso-styles.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.2.0/apps/www/public/r/akso-locale.json"
   ],
   "files": [
     {

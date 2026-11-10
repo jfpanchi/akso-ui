@@ -8,7 +8,7 @@
   ],
   "registryDependencies": [
     "utils",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.2.0/apps/www/public/r/akso-tokens.json"
   ],
   "files": [
     {

@@ -5,8 +5,8 @@
   "description": "Message on the page (info, success, warning, error) with an icon shape and a hidden status word for each type. Optional live announcement.",
   "registryDependencies": [
     "utils",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-status.json",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.2.0/apps/www/public/r/akso-status.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.2.0/apps/www/public/r/akso-locale.json"
   ],
   "files": [
     {
