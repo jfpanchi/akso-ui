@@ -30,6 +30,7 @@ export const components = [
   { slug: "progress", name: "Progress" },
   { slug: "radio-group", name: "Radio group" },
   { slug: "select", name: "Select" },
+  { slug: "separator", name: "Separator" },
   { slug: "slider", name: "Slider" },
   { slug: "switch", name: "Switch" },
   { slug: "table", name: "Table" },

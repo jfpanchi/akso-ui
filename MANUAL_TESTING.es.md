@@ -228,6 +228,10 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Abre la lista. Se leen los grupos, como "Americas".
 3. Elige con las flechas y <kbd>Enter</kbd>. La lista se cierra y oyes el nuevo valor.
 
+### Separator — `/test/separator`
+1. Lee la tarjeta de arriba abajo. Entre "Account" y "Billing" oyes "separador". No oyes ninguno antes de los enlaces del pie ni entre "Help" y "Privacy".
+2. En el alto contraste de Windows, todas las líneas se siguen viendo.
+
 ### Slider — `/test/slider`
 1. "Volume" dice su valor. Las flechas lo cambian de 5 en 5.
 2. "Room temperature" dice el valor con su unidad, como "21 degrees".

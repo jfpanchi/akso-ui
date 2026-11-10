@@ -1240,6 +1240,35 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - With `decorative`, you must write the name next to the avatar yourself. The avatar cannot check this.
 - A picture can still show things the name does not describe, for example a team logo. If that matters, write it in the text next to the avatar.
 
+## Separator
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: horizontal, vertical and decorative | Several | Vitest + Playwright (light and dark) |
+| `role="separator"` with `aria-orientation` (Base UI); `decorative` lines are hidden from screen readers | 1.3.1 | Vitest + Playwright |
+| Not in the Tab order | 2.1.1 | Vitest + Playwright |
+| Line at least 1px with at least 3:1 contrast; drawn with a border, so it stays visible in forced colors | 1.4.11 | Playwright |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Whether a line is announced or decorative is your choice; the component cannot tell. Too many announced separators add noise.
+- `decorative` renders a plain `div` with `aria-hidden` instead of the Base UI part, so it has no role to replace.
+
 ## By disability
 
 | Group | What we do | Status |

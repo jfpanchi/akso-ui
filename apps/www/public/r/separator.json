@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "A line between groups of content: announced as a separator with its orientation, or decorative and hidden; visible in forced colors.",
+  "dependencies": [
+    "@base-ui/react@^1.9.0"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/separator.tsx",
+      "content": "\"use client\";\n\nimport { Separator as BaseSeparator } from \"@base-ui/react/separator\";\n\nimport { cn } from \"@/lib/utils\";\n\n/*\n * Akso UI · Separator\n *\n * A line between groups of content. Built on @base-ui/react/separator, which renders\n * role=\"separator\" with aria-orientation, so screen readers can tell where a group ends.\n *\n * This file adds:\n * - `decorative`: a line that is only visual (between paragraphs, inside a card). It is\n *   hidden from screen readers instead of announced. It does not use Base UI, so no role\n *   that Base UI sets is replaced.\n * - A line drawn with a border in the --akso-border color (at least 3:1 against the page), so\n *   it stays visible in Windows high contrast, where backgrounds are removed.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport interface SeparatorProps extends Omit<BaseSeparator.Props, \"className\"> {\n  className?: string;\n  /** Only visual: hide it from screen readers. Default: false (announced as a separator). */\n  decorative?: boolean;\n}\n\nconst lineClassName = (orientation: \"horizontal\" | \"vertical\") =>\n  orientation === \"vertical\" ? \"w-0 self-stretch border-l border-akso-border\" : \"h-0 w-full border-t border-akso-border\";\n\n/** A line between groups of content. Add `decorative` when it is only visual. */\nfunction Separator({ className, orientation = \"horizontal\", decorative = false, ...props }: SeparatorProps) {\n  if (decorative) {\n    const { style, id } = props;\n    return (\n      <div\n        aria-hidden=\"true\"\n        data-slot=\"separator\"\n        data-orientation={orientation}\n        id={id}\n        style={typeof style === \"function\" ? undefined : style}\n        className={cn(\"shrink-0\", lineClassName(orientation), className)}\n      />\n    );\n  }\n  return <BaseSeparator data-slot=\"separator\" orientation={orientation} className={cn(\"shrink-0\", lineClassName(orientation), className)} {...props} />;\n}\n\nexport { Separator };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Separator. Add decorative when the line is only visual. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

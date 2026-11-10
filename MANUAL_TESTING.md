@@ -226,6 +226,10 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. Open the list. Groups like "Americas" are read.
 3. Choose with the arrows and <kbd>Enter</kbd>. The list closes and you hear the new value.
 
+### Separator — `/test/separator`
+1. Read the card from top to bottom. Between "Account" and "Billing" you hear "separator". You do not hear one before the footer links, or between "Help" and "Privacy".
+2. In Windows high contrast, every line is still visible.
+
 ### Slider — `/test/slider`
 1. "Volume" says its value. The arrows change it by 5.
 2. "Room temperature" says the value with its unit, like "21 degrees".
