@@ -1,10 +1,23 @@
-import { act, render, screen, within } from "@testing-library/react";
+import { act, render, screen, waitFor, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expectNoA11yViolations } from "akso-ui/test";
 import { describe, expect, it, vi } from "vitest";
 
 import * as akso from "@/registry/akso/lib/akso-form";
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow, type TableSortDirection } from "./table";
+import { AksoLocaleProvider } from "@/registry/akso/lib/akso-locale";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableRowCheckbox,
+  TableSelectAll,
+  useTableSelection,
+  type TableSortDirection,
+} from "./table";
 
 function Orders({ direction = "none" as TableSortDirection, onSort = () => {} }) {
   return (
@@ -117,5 +130,73 @@ describe("Table", () => {
       expect(container.className).toContain("overflow-x-auto");
       expect(container.className).toContain("focus-visible:outline-2");
     });
+  });
+});
+
+describe("Table row selection", () => {
+  function People() {
+    const ids = ["p1", "p2", "p3"];
+    const selection = useTableSelection(ids);
+    return (
+      <Table>
+        <TableCaption>Team</TableCaption>
+        <TableHeader>
+          <TableRow>
+            <TableHead>
+              <TableSelectAll selection={selection} />
+            </TableHead>
+            <TableHead>Name</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {ids.map((id, i) => (
+            <TableRow key={id} selected={selection.isSelected(id)}>
+              <TableCell>
+                <TableRowCheckbox selection={selection} id={id} rowName={`Person ${i + 1}`} />
+              </TableCell>
+              <TableHead scope="row">Person {i + 1}</TableHead>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  }
+
+  it("has no violations", async () => {
+    render(
+      <main>
+        <People />
+      </main>,
+    );
+    await expectNoA11yViolations(document.body);
+  });
+
+  it("checkboxes are named after the row; select all is mixed when some rows are selected; the count is announced", async () => {
+    const user = userEvent.setup();
+    render(<People />);
+    const all = screen.getByRole("checkbox", { name: "Select all rows" });
+    expect(all).toHaveAttribute("aria-checked", "false");
+    await user.click(screen.getByRole("checkbox", { name: "Select Person 2" }));
+    expect(all).toHaveAttribute("aria-checked", "mixed");
+    expect(screen.getByRole("checkbox", { name: "Select Person 2" }).closest("tr")).toHaveAttribute("data-selected");
+    await waitFor(() => expect(document.querySelector('[data-slot="announcer"]')).toHaveTextContent("1 row selected"));
+    await user.click(all);
+    expect(all).toHaveAttribute("aria-checked", "true");
+    await waitFor(() => expect(document.querySelector('[data-slot="announcer"]')).toHaveTextContent("3 rows selected"));
+    await user.click(all);
+    await waitFor(() => expect(document.querySelector('[data-slot="announcer"]')).toHaveTextContent("No rows selected"));
+  });
+
+  it("Space toggles the focused checkbox; texts come from AksoLocaleProvider", async () => {
+    const user = userEvent.setup();
+    render(
+      <AksoLocaleProvider locale="es">
+        <People />
+      </AksoLocaleProvider>,
+    );
+    screen.getByRole("checkbox", { name: "Seleccionar Person 1" }).focus();
+    await user.keyboard(" ");
+    expect(screen.getByRole("checkbox", { name: "Seleccionar Person 1" })).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("checkbox", { name: "Seleccionar todas las filas" })).toHaveAttribute("aria-checked", "mixed");
   });
 });

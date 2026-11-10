@@ -1120,6 +1120,9 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Sort buttons 44px tall with a visible focus ring with at least 3:1 contrast | 2.5.8, 2.4.7 | Playwright |
 | At 320px the page does not scroll sideways; the table scrolls in a region named by the caption, focusable and scrollable with the arrow keys | 1.4.10, 2.1.1 | Vitest + Playwright |
 | When the table fits, its frame is not an extra Tab stop | 2.4.3 | Vitest + Playwright |
+| Row selection: checkboxes (Base UI) named after their row ("Select Laura Torres"); "Select all rows" is checked, mixed or not checked; Space toggles | 1.3.1, 2.1.1, 4.1.2 | Vitest + Playwright |
+| Every selection change is announced ("2 rows selected"; translated); selected rows also get a background, but the check mark shows the state | 4.1.3, 1.4.1 | Vitest + Playwright |
+| Selection checkboxes are 44×44px targets with a focus ring of at least 3:1; Highlight colors in forced colors | 2.5.8, 2.4.7 | Playwright, code review |
 
 ### Manual testing with assistive technology
 

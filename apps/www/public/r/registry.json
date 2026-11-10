@@ -861,8 +861,10 @@
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "A data table: caption, column and row headers, sortable columns with aria-sort and an announced sort, and a focusable scroll region when it does not fit.",
-      "dependencies": [],
+      "description": "A data table: caption, column and row headers, sortable columns with aria-sort and an announced sort, row selection with named checkboxes and an announced count, and a focusable scroll region when it does not fit.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
       "registryDependencies": [
         "utils",
         "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",

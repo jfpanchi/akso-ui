@@ -82,6 +82,12 @@ export interface AksoMessages {
   steps: string;
   /** Hidden text after each step: "Step 2 of 4, completed". */
   stepStatus: (n: number, total: number, status: "complete" | "current" | "upcoming") => string;
+  /** Name of the checkbox that selects every row of a table. */
+  selectAllRows: string;
+  /** Name of the checkbox that selects one row: "Select Laura Torres". */
+  selectRow: (row: string) => string;
+  /** Announced when the selection changes. */
+  rowsSelected: (count: number) => string;
 }
 
 export const en: AksoMessages = {
@@ -124,6 +130,9 @@ export const en: AksoMessages = {
   loaded: "Loaded",
   steps: "Steps",
   stepStatus: (n, total, status) => `Step ${n} of ${total}${status === "complete" ? ", completed" : status === "current" ? ", current step" : ""}`,
+  selectAllRows: "Select all rows",
+  selectRow: (row) => `Select ${row}`,
+  rowsSelected: (count) => (count === 0 ? "No rows selected" : count === 1 ? "1 row selected" : `${count} rows selected`),
 };
 
 export const es: AksoMessages = {
@@ -166,6 +175,9 @@ export const es: AksoMessages = {
   loaded: "Cargado",
   steps: "Pasos",
   stepStatus: (n, total, status) => `Paso ${n} de ${total}${status === "complete" ? ", completado" : status === "current" ? ", paso actual" : ""}`,
+  selectAllRows: "Seleccionar todas las filas",
+  selectRow: (row) => `Seleccionar ${row}`,
+  rowsSelected: (count) => (count === 0 ? "Ninguna fila seleccionada" : count === 1 ? "1 fila seleccionada" : `${count} filas seleccionadas`),
 };
 
 export const locales = { en, es } as const;

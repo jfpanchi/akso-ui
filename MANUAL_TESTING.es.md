@@ -272,6 +272,8 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Recorre las celdas con los comandos de tabla del lector (NVDA/JAWS: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+flechas; VoiceOver: <kbd>VO</kbd>+flechas). Cada celda se lee con el encabezado de su columna y con el número de pedido como encabezado de fila.
 3. "Customer", "Date" y "Total" son botones. Pulsa "Customer". Oyes "Sorted by Customer, ascending" y el encabezado se lee como ordenado.
 4. Con el zoom al 400 % (o en el teléfono), la página no se desplaza de lado. La tabla se desplaza dentro de su marco, al que llegas con <kbd>Tab</kbd> y que se mueve con <kbd>←</kbd> / <kbd>→</kbd>.
+5. En "Team members", cada fila empieza con una casilla llamada "Select" más el nombre de la persona. Marca "Select Mateo Ruiz" con <kbd>Espacio</kbd>. Oyes "1 row selected", y "Select all rows" queda marcada a medias.
+6. Marca "Select all rows". Oyes "3 rows selected".
 
 ### Tabs — `/test/tabs`
 1. Oyes el grupo "Account settings" y la pestaña seleccionada.

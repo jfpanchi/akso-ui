@@ -270,6 +270,8 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 2. Move through the cells with the screen reader's table commands (NVDA/JAWS: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+arrows; VoiceOver: <kbd>VO</kbd>+arrows). Each cell is read with its column header, and with the order number as its row header.
 3. "Customer", "Date" and "Total" are buttons. Press "Customer". You hear "Sorted by Customer, ascending", and the header is read as sorted.
 4. At 400% zoom (or on a phone), the page does not scroll sideways. The table scrolls inside its frame, and you can reach the frame with <kbd>Tab</kbd> and scroll it with <kbd>←</kbd> / <kbd>→</kbd>.
+5. In "Team members", each row starts with a checkbox called "Select" and the person's name. Check "Select Mateo Ruiz" with <kbd>Space</kbd>. You hear "1 row selected", and "Select all rows" is now partly checked.
+6. Check "Select all rows". You hear "3 rows selected".
 
 ### Tabs — `/test/tabs`
 1. You hear the group "Account settings" and the selected tab.
