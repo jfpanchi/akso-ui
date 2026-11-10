@@ -46,13 +46,16 @@ test.describe("keyboard", () => {
     await expect(page.getByRole("menuitem", { name: "Undo (nothing to undo)" })).toBeVisible();
     await page.keyboard.press("ArrowLeft");
     await expect(top(page, "File")).toHaveAttribute("aria-expanded", "true");
-    await top(page, "Edit").focus();
-    // Wait for each state before the next key: Firefox can still be closing File when ↓ arrives.
+    // Use the keyboard as a person would (no programmatic focus while a menu is open), and wait
+    // for each state before the next key: Firefox can be one step behind.
+    await page.keyboard.press("Escape");
     await expect(top(page, "File")).toHaveAttribute("aria-expanded", "false");
+    await expect(top(page, "File")).toBeFocused();
+    await page.keyboard.press("ArrowRight");
+    await expect(top(page, "Edit")).toBeFocused();
     await page.keyboard.press("ArrowDown");
     await expect(top(page, "Edit")).toHaveAttribute("aria-expanded", "true");
-    await expect(page.getByRole("menuitem", { name: "Undo (nothing to undo)" })).toBeFocused();
-    await page.keyboard.press("ArrowDown");
+    // Opening with ↓ focuses the first enabled item: Undo is disabled, so focus goes to Copy.
     await expect(page.getByRole("menuitem", { name: "Copy" })).toBeFocused();
     await page.keyboard.press("Enter");
     await expect(page.getByRole("menu")).toBeHidden();
