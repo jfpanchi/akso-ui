@@ -22,6 +22,7 @@ export const components = [
   { slug: "file-upload", name: "File upload" },
   { slug: "form", name: "Form" },
   { slug: "input", name: "Input" },
+  { slug: "link", name: "Link" },
   { slug: "menu", name: "Menu" },
   { slug: "menubar", name: "Menubar" },
   { slug: "meter", name: "Meter" },

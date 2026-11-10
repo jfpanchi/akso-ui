@@ -119,6 +119,8 @@ export interface AksoMessages {
   goToSlide: (n: number) => string;
   startAutoplay: string;
   stopAutoplay: string;
+  /** Hidden text after a link that opens in a new tab. */
+  opensInNewTab: string;
 }
 
 export const en: AksoMessages = {
@@ -185,6 +187,7 @@ export const en: AksoMessages = {
   goToSlide: (n) => `Slide ${n}`,
   startAutoplay: "Play",
   stopAutoplay: "Pause",
+  opensInNewTab: "(opens in a new tab)",
 };
 
 export const es: AksoMessages = {
@@ -251,6 +254,7 @@ export const es: AksoMessages = {
   goToSlide: (n) => `Diapositiva ${n}`,
   startAutoplay: "Reproducir",
   stopAutoplay: "Pausar",
+  opensInNewTab: "(se abre en una pestaña nueva)",
 };
 
 export const locales = { en, es } as const;

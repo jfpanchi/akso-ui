@@ -182,6 +182,10 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 1. Cada campo (Phone number, Discount code, Account number) tiene nombre y su texto de ayuda.
 2. En el teléfono, el teclado que se abre corresponde al campo: números para el teléfono.
 
+### Link — `/test/link`
+1. Lee las dos frases. Oyes "accessibility notes, enlace" y "Base UI, enlace, opens in a new tab".
+2. Los dos enlaces están subrayados y muestran un anillo de foco al llegar con <kbd>Tab</kbd>.
+
 ### Menu — `/test/menu`
 1. Activa "File actions". El menú se abre y el foco está en la primera opción.
 2. Muévete con <kbd>↓</kbd> / <kbd>↑</kbd>. "Move (not available)" se lee como no disponible.

@@ -1524,6 +1524,36 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - There is no Base UI part for this; it is a plain `<span>`.
 - The text must say the status ("Shipped"); the component cannot check that. A badge that changes while the page is open is not announced by itself.
 
+## Link
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, including link color contrast | Several | Vitest + Playwright (light and dark) |
+| A real `<a href>` named by its text | 2.4.4, 4.1.2 | Vitest + Playwright |
+| New-tab links: an icon, a hidden "(opens in a new tab)" in the name (translated), and `rel="noopener noreferrer"` | 3.2.5 (AAA), 1.1.1 | Vitest + Playwright |
+| Always underlined (not color alone); a focus ring with at least 3:1 contrast | 1.4.1, 2.4.7 | Vitest + Playwright |
+| No motion; no horizontal scroll at 320px; long links wrap | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; it is a plain link.
+- Link text quality ("read more", "click here") cannot be checked by the component.
+- Inline links in a sentence are not 24px tall; WCAG 2.5.8 allows this for links in text.
+
 ## By disability
 
 | Group | What we do | Status |

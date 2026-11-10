@@ -180,6 +180,10 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 1. Each field (Phone number, Discount code, Account number) has a name and its help text.
 2. On a phone, the keyboard that opens fits the field: numbers for the phone number.
 
+### Link — `/test/link`
+1. Read the two sentences. You hear "accessibility notes, link" and "Base UI, link, opens in a new tab".
+2. Both links are underlined, and each shows a focus ring when you reach it with <kbd>Tab</kbd>.
+
 ### Menu — `/test/menu`
 1. Activate "File actions". The menu opens and focus is on the first item.
 2. Move with <kbd>↓</kbd> / <kbd>↑</kbd>. "Move (not available)" is read as unavailable.
