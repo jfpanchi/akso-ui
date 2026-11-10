@@ -243,6 +243,12 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 1. Read the card from top to bottom. Between "Account" and "Billing" you hear "separator". You do not hear one before the footer links, or between "Help" and "Privacy".
 2. In Windows high contrast, every line is still visible.
 
+### Skeleton — `/test/skeleton`
+1. Load the page. After a second you hear "Loading orders", then "Orders loaded" when the list appears.
+2. While it loads, reading the area gives "Loading orders", not the grey shapes.
+3. Press "Reload". Focus stays on the button while the list loads again.
+4. With reduced motion on, the shapes do not pulse.
+
 ### Slider — `/test/slider`
 1. "Volume" says its value. The arrows change it by 5.
 2. "Room temperature" says the value with its unit, like "21 degrees".

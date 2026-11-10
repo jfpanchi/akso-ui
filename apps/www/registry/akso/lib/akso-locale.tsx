@@ -76,6 +76,8 @@ export interface AksoMessages {
   otpSlot: (n: number, total: number, kind: "digit" | "character") => string;
   /** Announced when a typed or pasted character is not allowed in the code. */
   otpRejected: (allowed: "numeric" | "alpha" | "alphanumeric") => string;
+  /** Announced when content that was loading is ready. */
+  loaded: string;
 }
 
 export const en: AksoMessages = {
@@ -115,6 +117,7 @@ export const en: AksoMessages = {
   otpSlot: (n, total, kind) => `${kind === "digit" ? "Digit" : "Character"} ${n} of ${total}`,
   otpRejected: (allowed) =>
     allowed === "numeric" ? "Only numbers are allowed." : allowed === "alpha" ? "Only letters are allowed." : "Only letters and numbers are allowed.",
+  loaded: "Loaded",
 };
 
 export const es: AksoMessages = {
@@ -154,6 +157,7 @@ export const es: AksoMessages = {
   otpSlot: (n, total, kind) => `${kind === "digit" ? "Dígito" : "Carácter"} ${n} de ${total}`,
   otpRejected: (allowed) =>
     allowed === "numeric" ? "Solo se permiten números." : allowed === "alpha" ? "Solo se permiten letras." : "Solo se permiten letras y números.",
+  loaded: "Cargado",
 };
 
 export const locales = { en, es } as const;

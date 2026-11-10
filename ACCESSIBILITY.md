@@ -1330,6 +1330,37 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - **By design (Base UI), the preview is only for sighted mouse and keyboard users.** Screen reader and touch users do not get it. The docs say to keep everything it shows on the linked page, and not to put links or buttons in it.
 - The preview opens after a 600ms delay. People who move slowly may need more time; `delay` can be changed on the trigger.
 
+## Skeleton
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, loading and loaded | Several | Vitest + Playwright (light and dark) |
+| While loading: `aria-busy="true"` on the container, a visually hidden text that says what is loading, and the shapes hidden (`aria-hidden`) | 1.1.1, 1.3.1 | Vitest + Playwright |
+| Loads longer than a second are announced at the start and the end; quick loads stay silent; texts from `AksoLocaleProvider` | 4.1.3 | Vitest + Playwright |
+| Nothing focusable inside; focus stays on the control that started the load | 2.4.3 | Vitest + Playwright |
+| The pulse uses `motion-safe:` and stops with `prefers-reduced-motion`; shapes keep a border in forced colors | 2.3.3 (AAA), 1.4.11 | Vitest + Playwright |
+| No horizontal scroll at 320px | 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; the component is ours.
+- `aria-busy` is not supported the same way by every screen reader. The hidden text and the announcements do not depend on it.
+- The pulse is an infinite animation (allowed: it is not flashing, and it stops with reduced motion). It does not stop after 5 seconds by itself.
+
 ## By disability
 
 | Group | What we do | Status |

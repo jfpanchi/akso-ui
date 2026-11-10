@@ -245,6 +245,12 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 1. Lee la tarjeta de arriba abajo. Entre "Account" y "Billing" oyes "separador". No oyes ninguno antes de los enlaces del pie ni entre "Help" y "Privacy".
 2. En el alto contraste de Windows, todas las líneas se siguen viendo.
 
+### Skeleton — `/test/skeleton`
+1. Carga la página. Al cabo de un segundo oyes "Loading orders", y luego "Orders loaded" cuando aparece la lista.
+2. Mientras carga, al leer la zona oyes "Loading orders", no las formas grises.
+3. Pulsa "Reload". El foco se queda en el botón mientras la lista vuelve a cargar.
+4. Con el movimiento reducido activado, las formas no parpadean.
+
 ### Slider — `/test/slider`
 1. "Volume" dice su valor. Las flechas lo cambian de 5 en 5.
 2. "Room temperature" dice el valor con su unidad, como "21 degrees".

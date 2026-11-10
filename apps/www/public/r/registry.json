@@ -999,6 +999,25 @@
         }
       ],
       "docs": "Akso UI Preview card. The preview is a visual extra: keep everything it shows on the linked page. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Loading placeholders: shapes hidden from screen readers, aria-busy and a text that says what is loading, slow loads announced, pulse only with motion-safe.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Skeleton. Wrap skeletons in SkeletonContainer and say what is loading in label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

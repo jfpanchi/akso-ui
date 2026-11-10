@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "Loading placeholders: shapes hidden from screen readers, aria-busy and a text that says what is loading, slow loads announced, pulse only with motion-safe.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/skeleton.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { announce, useAnnouncerRegion } from \"@/registry/akso/lib/akso-form\";\nimport { useAksoMessages } from \"@/registry/akso/lib/akso-locale\";\n\n/*\n * Akso UI · Skeleton\n *\n * Grey shapes that hold the place of content while it loads. There is no Base UI part for this.\n *\n * Shapes say nothing to screen readers, so the shapes are hidden and the loading state is\n * given in words instead:\n * - <SkeletonContainer loading> marks the area with aria-busy=\"true\" and holds a visually hidden\n *   text (\"Loading\", or your `label`, like \"Loading orders\") that screen readers can find.\n * - If loading takes more than a second, the label is announced once, and \"Loaded\" is announced\n *   when the content is ready. Quick loads stay silent, so there is no noise.\n * - <Skeleton> is always aria-hidden. Its pulse uses motion-safe:, so it stops with\n *   prefers-reduced-motion, and it keeps a border in Windows high contrast.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nconst ANNOUNCE_AFTER_MS = 1000;\n\n/** A grey shape that holds the place of content. Hidden from screen readers. */\nfunction Skeleton({ className, ...props }: Omit<React.ComponentProps<\"div\">, \"children\">) {\n  return (\n    <div\n      aria-hidden=\"true\"\n      data-slot=\"skeleton\"\n      className={cn(\"rounded-md bg-akso-surface-hover motion-safe:animate-pulse forced-colors:border\", className)}\n      {...props}\n    />\n  );\n}\n\nexport interface SkeletonContainerProps extends React.ComponentProps<\"div\"> {\n  /** True while the content loads: show `fallback` (the skeletons) instead of `children`. */\n  loading: boolean;\n  /** The skeletons to show while loading. */\n  fallback: React.ReactNode;\n  /** What is loading, for screen readers. Default: \"Loading\" (or the AksoLocaleProvider text). */\n  label?: string;\n  /** Announced when loading ends (only if loading was announced). Default: \"Loaded\". */\n  loadedLabel?: string;\n}\n\n/** Shows skeletons while `loading`, and tells screen readers what is happening. */\nfunction SkeletonContainer({ loading, fallback, label, loadedLabel, children, className, ...props }: SkeletonContainerProps) {\n  const messages = useAksoMessages();\n  const text = label ?? messages.loading;\n  const doneText = loadedLabel ?? messages.loaded;\n  const announced = React.useRef(false);\n  useAnnouncerRegion();\n\n  React.useEffect(() => {\n    if (loading) {\n      announced.current = false;\n      const timer = setTimeout(() => {\n        announced.current = true;\n        announce(text);\n      }, ANNOUNCE_AFTER_MS);\n      return () => clearTimeout(timer);\n    }\n    if (announced.current) {\n      announced.current = false;\n      announce(doneText);\n    }\n    return undefined;\n  }, [loading, text, doneText]);\n\n  return (\n    <div data-slot=\"skeleton-container\" aria-busy={loading || undefined} className={className} {...props}>\n      {loading ? (\n        <>\n          <span className=\"sr-only\">{text}</span>\n          {fallback}\n        </>\n      ) : (\n        children\n      )}\n    </div>\n  );\n}\n\nexport { Skeleton, SkeletonContainer };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Skeleton. Wrap skeletons in SkeletonContainer and say what is loading in label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

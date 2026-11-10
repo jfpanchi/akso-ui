@@ -33,6 +33,7 @@ export const components = [
   { slug: "scroll-area", name: "Scroll area" },
   { slug: "select", name: "Select" },
   { slug: "separator", name: "Separator" },
+  { slug: "skeleton", name: "Skeleton" },
   { slug: "slider", name: "Slider" },
   { slug: "switch", name: "Switch" },
   { slug: "table", name: "Table" },
