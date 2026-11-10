@@ -47,7 +47,11 @@ test.describe("keyboard", () => {
     await page.keyboard.press("ArrowLeft");
     await expect(top(page, "File")).toHaveAttribute("aria-expanded", "true");
     await top(page, "Edit").focus();
+    // Wait for each state before the next key: Firefox can still be closing File when ↓ arrives.
+    await expect(top(page, "File")).toHaveAttribute("aria-expanded", "false");
     await page.keyboard.press("ArrowDown");
+    await expect(top(page, "Edit")).toHaveAttribute("aria-expanded", "true");
+    await expect(page.getByRole("menuitem", { name: "Undo (nothing to undo)" })).toBeFocused();
     await page.keyboard.press("ArrowDown");
     await expect(page.getByRole("menuitem", { name: "Copy" })).toBeFocused();
     await page.keyboard.press("Enter");
