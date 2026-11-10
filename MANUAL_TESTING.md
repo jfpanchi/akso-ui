@@ -115,6 +115,14 @@ For each step, write: ✅ works as described, ⚠️ works but something is conf
 3. Choose "Rename". The menu closes and you hear "Rename chosen."
 4. The button "Actions for Annual report.pdf" opens the same options without a context menu.
 
+### Date picker — `/test/date-picker`
+1. "Appointment date" is read with its format, "mm/dd/yyyy", and its value.
+2. Type "13/45/2026" and leave the field. You hear an error that says what to type.
+3. Activate "Choose date". The calendar opens on March 5, read as "Thursday, March 5, 2026", selected.
+4. The arrows move by day and week, and Page Down moves to the next month. You hear the new month.
+5. Press Enter on a day. The calendar closes, focus goes back to "Choose date", and the field has the new date.
+6. "Date of birth" has no calendar. Your browser can fill it in.
+
 ### Dialog — `/test/dialog`
 1. Activate "Edit profile". You hear the title "Edit profile" and "Change your name and press Save."
 2. You cannot leave the dialog with <kbd>Tab</kbd> or by swiping.

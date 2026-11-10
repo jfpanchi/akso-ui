@@ -58,6 +58,20 @@ export interface AksoMessages {
   page: (n: number) => string;
   /** Announced after sorting a table, like "Sorted by Name, ascending". */
   sortedBy: (column: string, direction: "ascending" | "descending") => string;
+  /** BCP 47 locale used to format dates, like "en-US". */
+  dateLocale: string;
+  /** Order of day, month and year when a date is typed. */
+  dateOrder: "mdy" | "dmy";
+  /** Visible hint for the date format, like "mm/dd/yyyy". */
+  dateFormatHint: string;
+  /** First day of the week in calendars: 0 = Sunday, 1 = Monday. */
+  weekStartsOn: 0 | 1;
+  /** Name of the button that opens the calendar. */
+  chooseDate: string;
+  previousMonth: string;
+  nextMonth: string;
+  /** Error when a typed date cannot be read. */
+  invalidDate: string;
 }
 
 export const en: AksoMessages = {
@@ -86,6 +100,14 @@ export const en: AksoMessages = {
   nextPage: "Next",
   page: (n) => `Page ${n}`,
   sortedBy: (column, direction) => `Sorted by ${column}, ${direction}`,
+  dateLocale: "en-US",
+  dateOrder: "mdy",
+  dateFormatHint: "mm/dd/yyyy",
+  weekStartsOn: 0,
+  chooseDate: "Choose date",
+  previousMonth: "Previous month",
+  nextMonth: "Next month",
+  invalidDate: "Enter a real date, like 03/25/2026.",
 };
 
 export const es: AksoMessages = {
@@ -114,6 +136,14 @@ export const es: AksoMessages = {
   nextPage: "Siguiente",
   page: (n) => `Página ${n}`,
   sortedBy: (column, direction) => `Ordenado por ${column}, ${direction === "ascending" ? "ascendente" : "descendente"}`,
+  dateLocale: "es",
+  dateOrder: "dmy",
+  dateFormatHint: "dd/mm/aaaa",
+  weekStartsOn: 1,
+  chooseDate: "Elegir fecha",
+  previousMonth: "Mes anterior",
+  nextMonth: "Mes siguiente",
+  invalidDate: "Escribe una fecha real, como 25/03/2026.",
 };
 
 export const locales = { en, es } as const;
