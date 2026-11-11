@@ -6,7 +6,7 @@
   "dependencies": [],
   "registryDependencies": [
     "utils",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-status.json"
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.3.0/apps/www/public/r/akso-status.json"
   ],
   "files": [
     {

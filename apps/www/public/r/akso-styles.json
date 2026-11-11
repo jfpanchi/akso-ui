@@ -5,7 +5,7 @@
   "description": "Button and focus ring styles shared by Akso UI components. Installed automatically.",
   "registryDependencies": [
     "utils",
-    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-tokens.json"
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/v0.3.0/apps/www/public/r/akso-tokens.json"
   ],
   "files": [
     {
