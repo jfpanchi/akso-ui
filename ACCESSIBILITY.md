@@ -1120,6 +1120,9 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 | Sort buttons 44px tall with a visible focus ring with at least 3:1 contrast | 2.5.8, 2.4.7 | Playwright |
 | At 320px the page does not scroll sideways; the table scrolls in a region named by the caption, focusable and scrollable with the arrow keys | 1.4.10, 2.1.1 | Vitest + Playwright |
 | When the table fits, its frame is not an extra Tab stop | 2.4.3 | Vitest + Playwright |
+| Row selection: checkboxes (Base UI) named after their row ("Select Laura Torres"); "Select all rows" is checked, mixed or not checked; Space toggles | 1.3.1, 2.1.1, 4.1.2 | Vitest + Playwright |
+| Every selection change is announced ("2 rows selected"; translated); selected rows also get a background, but the check mark shows the state | 4.1.3, 1.4.1 | Vitest + Playwright |
+| Selection checkboxes are 44×44px targets with a focus ring of at least 3:1; Highlight colors in forced colors | 2.5.8, 2.4.7 | Playwright, code review |
 
 ### Manual testing with assistive technology
 
@@ -1173,6 +1176,413 @@ Other checks still pending: real Windows High Contrast Mode with a screen reader
 - Calendar days are 36px on narrow screens (44px from 640px up), so seven of them fit in 320px; this meets the 24px minimum but not the 44px enhanced size.
 - When there is no room below the field, the calendar opens above it and can cover other links while it is open. The e2e axe check opens it with room below.
 - Only one format per language (mm/dd/yyyy in English, dd/mm/yyyy in Spanish). Typed dates in another order are read wrongly if they are also valid dates.
+
+## OTP field
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: empty, grouped, filled, disabled and with an error shown | Several | Vitest + Playwright (light and dark) |
+| A group named by the FieldLabel and described by the FieldDescription and the error; the first box is named by the label, the others "Digit 2 of 6" (translated, can be changed) | 1.3.1, 2.5.3, 4.1.2 | Vitest + Playwright |
+| `autocomplete="one-time-code"` on the first box; pasting the code fills every box | 1.3.5, 3.3.8 | Vitest + Playwright |
+| One Tab stop; ← → move between boxes; Home and End; Backspace deletes and moves back | 2.1.1, 2.4.3 | Vitest + Playwright |
+| A rejected character (a letter in a number code) is announced: "Only numbers are allowed." | 3.3.1, 4.1.3 | Vitest + Playwright |
+| An incomplete or missing code shows the FieldError and sets `aria-invalid` on the boxes | 3.3.1 | Playwright |
+| Boxes 44px tall and at least 24px wide (they shrink at 320px); visible focus ring on every box with at least 3:1 contrast | 2.5.8, 2.4.7 | Playwright |
+| No horizontal scroll at 320px; no motion with `prefers-reduced-motion: reduce` | 1.4.10, 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Base UI sets `aria-invalid` on the boxes only for app-controlled errors. Akso adds it when Base UI leaves it unset (native errors such as an incomplete code). It never replaces a value Base UI sets.
+- The description and the error are linked to the group, not to each box. Most screen readers read them when focus enters the group, but not when you move between boxes. Not confirmed manually yet.
+- Filling the code from a text message (`one-time-code`) depends on the phone and browser. It was not tested on real devices.
+- On narrow screens the boxes are narrower than 44px (at least 24px wide). They stay 44px tall.
+
+## Avatar
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: with a picture, a picture that fails to load, initials and decorative | Several | Vitest + Playwright (light and dark) |
+| One name (`role="img"`, `aria-label` = the person's name) that stays the same while the picture loads or fails; the picture and the initials are hidden from screen readers | 1.1.1, 4.1.2 | Vitest + Playwright |
+| `decorative` hides the avatar when the name is written next to it, so it is not read twice | 1.1.1 | Vitest + Playwright |
+| Inside a link with no other text, the avatar names the link | 2.4.4, 4.1.2 | Vitest |
+| Not in the Tab order | 2.1.1 | Vitest + Playwright |
+| Initials with at least 4.5:1 contrast; a border in Windows high contrast | 1.4.3, 1.4.11 | Playwright (axe), code review |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Base UI gives the avatar no role or name. Akso adds `role="img"` and `aria-label` on the root, a span where Base UI sets no role. It does not replace anything Base UI sets.
+- With `decorative`, you must write the name next to the avatar yourself. The avatar cannot check this.
+- A picture can still show things the name does not describe, for example a team logo. If that matters, write it in the text next to the avatar.
+
+## Separator
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: horizontal, vertical and decorative | Several | Vitest + Playwright (light and dark) |
+| `role="separator"` with `aria-orientation` (Base UI); `decorative` lines are hidden from screen readers | 1.3.1 | Vitest + Playwright |
+| Not in the Tab order | 2.1.1 | Vitest + Playwright |
+| Line at least 1px with at least 3:1 contrast; drawn with a border, so it stays visible in forced colors | 1.4.11 | Playwright |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Whether a line is announced or decorative is your choice; the component cannot tell. Too many announced separators add noise.
+- `decorative` renders a plain `div` with `aria-hidden` instead of the Base UI part, so it has no role to replace.
+
+## Scroll area
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, including `scrollable-region-focusable` | Several | Vitest + Playwright (light and dark) |
+| The viewport is a region named by `aria-label` or `aria-labelledby`; error in development without a name | 1.3.1, 4.1.2 | Vitest + Playwright |
+| In the Tab order only when it can scroll (Base UI); arrow keys and End scroll it | 2.1.1 | Playwright |
+| Focus ring drawn inside the box, with at least 3:1 contrast | 2.4.7, 1.4.11 | Playwright |
+| Scrollbars stay visible (no fade out); thumb with at least 3:1 contrast against its track; Windows high contrast colors | 1.4.11 | Playwright, code review |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Akso adds `role="region"` and the name on the viewport. Base UI sets no role there, so nothing is replaced.
+- The scrollbars are hidden from screen readers (Base UI). Screen reader users scroll by reading, and touch screen reader users scroll with the usual gestures. Not confirmed manually yet.
+- Content that scrolls inside the page is harder to use when zoomed. The docs say to prefer page scrolling and to size the box in rem.
+
+## Preview card
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, closed and open | Several | Vitest + Playwright (light and dark) |
+| The trigger is a plain link; the preview is never in the Tab order | 2.1.1, 2.4.3 | Vitest + Playwright |
+| Keyboard focus opens the preview (Base UI); Escape closes it and focus stays on the link | 1.4.13, 2.1.1 | Vitest + Playwright |
+| The pointer can move onto the preview without it closing | 1.4.13 | Playwright |
+| Underlined link (not color alone) with a focus ring of at least 3:1 contrast | 1.4.1, 2.4.7 | Vitest + Playwright |
+| No motion with `prefers-reduced-motion: reduce`; the open preview fits at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- **By design (Base UI), the preview is only for sighted mouse and keyboard users.** Screen reader and touch users do not get it. The docs say to keep everything it shows on the linked page, and not to put links or buttons in it.
+- The preview opens after a 600ms delay. People who move slowly may need more time; `delay` can be changed on the trigger.
+
+## Skeleton
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, loading and loaded | Several | Vitest + Playwright (light and dark) |
+| While loading: `aria-busy="true"` on the container, a visually hidden text that says what is loading, and the shapes hidden (`aria-hidden`) | 1.1.1, 1.3.1 | Vitest + Playwright |
+| Loads longer than a second are announced at the start and the end; quick loads stay silent; texts from `AksoLocaleProvider` | 4.1.3 | Vitest + Playwright |
+| Nothing focusable inside; focus stays on the control that started the load | 2.4.3 | Vitest + Playwright |
+| The pulse uses `motion-safe:` and stops with `prefers-reduced-motion`; shapes keep a border in forced colors | 2.3.3 (AAA), 1.4.11 | Vitest + Playwright |
+| No horizontal scroll at 320px | 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; the component is ours.
+- `aria-busy` is not supported the same way by every screen reader. The hidden text and the announcements do not depend on it.
+- The pulse is an infinite animation (allowed: it is not flashing, and it stops with reduced motion). It does not stop after 5 seconds by itself.
+
+## Stepper
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations at the start, in the middle and at the end | Several | Vitest + Playwright (light and dark) |
+| A named `<nav>` with an ordered list; the current step has `aria-current="step"` | 1.3.1, 2.4.8 (AAA) | Vitest + Playwright |
+| Each step says its number and state in words ("Step 2 of 4, completed"), translated | 1.3.1, 1.4.1 | Vitest + Playwright |
+| State also shown without color: check mark, thick ring and bold text, step numbers | 1.4.1 | Vitest |
+| Only completed steps are links; links 44px tall with a focus ring of at least 3:1 | 2.4.7, 2.5.8 | Vitest + Playwright |
+| Step markers at least 3:1 against the page; Highlight colors in forced colors | 1.4.11 | Playwright, code review |
+| A column on narrow screens: no horizontal scroll at 320px; no motion | 1.4.10, 2.3.3 (AAA) | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; the component is ours.
+- The stepper does not announce step changes. The page must move focus to the new step's heading, as the demo does; this is documented.
+- Chrome puts a space before the hidden ", Step 1 of 4" text, so the name reads "Cart , Step 1 of 4". Screen readers read it as a short pause.
+
+## Password field
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: hidden, shown and with an error | Several | Vitest + Playwright (light and dark) |
+| Named by the FieldLabel and described by the FieldDescription; errors linked with `aria-describedby` and `aria-invalid` (Base UI Field) | 1.3.1, 3.3.1, 3.3.2 | Vitest + Playwright |
+| A Show / Hide button: visible word first in its name ("Show password"), `aria-controls` the input, texts translated | 2.5.3, 4.1.2 | Vitest + Playwright |
+| Showing or hiding is announced ("Your password is shown"); focus stays on the button | 4.1.3, 2.4.3 | Vitest + Playwright |
+| Paste is never blocked; `autocomplete` is set (`current-password` or `new-password`); no spellcheck or autocapitalize | 3.3.8, 1.3.5 | Vitest |
+| The password is hidden again when the form is submitted | — | Vitest + Playwright |
+| Input and button 44px tall with focus rings of at least 3:1 | 2.5.8, 2.4.7 | Playwright |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- Showing the password puts it on screen. People in public places choose when to press Show; it is never on by default.
+- Some password managers fill the field only while it is `type="password"`. Not tested with real password managers.
+
+## File upload
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations: empty, with files and with an error | Several | Vitest + Playwright (light and dark) |
+| The browser's own file input, named by a visible label and described by the help text | 1.3.1, 3.3.2, 4.1.2 | Vitest + Playwright |
+| Dropping files is only an extra; the file button always works | 2.5.7, 2.1.1 | Vitest + Playwright |
+| Chosen files listed with a Remove button named after each file ("Remove report.pdf"); added and removed files announced; texts translated | 1.3.1, 4.1.3 | Vitest + Playwright |
+| Too big or wrong type: refused; the reason shown with an icon, linked with `aria-describedby` and `aria-invalid`, and announced | 3.3.1, 3.3.3 | Vitest + Playwright |
+| After Remove, focus moves to the next file, or back to the input | 2.4.3 | Vitest + Playwright |
+| File button and Remove buttons 44px tall with focus rings of at least 3:1 | 2.5.8, 2.4.7 | Playwright |
+| No motion; no horizontal scroll at 320px, even with long file names | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; the component is ours.
+- The file button text ("Choose files", "No file chosen") comes from the browser in the browser's language, not from `AksoLocaleProvider`.
+- The drop zone has no screen reader name of its own; it is a visual extra.
+- File checks in the browser are a help, not security. Check files on the server too.
+
+## Carousel
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, with and without autoplay | Several | Vitest + Playwright (light and dark) |
+| A `<section>` with `aria-roledescription="carousel"` and a name; slides are groups with `aria-roledescription="slide"` named "2 of 3"; texts translated | 1.3.1, 4.1.2 | Vitest + Playwright |
+| Only the current slide is shown; links in other slides are not in the Tab order | 2.4.3 | Vitest + Playwright |
+| Previous, Next and a button per slide (`aria-current` on the current one) | 2.1.1, 4.1.2 | Vitest + Playwright |
+| The slide area is a polite live region while not rotating, and silent while rotating | 4.1.3 | Vitest + Playwright |
+| Autoplay is off by default; when on: a Pause / Play button, a pause while the pointer is over it, a stop when focus moves inside, and no start with `prefers-reduced-motion` | 2.2.2 | Vitest + Playwright |
+| Buttons 44×44px with focus rings of at least 3:1; slide dots at least 3:1, the current one filled and bigger (not color alone) | 2.5.8, 2.4.7, 1.4.11, 1.4.1 | Playwright |
+| Slides change with no animation; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; the component follows the WAI-ARIA APG carousel pattern (basic version, no tabs).
+- `aria-roledescription` is read differently by screen readers; not confirmed manually yet.
+- No swipe gestures; touch users use the buttons.
+
+## Badge
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, with and without a status | Several | Vitest + Playwright (light and dark) |
+| Read as its text; the status icon is hidden (`aria-hidden`) | 1.1.1, 1.3.1 | Vitest + Playwright |
+| Each status has its own icon shape and a thicker colored border, not only a color | 1.4.1 | Vitest |
+| Text in the main text color (at least 4.5:1); status borders at least 3:1; borders visible in forced colors | 1.4.3, 1.4.11 | Playwright |
+| Not focusable; no motion; no horizontal scroll at 320px | 2.1.1, 1.4.10 | Vitest + Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; it is a plain `<span>`.
+- The text must say the status ("Shipped"); the component cannot check that. A badge that changes while the page is open is not announced by itself.
+
+## Link
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, including link color contrast | Several | Vitest + Playwright (light and dark) |
+| A real `<a href>` named by its text | 2.4.4, 4.1.2 | Vitest + Playwright |
+| New-tab links: an icon, a hidden "(opens in a new tab)" in the name (translated), and `rel="noopener noreferrer"` | 3.2.5 (AAA), 1.1.1 | Vitest + Playwright |
+| Always underlined (not color alone); a focus ring with at least 3:1 contrast | 1.4.1, 2.4.7 | Vitest + Playwright |
+| No motion; no horizontal scroll at 320px; long links wrap | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- There is no Base UI part for this; it is a plain link.
+- Link text quality ("read more", "click here") cannot be checked by the component.
+- Inline links in a sentence are not 24px tall; WCAG 2.5.8 allows this for links in text.
+
+## Search field
+
+### Automated checks (passing)
+
+| Requirement | WCAG | How it is checked |
+| --- | --- | --- |
+| No axe violations, empty and with text | Several | Vitest + Playwright (light and dark) |
+| A search landmark (`role="search"`) with an `<input type="search">` named by a visible label (translated, can be visually hidden) | 1.3.1, 2.4.1, 3.3.2 | Vitest + Playwright |
+| The result count is announced after it changes, once typing pauses ("2 results", "No results") | 4.1.3 | Vitest + Playwright |
+| "Clear search" empties the field and puts focus back in it | 2.4.3 | Vitest + Playwright |
+| Field and button 44px tall with focus rings of at least 3:1 | 2.5.8, 2.4.7 | Playwright |
+| No motion; no horizontal scroll at 320px | 2.3.3 (AAA), 1.4.10 | Playwright |
+
+### Manual testing with assistive technology
+
+| Assistive technology | Browser / platform | Status | Notes |
+| --- | --- | --- | --- |
+| NVDA | Chrome (Windows) | ⏳ Pending | |
+| NVDA | Firefox (Windows) | ⏳ Pending | |
+| JAWS | Chrome (Windows) | ⏳ Pending | |
+| VoiceOver | Safari (macOS) | ⏳ Pending | |
+| VoiceOver | Safari (iOS) | ⏳ Pending | |
+| TalkBack | Chrome (Android) | ⏳ Pending | |
+| Voice Control | macOS / iOS | ⏳ Pending | |
+
+### Known limitations
+
+- The browser's own clear (×) button is hidden in WebKit/Blink so there is only one; Escape still clears (browser default).
+- The count is announced only when you pass `resultCount`.
 
 ## By disability
 

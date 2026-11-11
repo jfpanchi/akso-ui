@@ -76,6 +76,36 @@ test.describe("320px wide (equivalent to 400% zoom)", () => {
 
 test.describe("wide screen", () => {
   test("when the table fits, the container is not an extra Tab stop", async ({ page }) => {
-    await expect(page.locator('[data-slot="table-container"]')).not.toHaveAttribute("tabindex");
+    await expect(page.locator('[data-slot="table-container"]').first()).not.toHaveAttribute("tabindex");
+  });
+});
+
+test.describe("row selection", () => {
+  const team = (page: Page) => page.getByRole("table", { name: "Team members" });
+  const all = (page: Page) => team(page).getByRole("checkbox", { name: "Select all rows" });
+
+  test("no axe violations with some rows selected", async ({ page }) => {
+    await team(page).getByRole("checkbox", { name: "Select Mateo Ruiz" }).click();
+    await expectNoAxeViolations(page);
+  });
+  test("Space selects a row; select all becomes mixed, then all; the count is announced", async ({ page }) => {
+    const mateo = team(page).getByRole("checkbox", { name: "Select Mateo Ruiz" });
+    await mateo.focus();
+    await page.keyboard.press("Space");
+    await expect(mateo).toHaveAttribute("aria-checked", "true");
+    await expect(all(page)).toHaveAttribute("aria-checked", "mixed");
+    await expect(page.locator('[data-slot="announcer"]')).toHaveText("1 row selected");
+    await all(page).focus();
+    await page.keyboard.press("Space");
+    await expect(all(page)).toHaveAttribute("aria-checked", "true");
+    await expect(page.getByTestId("selected-count")).toHaveText("3 of 3 selected");
+    await expect(page.locator('[data-slot="announcer"]')).toHaveText("3 rows selected");
+  });
+  test("checkboxes are 44×44px with a visible focus ring", async ({ page }) => {
+    await expectMinTargetSize(await team(page).getByRole("checkbox").all(), 44);
+    await team(page).getByRole("checkbox", { name: "Select Laura Torres" }).focus();
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Tab");
+    await expectVisibleFocusRing(page);
   });
 });

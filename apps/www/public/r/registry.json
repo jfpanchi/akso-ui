@@ -861,8 +861,10 @@
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "A data table: caption, column and row headers, sortable columns with aria-sort and an announced sort, and a focusable scroll region when it does not fit.",
-      "dependencies": [],
+      "description": "A data table: caption, column and row headers, sortable columns with aria-sort and an announced sort, row selection with named checkboxes and an announced count, and a focusable scroll region when it does not fit.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
       "registryDependencies": [
         "utils",
         "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
@@ -898,6 +900,265 @@
         }
       ],
       "docs": "Akso UI Date picker. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "otp-field",
+      "type": "registry:ui",
+      "title": "OTP field",
+      "description": "A one-time code split into boxes: one Tab stop, paste and one-time-code autofill, every box named, rejected characters announced.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/otp-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI OTP field. Put it inside a Field with a FieldLabel and say how long the code is in a FieldDescription. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "A picture or initials with one name that stays the same while the picture loads or fails, and a decorative mode for when the name is written next to it.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Avatar. Always pass name; add decorative when the name is written next to the avatar. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "A line between groups of content: announced as a separator with its orientation, or decorative and hidden; visible in forced colors.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Separator. Add decorative when the line is only visual. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll area",
+      "description": "A box with its own scrollbars: a named region that keyboard users can Tab to and scroll, a focus ring inside the box, and scrollbars that stay visible.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Scroll area. Always name it with aria-label or aria-labelledby. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "preview-card",
+      "type": "registry:ui",
+      "title": "Preview card",
+      "description": "A link with a visual preview on hover or keyboard focus: dismissible with Escape, hoverable, never in the Tab order, and documented as a visual extra only.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/preview-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Preview card. The preview is a visual extra: keep everything it shows on the linked page. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "Loading placeholders: shapes hidden from screen readers, aria-busy and a text that says what is loading, slow loads announced, pulse only with motion-safe.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Skeleton. Wrap skeletons in SkeletonContainer and say what is loading in label. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "stepper",
+      "type": "registry:ui",
+      "title": "Stepper",
+      "description": "Progress steps: a named nav with an ordered list, aria-current=step, each step's number and state in words, links back to completed steps, state not shown by color alone.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/stepper.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Stepper. When the step changes, move focus to the new step's heading. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "password-field",
+      "type": "registry:ui",
+      "title": "Password field",
+      "description": "A password input with a Show / Hide button: named with the visible word first, change announced, paste never blocked, autocomplete set, hidden again on submit.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/password-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Password field. Put it inside a Field with a FieldLabel; use autoComplete=\"new-password\" for sign-up. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "file-upload",
+      "type": "registry:ui",
+      "title": "File upload",
+      "description": "File picker on the native input with an optional drop zone: chosen files listed with named Remove buttons, refused files explained and announced, focus kept after removal.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/file-upload.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI File upload. Say the allowed types and size in description; check files on the server too. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "carousel",
+      "type": "registry:ui",
+      "title": "Carousel",
+      "description": "WAI-ARIA carousel: named slides shown one at a time, Previous / Next and slide buttons, a polite live region, and autoplay off by default with Pause and reduced-motion support.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/carousel.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Carousel. Always pass label; leave autoplay off if you can. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A short label whose status never depends on color alone: the text says it, plus an icon shape and a thicker border; main text color for contrast.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-status.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Badge. Write the status in the text; status only adds an icon and a border. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "link",
+      "type": "registry:ui",
+      "title": "Link",
+      "description": "A text link that is always underlined, has a focus ring, says when it opens a new tab, and works with your router's link.",
+      "dependencies": [],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/link.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Link. Write link text that says where it goes; avoid new tabs. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
+    },
+    {
+      "name": "search-field",
+      "type": "registry:ui",
+      "title": "Search field",
+      "description": "A search box in a search landmark: visible label, a Clear button that puts focus back, and the result count announced after typing pauses.",
+      "dependencies": [
+        "@base-ui/react@^1.9.0"
+      ],
+      "registryDependencies": [
+        "utils",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-form.json",
+        "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+      ],
+      "files": [
+        {
+          "path": "registry/akso/ui/search-field.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "docs": "Akso UI Search field. Pass resultCount when results update as people type. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md"
     }
   ]
 }

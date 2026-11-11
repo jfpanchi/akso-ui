@@ -72,6 +72,59 @@ export interface AksoMessages {
   nextMonth: string;
   /** Error when a typed date cannot be read. */
   invalidDate: string;
+  /** Name of each code box after the first one (the first one uses the field label). */
+  otpSlot: (n: number, total: number, kind: "digit" | "character") => string;
+  /** Announced when a typed or pasted character is not allowed in the code. */
+  otpRejected: (allowed: "numeric" | "alpha" | "alphanumeric") => string;
+  /** Announced when content that was loading is ready. */
+  loaded: string;
+  /** Name of the list of steps in a Stepper. */
+  steps: string;
+  /** Hidden text after each step: "Step 2 of 4, completed". */
+  stepStatus: (n: number, total: number, status: "complete" | "current" | "upcoming") => string;
+  /** Name of the checkbox that selects every row of a table. */
+  selectAllRows: string;
+  /** Name of the checkbox that selects one row: "Select Laura Torres". */
+  selectRow: (row: string) => string;
+  /** Announced when the selection changes. */
+  rowsSelected: (count: number) => string;
+  /** Visible text of the button that shows or hides a password. */
+  showPassword: string;
+  hidePassword: string;
+  /** Added after "Show" / "Hide" in the button name: "Show password". */
+  passwordWord: string;
+  /** Announced after the password is shown or hidden. */
+  passwordShown: string;
+  passwordHidden: string;
+  /** Hint next to the file picker. */
+  dropFilesHere: string;
+  /** Name of the list of chosen files. */
+  selectedFiles: string;
+  /** Name of the button that removes one file: "Remove report.pdf". */
+  removeFile: (name: string) => string;
+  /** Visible text of that button. */
+  remove: string;
+  /** Announced after files are added or removed. */
+  filesAdded: (count: number) => string;
+  fileRemoved: (name: string) => string;
+  /** Errors for files that are not accepted. */
+  fileTooBig: (name: string, max: string) => string;
+  fileTypeNotAllowed: (name: string) => string;
+  /** Carousel texts. */
+  carousel: string;
+  slide: string;
+  slideOf: (n: number, total: number) => string;
+  previousSlide: string;
+  nextSlide: string;
+  goToSlide: (n: number) => string;
+  startAutoplay: string;
+  stopAutoplay: string;
+  /** Hidden text after a link that opens in a new tab. */
+  opensInNewTab: string;
+  /** Search field texts. */
+  search: string;
+  clearSearch: string;
+  searchResults: (count: number) => string;
 }
 
 export const en: AksoMessages = {
@@ -108,6 +161,40 @@ export const en: AksoMessages = {
   previousMonth: "Previous month",
   nextMonth: "Next month",
   invalidDate: "Enter a real date, like 03/25/2026.",
+  otpSlot: (n, total, kind) => `${kind === "digit" ? "Digit" : "Character"} ${n} of ${total}`,
+  otpRejected: (allowed) =>
+    allowed === "numeric" ? "Only numbers are allowed." : allowed === "alpha" ? "Only letters are allowed." : "Only letters and numbers are allowed.",
+  loaded: "Loaded",
+  steps: "Steps",
+  stepStatus: (n, total, status) => `Step ${n} of ${total}${status === "complete" ? ", completed" : status === "current" ? ", current step" : ""}`,
+  selectAllRows: "Select all rows",
+  selectRow: (row) => `Select ${row}`,
+  rowsSelected: (count) => (count === 0 ? "No rows selected" : count === 1 ? "1 row selected" : `${count} rows selected`),
+  showPassword: "Show",
+  hidePassword: "Hide",
+  passwordWord: "password",
+  passwordShown: "Your password is shown",
+  passwordHidden: "Your password is hidden",
+  dropFilesHere: "or drop files here",
+  selectedFiles: "Selected files",
+  removeFile: (name) => `Remove ${name}`,
+  remove: "Remove",
+  filesAdded: (count) => (count === 1 ? "1 file added" : `${count} files added`),
+  fileRemoved: (name) => `${name} removed`,
+  fileTooBig: (name, max) => `${name} is too big. Choose a file smaller than ${max}.`,
+  fileTypeNotAllowed: (name) => `${name} is not an allowed type of file.`,
+  carousel: "carousel",
+  slide: "slide",
+  slideOf: (n, total) => `${n} of ${total}`,
+  previousSlide: "Previous slide",
+  nextSlide: "Next slide",
+  goToSlide: (n) => `Slide ${n}`,
+  startAutoplay: "Play",
+  stopAutoplay: "Pause",
+  opensInNewTab: "(opens in a new tab)",
+  search: "Search",
+  clearSearch: "Clear search",
+  searchResults: (count) => (count === 0 ? "No results" : count === 1 ? "1 result" : `${count} results`),
 };
 
 export const es: AksoMessages = {
@@ -144,6 +231,40 @@ export const es: AksoMessages = {
   previousMonth: "Mes anterior",
   nextMonth: "Mes siguiente",
   invalidDate: "Escribe una fecha real, como 25/03/2026.",
+  otpSlot: (n, total, kind) => `${kind === "digit" ? "Dígito" : "Carácter"} ${n} de ${total}`,
+  otpRejected: (allowed) =>
+    allowed === "numeric" ? "Solo se permiten números." : allowed === "alpha" ? "Solo se permiten letras." : "Solo se permiten letras y números.",
+  loaded: "Cargado",
+  steps: "Pasos",
+  stepStatus: (n, total, status) => `Paso ${n} de ${total}${status === "complete" ? ", completado" : status === "current" ? ", paso actual" : ""}`,
+  selectAllRows: "Seleccionar todas las filas",
+  selectRow: (row) => `Seleccionar ${row}`,
+  rowsSelected: (count) => (count === 0 ? "Ninguna fila seleccionada" : count === 1 ? "1 fila seleccionada" : `${count} filas seleccionadas`),
+  showPassword: "Mostrar",
+  hidePassword: "Ocultar",
+  passwordWord: "contraseña",
+  passwordShown: "Tu contraseña se muestra",
+  passwordHidden: "Tu contraseña está oculta",
+  dropFilesHere: "o suelta los archivos aquí",
+  selectedFiles: "Archivos elegidos",
+  removeFile: (name) => `Quitar ${name}`,
+  remove: "Quitar",
+  filesAdded: (count) => (count === 1 ? "1 archivo añadido" : `${count} archivos añadidos`),
+  fileRemoved: (name) => `${name} quitado`,
+  fileTooBig: (name, max) => `${name} es demasiado grande. Elige un archivo de menos de ${max}.`,
+  fileTypeNotAllowed: (name) => `${name} no es un tipo de archivo permitido.`,
+  carousel: "carrusel",
+  slide: "diapositiva",
+  slideOf: (n, total) => `${n} de ${total}`,
+  previousSlide: "Diapositiva anterior",
+  nextSlide: "Diapositiva siguiente",
+  goToSlide: (n) => `Diapositiva ${n}`,
+  startAutoplay: "Reproducir",
+  stopAutoplay: "Pausar",
+  opensInNewTab: "(se abre en una pestaña nueva)",
+  search: "Buscar",
+  clearSearch: "Borrar búsqueda",
+  searchResults: (count) => (count === 0 ? "Ningún resultado" : count === 1 ? "1 resultado" : `${count} resultados`),
 };
 
 export const locales = { en, es } as const;

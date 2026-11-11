@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "link",
+  "title": "Link",
+  "description": "A text link that is always underlined, has a focus ring, says when it opens a new tab, and works with your router's link.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-styles.json",
+    "https://raw.githubusercontent.com/jfpanchi/akso-ui/main/apps/www/public/r/akso-locale.json"
+  ],
+  "files": [
+    {
+      "path": "registry/akso/ui/link.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\nimport { useAksoMessages } from \"@/registry/akso/lib/akso-locale\";\nimport { focusRingClassName } from \"@/registry/akso/lib/akso-styles\";\n\n/*\n * Akso UI · Link\n *\n * A text link. There is no Base UI part for this; it is a real <a href>.\n * - Always underlined, so links are not shown by color alone (WCAG 1.4.1); a thicker\n *   underline on hover; link color with at least 4.5:1 contrast; a focus ring.\n * - `newTab`: opens in a new tab with rel=\"noopener noreferrer\", shows an icon, and adds a\n *   hidden \"(opens in a new tab)\" to the name, so nobody is surprised by a new tab\n *   (WCAG 3.2.5). The text can be translated or changed with `newTabLabel`.\n * - `render` lets you use your router's link (Next.js Link, React Router Link) with the same\n *   styles.\n *\n * Accessibility notes: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md\n */\n\nexport const linkClassName = cn(\n  \"rounded-sm text-akso-primary underline underline-offset-2 hover:decoration-2 [overflow-wrap:anywhere]\",\n  focusRingClassName,\n);\n\nexport interface LinkProps extends React.ComponentProps<\"a\"> {\n  href: string;\n  /** Open in a new tab, and say so. Use it only when people would lose work otherwise. */\n  newTab?: boolean;\n  /** Hidden text for new-tab links. Default: \"(opens in a new tab)\" (or the AksoLocaleProvider text). */\n  newTabLabel?: string;\n  /** Render your router's link instead of <a>. It receives href, className, the new-tab attributes and children. */\n  render?: (props: React.ComponentProps<\"a\"> & { href: string }) => React.ReactElement;\n}\n\n/** A text link: underlined, with a focus ring, and honest about new tabs. */\nfunction Link({ className, newTab = false, newTabLabel, render, children, ...props }: LinkProps) {\n  const messages = useAksoMessages();\n  const content = (\n    <>\n      {children}\n      {newTab ? (\n        <>\n          <svg aria-hidden=\"true\" focusable=\"false\" viewBox=\"0 0 24 24\" className=\"ml-1 inline size-4 align-[-0.125em]\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" strokeLinejoin=\"round\">\n            <path d=\"M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5\" />\n          </svg>\n          <span className=\"sr-only\"> {newTabLabel ?? messages.opensInNewTab}</span>\n        </>\n      ) : null}\n    </>\n  );\n  const linkProps = {\n    \"data-slot\": \"link\",\n    className: cn(linkClassName, className),\n    ...(newTab ? { target: \"_blank\", rel: \"noopener noreferrer\" } : {}),\n    ...props,\n  };\n  return render ? render({ ...linkProps, children: content }) : <a {...linkProps}>{content}</a>;\n}\n\nexport { Link };\n",
+      "type": "registry:ui"
+    }
+  ],
+  "docs": "Akso UI Link. Write link text that says where it goes; avoid new tabs. Accessibility notes and test status: https://github.com/jfpanchi/akso-ui/blob/main/ACCESSIBILITY.md",
+  "type": "registry:ui"
+}

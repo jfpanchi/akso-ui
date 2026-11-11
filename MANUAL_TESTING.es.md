@@ -80,6 +80,16 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 4. Escribe una ciudad que no está en la lista. Tu texto se queda: no es obligatorio elegir una sugerencia.
 5. Usa el botón para borrar. El campo queda vacío.
 
+### Avatar — `/test/avatar`
+1. Recorre la primera fila. Oyes "Laura Torres, imagen", "Mateo Ruiz, imagen", "Ana Gómez, imagen" y "Sam Lee, imagen". No oyes las iniciales.
+2. La foto de Ana Gómez no carga. Ves sus iniciales "AG" y oyes el mismo nombre.
+3. En la lista "Team", oyes cada nombre una sola vez (los avatares junto a los nombres están ocultos).
+4. Tab nunca se detiene en un avatar.
+
+### Badge — `/test/badge`
+1. Lee la lista "Orders". Cada pedido se lee con su estado en palabras: "Order 1042 Shipped".
+2. En el alto contraste de Windows, cada etiqueta mantiene su borde y los iconos de estado tienen formas distintas.
+
 ### Breadcrumb — `/test/breadcrumb`
 1. En la lista de regiones o puntos de referencia hay una navegación llamada "Breadcrumb".
 2. Dentro oyes una lista de 4 elementos. Home, Store y Phones son enlaces.
@@ -90,6 +100,13 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 1. Recorre todos los botones. Cada uno tiene un nombre claro. El botón que solo tiene ícono se lee como "Settings".
 2. El botón desactivado se lee como no disponible (atenuado o desactivado).
 3. Activa el botón de carga. Oyes "Saving" y se entiende que está ocupado.
+
+### Carousel — `/test/carousel`
+1. Busca "Accessibility tips". Oyes un carrusel con su nombre, y la primera diapositiva, "1 of 3".
+2. Pulsa "Next slide". Oyes el contenido de la nueva diapositiva.
+3. Pulsa <kbd>Tab</kbd> desde "Next slide". Solo llegas al enlace de la diapositiva que se ve.
+4. "News" cambia sola. Pulsa "Pause": se detiene. Mueve el foco dentro: no vuelve a empezar hasta que pulses "Play".
+5. Con el movimiento reducido activado, "News" no cambia sola.
 
 ### Checkbox — `/test/checkbox`
 1. "Remember me on this device": oyes su nombre y si está marcada.
@@ -146,6 +163,13 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 1. Al entrar a "Street and number" también oyes el nombre del grupo: "Delivery address".
 2. Cada campo (Street and number, City, Postal code) tiene su propio nombre.
 
+### File upload — `/test/file-upload`
+1. Ve a "Documents". Oyes un botón de archivo con su nombre y "PDF or PNG, up to 1 MB each."
+2. Abre el selector con <kbd>Enter</kbd> o <kbd>Espacio</kbd> y elige dos PDF. Oyes "2 files added" y aparecen en la lista.
+3. Elige un archivo de más de 1 MB. Oyes por qué no se añadió, y el motivo aparece bajo la caja.
+4. Pulsa "Remove" en el primer archivo. Oyes que se quitó y el foco pasa al siguiente archivo.
+5. Control por voz: di "Clic en Remove". Funciona.
+
 ### Form — `/test/form`
 1. Pulsa el botón de enviar sin llenar nada. El foco va al primer campo con error y oyes el error. También oyes cuántos campos hay que revisar.
 2. Llena todos los campos y envía. Oyes "Message sent. We will reply within 2 days."
@@ -157,6 +181,10 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 ### Input — `/test/input`
 1. Cada campo (Phone number, Discount code, Account number) tiene nombre y su texto de ayuda.
 2. En el teléfono, el teclado que se abre corresponde al campo: números para el teléfono.
+
+### Link — `/test/link`
+1. Lee las dos frases. Oyes "accessibility notes, enlace" y "Base UI, enlace, opens in a new tab".
+2. Los dos enlaces están subrayados y muestran un anillo de foco al llegar con <kbd>Tab</kbd>.
 
 ### Menu — `/test/menu`
 1. Activa "File actions". El menú se abre y el foco está en la primera opción.
@@ -181,16 +209,37 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. "Products" dice "contraído". Ábrelo y puedes llegar a Phones, Laptops y Accessories.
 3. <kbd>Escape</kbd> lo cierra y el foco vuelve a "Products".
 
+### OTP field — `/test/otp-field`
+1. Ve a "Verification code". Oyes el nombre, "Enter the 6-digit code we sent to your email." y que es obligatorio.
+2. Escribe 6 dígitos. Cada uno pasa a la casilla siguiente. Vuelve atrás con la flecha izquierda: oyes "Digit 2 of 6", etc.
+3. Escribe una letra. No se escribe nada y oyes "Only numbers are allowed."
+4. Pega un código de 6 dígitos en la primera casilla. Se llenan todas.
+5. Borra algunos dígitos y sal del campo. Oyes un error ("Enter all 6 digits.") y las casillas quedan como no válidas.
+6. En un teléfono, recibe un código por SMS. El teclado ofrece rellenarlo.
+
 ### Pagination — `/test/pagination`
 1. En la lista de regiones o puntos de referencia hay una navegación llamada "Pagination", con una lista.
 2. Los enlaces se leen como "Previous", "Page 1", "Page 4", "Page 6", "Page 12" y "Next". La página 5 se lee como la página actual y no es un enlace.
 3. Activa "Next". Oyes "Page 6 of 12." y la página 6 pasa a ser la actual.
 4. En la página 12 no hay "Next".
 
+### Password field — `/test/password-field`
+1. Ve a "Password". Oyes su nombre, que es obligatorio, "At least 8 characters." y que es un campo de contraseña.
+2. Escribe una contraseña y pulsa <kbd>Tab</kbd>. Llegas a "Show password". Púlsalo: oyes "Your password is shown" y el botón ahora dice "Hide".
+3. Control por voz: di "Clic en Show". El botón funciona.
+4. Escribe 5 caracteres y sal del campo. Oyes el error "Use at least 8 characters."
+5. Pulsa "Create account". La contraseña vuelve a ocultarse.
+
 ### Popover — `/test/popover`
 1. El botón "About delivery times" abre un panel con el título "Delivery times".
 2. Puedes leer el contenido y usar "Close".
 3. <kbd>Escape</kbd> lo cierra y el foco vuelve al botón.
+
+### Preview card — `/test/preview-card`
+1. Con un lector de pantalla, lee la frase. "Base UI" se lee como un enlace normal, y no te mete en ninguna vista previa.
+2. Con el teclado, pulsa Tab hasta "Base UI". Al momento aparece una vista previa. Pulsa <kbd>Escape</kbd>: se cierra y sigues en el enlace.
+3. Con el ratón, señala "Base UI" y luego mueve el puntero a la vista previa. Sigue abierta.
+4. Haz zoom al 400%. La vista previa sigue cabiendo en la pantalla.
 
 ### Number field — `/test/number-field`
 1. "Guests" dice su nombre, que es obligatorio, su valor y "From 1 to 8 people."
@@ -209,15 +258,44 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Las flechas se mueven entre "Standard" y "Express" y eligen la opción. El precio y los días se leen con cada opción.
 3. Envía sin elegir. Oyes "Choose a delivery speed."
 
+### Scroll area — `/test/scroll-area`
+1. Pulsa <kbd>Tab</kbd> desde el inicio del contenido. Llegas a "Release notes" y oyes su nombre.
+2. Desplázalo con las flechas, <kbd>AvPág</kbd> y <kbd>Fin</kbd>. Lee todas las versiones.
+3. Pulsa <kbd>Tab</kbd>. Llegas a "Monthly visits". Desplázalo de lado con las flechas.
+4. "Short note" no tiene nada que desplazar, y <kbd>Tab</kbd> lo salta.
+5. Con ratón o en pantalla táctil, ves las barras de desplazamiento sin pasar el puntero por encima.
+
+### Search field — `/test/search-field`
+1. Salta al punto de referencia de búsqueda. Oyes "Search components" y un campo de búsqueda.
+2. Escribe "tab". Al momento oyes "2 results".
+3. Pulsa <kbd>Tab</kbd> hasta "Clear search" y púlsalo. El campo queda vacío y el foco vuelve a él.
+4. Escribe "zzz". Oyes "No results", y la página lo dice en texto.
+
 ### Select — `/test/select`
 1. "Time zone" dice su nombre y el valor elegido, o "Choose a time zone".
 2. Abre la lista. Se leen los grupos, como "Americas".
 3. Elige con las flechas y <kbd>Enter</kbd>. La lista se cierra y oyes el nuevo valor.
 
+### Separator — `/test/separator`
+1. Lee la tarjeta de arriba abajo. Entre "Account" y "Billing" oyes "separador". No oyes ninguno antes de los enlaces del pie ni entre "Help" y "Privacy".
+2. En el alto contraste de Windows, todas las líneas se siguen viendo.
+
+### Skeleton — `/test/skeleton`
+1. Carga la página. Al cabo de un segundo oyes "Loading orders", y luego "Orders loaded" cuando aparece la lista.
+2. Mientras carga, al leer la zona oyes "Loading orders", no las formas grises.
+3. Pulsa "Reload". El foco se queda en el botón mientras la lista vuelve a cargar.
+4. Con el movimiento reducido activado, las formas no parpadean.
+
 ### Slider — `/test/slider`
 1. "Volume" dice su valor. Las flechas lo cambian de 5 en 5.
 2. "Room temperature" dice el valor con su unidad, como "21 degrees".
 3. <kbd>Inicio</kbd> y <kbd>Fin</kbd> van al mínimo y al máximo. En el teléfono, deslizar hacia arriba o abajo (o las teclas de volumen con TalkBack) cambia el valor.
+
+### Stepper — `/test/stepper`
+1. Busca la navegación "Checkout steps". Oyes una lista de 4 elementos.
+2. "Cart" y "Shipping" son enlaces y se leen como "Step 1 of 4, completed". "Payment" se lee como el paso actual.
+3. Pulsa "Continue". El foco va al encabezado "Review", y el stepper muestra Review como paso actual.
+4. Con zoom al 400%, los pasos están en columna y la página no se desplaza de lado.
 
 ### Switch — `/test/switch`
 1. "Email notifications" dice si está encendido o apagado.
@@ -229,6 +307,8 @@ En cada paso, anota: ✅ funciona como se describe, ⚠️ funciona pero algo co
 2. Recorre las celdas con los comandos de tabla del lector (NVDA/JAWS: <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+flechas; VoiceOver: <kbd>VO</kbd>+flechas). Cada celda se lee con el encabezado de su columna y con el número de pedido como encabezado de fila.
 3. "Customer", "Date" y "Total" son botones. Pulsa "Customer". Oyes "Sorted by Customer, ascending" y el encabezado se lee como ordenado.
 4. Con el zoom al 400 % (o en el teléfono), la página no se desplaza de lado. La tabla se desplaza dentro de su marco, al que llegas con <kbd>Tab</kbd> y que se mueve con <kbd>←</kbd> / <kbd>→</kbd>.
+5. En "Team members", cada fila empieza con una casilla llamada "Select" más el nombre de la persona. Marca "Select Mateo Ruiz" con <kbd>Espacio</kbd>. Oyes "1 row selected", y "Select all rows" queda marcada a medias.
+6. Marca "Select all rows". Oyes "3 rows selected".
 
 ### Tabs — `/test/tabs`
 1. Oyes el grupo "Account settings" y la pestaña seleccionada.

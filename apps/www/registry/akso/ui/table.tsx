@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Checkbox as BaseCheckbox } from "@base-ui/react/checkbox";
 
 import { cn } from "@/lib/utils";
 import { announce, useAnnouncerRegion } from "@/registry/akso/lib/akso-form";
@@ -17,6 +18,9 @@ import { focusRingClassName } from "@/registry/akso/lib/akso-styles";
  * - Sortable columns: a button inside the <th>, aria-sort on the sorted column only, an arrow
  *   that shows the direction (not color), and a polite announcement after sorting, because
  *   screen readers announce aria-sort changes unreliably.
+ * - Row selection (useTableSelection, TableSelectAll, TableRowCheckbox): Base UI checkboxes
+ *   named after their row, a "select all" that is mixed when some rows are selected, 44px
+ *   targets, and the new count announced after each change ("2 rows selected").
  * - Wide tables scroll inside their container, not the page. When the table does not fit,
  *   the container becomes a named, focusable region, so keyboard users can scroll it.
  *
@@ -85,8 +89,20 @@ function TableFooter({ className, ...props }: React.ComponentProps<"tfoot">) {
   return <tfoot data-slot="table-footer" className={cn("border-t-2 border-akso-border font-semibold", className)} {...props} />;
 }
 
-function TableRow({ className, ...props }: React.ComponentProps<"tr">) {
-  return <tr data-slot="table-row" className={cn("border-t border-akso-border first:border-t-0", className)} {...props} />;
+export interface TableRowProps extends React.ComponentProps<"tr"> {
+  /** The row is selected (with a TableRowCheckbox). Adds a background; the checkbox shows the state. */
+  selected?: boolean;
+}
+
+function TableRow({ className, selected, ...props }: TableRowProps) {
+  return (
+    <tr
+      data-slot="table-row"
+      data-selected={selected || undefined}
+      className={cn("border-t border-akso-border first:border-t-0 data-selected:bg-akso-surface-hover", className)}
+      {...props}
+    />
+  );
 }
 
 export type TableSortDirection = "ascending" | "descending" | "none";
@@ -151,4 +167,123 @@ function TableCell({ className, ...props }: React.ComponentProps<"td">) {
   return <td data-slot="table-cell" className={cn("px-4 py-3 align-top", className)} {...props} />;
 }
 
-export { Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow };
+/* -------------------------------------------------------------------------- */
+/* Row selection                                                               */
+/* -------------------------------------------------------------------------- */
+
+export interface TableSelection {
+  selected: ReadonlySet<string>;
+  isSelected: (id: string) => boolean;
+  toggle: (id: string, checked: boolean) => void;
+  toggleAll: (checked: boolean) => void;
+  /** "all", "some" or "none" of the rows are selected. */
+  state: "all" | "some" | "none";
+}
+
+/**
+ * Keeps track of the selected rows (by id) and announces the count when it changes,
+ * like "2 rows selected". Pass the ids of the rows that are shown.
+ */
+function useTableSelection(ids: readonly string[], initial: readonly string[] = []): TableSelection {
+  const messages = useAksoMessages();
+  const [selected, setSelected] = React.useState<ReadonlySet<string>>(() => new Set(initial));
+  useAnnouncerRegion();
+
+  const update = (next: Set<string>) => {
+    setSelected(next);
+    announce(messages.rowsSelected(ids.filter((id) => next.has(id)).length));
+  };
+  const count = ids.filter((id) => selected.has(id)).length;
+
+  return {
+    selected,
+    isSelected: (id) => selected.has(id),
+    toggle: (id, checked) => {
+      const next = new Set(selected);
+      if (checked) next.add(id);
+      else next.delete(id);
+      update(next);
+    },
+    toggleAll: (checked) => update(checked ? new Set([...selected, ...ids]) : new Set([...selected].filter((id) => !ids.includes(id)))),
+    state: count === 0 ? "none" : count === ids.length ? "all" : "some",
+  };
+}
+
+interface TableCheckboxProps extends Omit<BaseCheckbox.Root.Props, "className" | "children"> {
+  className?: string;
+}
+
+/** A 44px checkbox for a table cell. The visible box is 24px; the rest is the target around it. */
+function TableCheckbox({ className, ...props }: TableCheckboxProps) {
+  return (
+    <BaseCheckbox.Root
+      data-slot="table-checkbox"
+      className={cn("group inline-flex size-11 shrink-0 cursor-pointer items-center justify-center rounded-md align-middle", focusRingClassName, className)}
+      {...props}
+    >
+      <span
+        aria-hidden="true"
+        className={cn(
+          "inline-flex size-6 items-center justify-center rounded-md border-2 border-akso-border bg-akso-surface text-akso-primary-foreground",
+          "group-data-checked:border-akso-primary group-data-checked:bg-akso-primary group-data-indeterminate:border-akso-primary group-data-indeterminate:bg-akso-primary",
+          "forced-colors:group-data-checked:bg-[Highlight] forced-colors:group-data-indeterminate:bg-[Highlight]",
+        )}
+      >
+        <BaseCheckbox.Indicator className="flex">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="size-4 group-data-indeterminate:hidden" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12.5l4.5 4.5L19 7" />
+          </svg>
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" className="hidden size-4 group-data-indeterminate:block" fill="none" stroke="currentColor" strokeWidth="3.5" strokeLinecap="round">
+            <path d="M6 12h12" />
+          </svg>
+        </BaseCheckbox.Indicator>
+      </span>
+    </BaseCheckbox.Root>
+  );
+}
+
+export interface TableSelectAllProps {
+  selection: TableSelection;
+  /** Name of the checkbox. Default: "Select all rows" (or the AksoLocaleProvider text). */
+  label?: string;
+}
+
+/** The "select all" checkbox, for the first header cell. Shows a dash when only some rows are selected. */
+function TableSelectAll({ selection, label }: TableSelectAllProps) {
+  const messages = useAksoMessages();
+  return (
+    <TableCheckbox
+      aria-label={label ?? messages.selectAllRows}
+      checked={selection.state === "all"}
+      indeterminate={selection.state === "some"}
+      onCheckedChange={(checked) => selection.toggleAll(checked)}
+    />
+  );
+}
+
+export interface TableRowCheckboxProps {
+  selection: TableSelection;
+  id: string;
+  /** What the row is, for the checkbox name: "Laura Torres" gives "Select Laura Torres". */
+  rowName: string;
+}
+
+/** The checkbox that selects one row. */
+function TableRowCheckbox({ selection, id, rowName }: TableRowCheckboxProps) {
+  const messages = useAksoMessages();
+  return <TableCheckbox aria-label={messages.selectRow(rowName)} checked={selection.isSelected(id)} onCheckedChange={(checked) => selection.toggle(id, checked)} />;
+}
+
+export {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableFooter,
+  TableHead,
+  TableHeader,
+  TableRow,
+  TableRowCheckbox,
+  TableSelectAll,
+  useTableSelection,
+};
